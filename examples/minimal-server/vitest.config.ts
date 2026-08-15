@@ -4,6 +4,7 @@ import { defineConfig } from "vitest/config";
 export default defineConfig({
   resolve: {
     alias: {
+      "@ascended/core": fileURLToPath(new URL("../../packages/core/src/index.ts", import.meta.url)),
       "@ascended/contracts": fileURLToPath(new URL("../../packages/contracts/src/index.ts", import.meta.url)),
       "@ascended/events": fileURLToPath(new URL("../../packages/events/src/index.ts", import.meta.url)),
       "@ascended/privacy": fileURLToPath(new URL("../../packages/privacy/src/index.ts", import.meta.url)),
