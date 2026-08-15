@@ -1,0 +1,28 @@
+# Example Ascended Core adoption manifest.
+#
+# A downstream product uses a manifest like this to pin the Core engine version
+# and record how far it has adopted each Core feature. This file is an EXAMPLE
+# with synthetic values — copy it into your own product and adjust.
+#
+# Feature states:
+#   adopted   — in production use.
+#   testing   — integrated behind a flag / in non-production environments.
+#   available — offered by this Core version but not yet integrated.
+
+engine:
+  package: "@ascended/core"
+  version: "0.1.0"
+
+features:
+  # Typed, versioned domain events are wired into the product's event bus.
+  domain-events: adopted
+  # Privacy-mode routing and policy enforcement are live.
+  privacy-router: adopted
+  # AI provider registry + capability routing is in production use.
+  ai-provider-registry: adopted
+  # Media provider contracts are integrated in non-production for validation.
+  media-provider-contracts: testing
+  # Realtime contracts are offered by this version but not yet integrated.
+  realtime-contracts: available
+  # Notification contracts are offered by this version but not yet integrated.
+  notification-contracts: available

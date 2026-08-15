@@ -1,0 +1,43 @@
+name: Provider port / adapter request
+description: Request a new vendor-neutral provider port or generic adapter.
+title: "provider: "
+labels: ["provider", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this for new **provider ports** (interfaces) or generic in-memory
+        adapters. Ascended Core does not accept vendor-specific production
+        adapters — refer to vendors generically (e.g. "an object-storage
+        provider").
+  - type: input
+    id: capability
+    attributes:
+      label: Capability
+      description: What capability does this port cover?
+      placeholder: "object storage, email, push, authorization, ..."
+    validations:
+      required: true
+  - type: textarea
+    id: port-shape
+    attributes:
+      label: Proposed port shape
+      description: The vendor-neutral interface you envision (methods, types).
+    validations:
+      required: true
+  - type: textarea
+    id: use-cases
+    attributes:
+      label: Use cases
+      description: How would downstream products use this port?
+    validations:
+      required: true
+  - type: checkboxes
+    id: boundary
+    attributes:
+      label: Boundary awareness
+      options:
+        - label: This is a vendor-neutral port / generic adapter (no named vendors).
+          required: true
+        - label: Any example uses synthetic data only.
+          required: true

@@ -1,0 +1,34 @@
+{
+  "name": "@ascended/example-minimal-server",
+  "version": "0.1.0",
+  "description": "Runnable reference server demonstrating profiles, posts, communities, events, and notifications on local adapters.",
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run",
+    "lint": "eslint src tests",
+    "format": "prettier --write src tests",
+    "clean": "rm -rf dist coverage",
+    "start": "tsx src/server.ts",
+    "smoke": "tsx tests/smoke.ts"
+  },
+  "dependencies": {
+    "@ascended/core": "workspace:*",
+    "@ascended/contracts": "workspace:*",
+    "@ascended/events": "workspace:*",
+    "@ascended/privacy": "workspace:*",
+    "@ascended/ai-router": "workspace:*",
+    "@ascended/providers": "workspace:*",
+    "@ascended/persistence": "workspace:*",
+    "@ascended/realtime": "workspace:*",
+    "@ascended/media": "workspace:*",
+    "@ascended/notifications": "workspace:*",
+    "@ascended/observability": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "tsx": "catalog:"
+  },
+  "private": true
+}

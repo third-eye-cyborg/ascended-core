@@ -1,0 +1,24 @@
+{
+  "name": "@ascended/example-openapi-client",
+  "version": "0.1.0",
+  "description": "Example client consuming the generated SDK against the minimal server.",
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run",
+    "lint": "eslint src tests",
+    "format": "prettier --write src tests",
+    "clean": "rm -rf dist coverage"
+  },
+  "dependencies": {
+    "@ascended/core": "workspace:*",
+    "@ascended/example-minimal-server": "workspace:*",
+    "@ascended/sdk": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "tsx": "catalog:"
+  },
+  "private": true
+}

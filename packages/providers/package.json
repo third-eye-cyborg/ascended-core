@@ -1,0 +1,38 @@
+{
+  "name": "@ascended/providers",
+  "version": "0.1.0",
+  "description": "Provider ports (auth, storage, email, push, payments, search, rate limiting, audit) plus generic in-memory adapters for tests and examples.",
+  "type": "module",
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run",
+    "lint": "eslint src tests",
+    "format": "prettier --write src tests",
+    "clean": "rm -rf dist coverage"
+  },
+  "dependencies": {
+    "@ascended/core": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "tsup": "catalog:"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,0 +1,787 @@
+openapi: 3.1.0
+info:
+  title: Ascended Core Reference API
+  version: 0.1.0
+  description: >-
+    A public-safe, generic community-platform reference API for Ascended Core.
+    This contract documents a small illustrative surface (profiles, posts,
+    communities, events, notifications) using synthetic data only. It is a
+    reference specification, not a copy of any private or production service.
+  contact:
+    name: Ascended Core Maintainers
+    url: https://example.org/ascended-core
+    email: maintainers@example.org
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+  - url: https://api.example.org
+    description: Synthetic reference server (no real host).
+security:
+  - bearerAuth: []
+tags:
+  - name: system
+    description: Health and liveness endpoints.
+  - name: profiles
+    description: Account-linked public profiles.
+  - name: posts
+    description: Community posts and reactions.
+  - name: communities
+    description: Communities and membership.
+  - name: events
+    description: Events and RSVPs.
+  - name: notifications
+    description: Per-account notifications.
+paths:
+  /healthz:
+    get:
+      operationId: getHealthz
+      tags:
+        - system
+      summary: Liveness probe.
+      description: Returns service liveness. No authentication required.
+      security: []
+      responses:
+        "200":
+          description: Service is healthy.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Health"
+              examples:
+                healthy:
+                  value:
+                    status: ok
+                    version: 0.1.0
+  /profiles/me:
+    get:
+      operationId: getMyProfile
+      tags:
+        - profiles
+      summary: Get the authenticated account's profile.
+      responses:
+        "200":
+          description: The current profile.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Profile"
+              examples:
+                ada:
+                  $ref: "#/components/examples/AdaProfile"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+    put:
+      operationId: updateMyProfile
+      tags:
+        - profiles
+      summary: Update the authenticated account's profile.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProfileUpdate"
+            examples:
+              rename:
+                value:
+                  displayName: Ada Example
+                  bio: Curious about community software.
+      responses:
+        "200":
+          description: The updated profile.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Profile"
+              examples:
+                ada:
+                  $ref: "#/components/examples/AdaProfile"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+  /profiles/{profileId}:
+    parameters:
+      - $ref: "#/components/parameters/ProfileId"
+    get:
+      operationId: getProfile
+      tags:
+        - profiles
+      summary: Get a profile by id.
+      responses:
+        "200":
+          description: The requested profile.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Profile"
+              examples:
+                ada:
+                  $ref: "#/components/examples/AdaProfile"
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /posts:
+    get:
+      operationId: listPosts
+      tags:
+        - posts
+      summary: List posts.
+      parameters:
+        - $ref: "#/components/parameters/Cursor"
+        - $ref: "#/components/parameters/Limit"
+      responses:
+        "200":
+          description: A page of posts.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostPage"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+    post:
+      operationId: createPost
+      tags:
+        - posts
+      summary: Create a post.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostCreate"
+            examples:
+              hello:
+                value:
+                  content: Hello from the reference API.
+      responses:
+        "201":
+          description: The created post.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+  /posts/{postId}:
+    parameters:
+      - $ref: "#/components/parameters/PostId"
+    get:
+      operationId: getPost
+      tags:
+        - posts
+      summary: Get a post by id.
+      responses:
+        "200":
+          description: The requested post.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /posts/{postId}/reactions:
+    parameters:
+      - $ref: "#/components/parameters/PostId"
+    post:
+      operationId: addReaction
+      tags:
+        - posts
+      summary: Add a reaction to a post.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReactionCreate"
+            examples:
+              spark:
+                value:
+                  kind: spark
+      responses:
+        "201":
+          description: The created reaction.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Reaction"
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /communities:
+    get:
+      operationId: listCommunities
+      tags:
+        - communities
+      summary: List communities.
+      parameters:
+        - $ref: "#/components/parameters/Cursor"
+        - $ref: "#/components/parameters/Limit"
+      responses:
+        "200":
+          description: A page of communities.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CommunityPage"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+    post:
+      operationId: createCommunity
+      tags:
+        - communities
+      summary: Create a community.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CommunityCreate"
+            examples:
+              gardeners:
+                value:
+                  name: Community Gardeners
+                  description: A synthetic example community.
+      responses:
+        "201":
+          description: The created community.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Community"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+  /communities/{communityId}:
+    parameters:
+      - $ref: "#/components/parameters/CommunityId"
+    get:
+      operationId: getCommunity
+      tags:
+        - communities
+      summary: Get a community by id.
+      responses:
+        "200":
+          description: The requested community.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Community"
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /communities/{communityId}/join:
+    parameters:
+      - $ref: "#/components/parameters/CommunityId"
+    post:
+      operationId: joinCommunity
+      tags:
+        - communities
+      summary: Join a community.
+      responses:
+        "200":
+          description: The resulting membership.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Membership"
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /events:
+    get:
+      operationId: listEvents
+      tags:
+        - events
+      summary: List events.
+      parameters:
+        - $ref: "#/components/parameters/Cursor"
+        - $ref: "#/components/parameters/Limit"
+      responses:
+        "200":
+          description: A page of events.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EventPage"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+  /events/{eventId}:
+    parameters:
+      - $ref: "#/components/parameters/EventId"
+    get:
+      operationId: getEvent
+      tags:
+        - events
+      summary: Get an event by id.
+      responses:
+        "200":
+          description: The requested event.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Event"
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /events/{eventId}/rsvp:
+    parameters:
+      - $ref: "#/components/parameters/EventId"
+    post:
+      operationId: rsvpEvent
+      tags:
+        - events
+      summary: RSVP to an event.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RsvpCreate"
+            examples:
+              going:
+                value:
+                  status: going
+      responses:
+        "200":
+          description: The resulting RSVP.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Rsvp"
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /notifications/me:
+    get:
+      operationId: listMyNotifications
+      tags:
+        - notifications
+      summary: List the authenticated account's notifications.
+      parameters:
+        - $ref: "#/components/parameters/Cursor"
+        - $ref: "#/components/parameters/Limit"
+      responses:
+        "200":
+          description: A page of notifications.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotificationPage"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: opaque
+      description: Bearer token issued by a cloud identity provider.
+  parameters:
+    Cursor:
+      name: cursor
+      in: query
+      required: false
+      description: Opaque pagination cursor returned as nextCursor.
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of items to return.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+    ProfileId:
+      name: profileId
+      in: path
+      required: true
+      description: Opaque profile id.
+      schema:
+        type: string
+    PostId:
+      name: postId
+      in: path
+      required: true
+      description: Opaque post id.
+      schema:
+        type: string
+    CommunityId:
+      name: communityId
+      in: path
+      required: true
+      description: Opaque community id.
+      schema:
+        type: string
+    EventId:
+      name: eventId
+      in: path
+      required: true
+      description: Opaque event id.
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: Authentication is required or failed.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          examples:
+            unauthorized:
+              value:
+                error: unauthorized
+                message: Authentication required.
+                code: UNAUTHORIZED
+    NotFound:
+      description: The requested resource does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          examples:
+            notFound:
+              value:
+                error: not_found
+                message: Resource not found.
+                code: NOT_FOUND
+  examples:
+    AdaProfile:
+      value:
+        id: prof_AdaExample000001
+        accountId: acct_AdaExample00001
+        displayName: Ada Example
+        bio: Curious about community software.
+        avatarUrl: https://example.org/avatars/ada.png
+        metadata: {}
+  schemas:
+    Health:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum:
+            - ok
+        version:
+          type: string
+          examples:
+            - 0.1.0
+      additionalProperties: false
+    Error:
+      type: object
+      required:
+        - error
+        - message
+      properties:
+        error:
+          type: string
+          description: Short, machine-readable error slug.
+        message:
+          type: string
+          description: Human-readable, user-safe message.
+        code:
+          type: string
+          description: Optional stable error code.
+      additionalProperties: false
+      examples:
+        - error: not_found
+          message: Resource not found.
+          code: NOT_FOUND
+    Metadata:
+      type: object
+      description: Free-form JSON-serializable extension metadata.
+      additionalProperties: true
+    Profile:
+      type: object
+      required:
+        - id
+        - accountId
+        - displayName
+      properties:
+        id:
+          type: string
+        accountId:
+          type: string
+        displayName:
+          type: string
+        bio:
+          type: string
+        avatarUrl:
+          type: string
+          format: uri
+        metadata:
+          $ref: "#/components/schemas/Metadata"
+      additionalProperties: false
+      examples:
+        - id: prof_AdaExample000001
+          accountId: acct_AdaExample00001
+          displayName: Ada Example
+          bio: Curious about community software.
+          avatarUrl: https://example.org/avatars/ada.png
+    ProfileUpdate:
+      type: object
+      properties:
+        displayName:
+          type: string
+        bio:
+          type: string
+        avatarUrl:
+          type: string
+          format: uri
+        metadata:
+          $ref: "#/components/schemas/Metadata"
+      additionalProperties: false
+    Post:
+      type: object
+      required:
+        - id
+        - authorId
+        - content
+        - createdAt
+      properties:
+        id:
+          type: string
+        authorId:
+          type: string
+        communityId:
+          type: string
+        content:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        metadata:
+          $ref: "#/components/schemas/Metadata"
+      additionalProperties: false
+      examples:
+        - id: post_AdaExample000001
+          authorId: prof_AdaExample000001
+          content: Hello from the reference API.
+          createdAt: "2024-01-01T00:00:00.000Z"
+    PostCreate:
+      type: object
+      required:
+        - content
+      properties:
+        content:
+          type: string
+        communityId:
+          type: string
+        metadata:
+          $ref: "#/components/schemas/Metadata"
+      additionalProperties: false
+    PostPage:
+      type: object
+      required:
+        - items
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Post"
+        nextCursor:
+          type: string
+      additionalProperties: false
+    Reaction:
+      type: object
+      required:
+        - id
+        - postId
+        - profileId
+        - kind
+      properties:
+        id:
+          type: string
+        postId:
+          type: string
+        profileId:
+          type: string
+        kind:
+          type: string
+          description: >-
+            Reaction kind slug. Product-specific vocabularies travel through
+            this open string and metadata; nothing is hard-coded.
+        metadata:
+          $ref: "#/components/schemas/Metadata"
+      additionalProperties: false
+    ReactionCreate:
+      type: object
+      required:
+        - kind
+      properties:
+        kind:
+          type: string
+        metadata:
+          $ref: "#/components/schemas/Metadata"
+      additionalProperties: false
+    Community:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        metadata:
+          $ref: "#/components/schemas/Metadata"
+      additionalProperties: false
+      examples:
+        - id: comm_AdaExample000001
+          name: Community Gardeners
+          description: A synthetic example community.
+    CommunityCreate:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        metadata:
+          $ref: "#/components/schemas/Metadata"
+      additionalProperties: false
+    CommunityPage:
+      type: object
+      required:
+        - items
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Community"
+        nextCursor:
+          type: string
+      additionalProperties: false
+    Membership:
+      type: object
+      required:
+        - communityId
+        - profileId
+        - role
+      properties:
+        communityId:
+          type: string
+        profileId:
+          type: string
+        role:
+          type: string
+          enum:
+            - member
+            - moderator
+            - owner
+        metadata:
+          $ref: "#/components/schemas/Metadata"
+      additionalProperties: false
+    Event:
+      type: object
+      required:
+        - id
+        - title
+        - startsAt
+      properties:
+        id:
+          type: string
+        communityId:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        startsAt:
+          type: string
+          format: date-time
+        metadata:
+          $ref: "#/components/schemas/Metadata"
+      additionalProperties: false
+      examples:
+        - id: evnt_AdaExample000001
+          title: Reference Meetup
+          startsAt: "2024-06-01T18:00:00.000Z"
+    EventPage:
+      type: object
+      required:
+        - items
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Event"
+        nextCursor:
+          type: string
+      additionalProperties: false
+    RsvpCreate:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum:
+            - going
+            - maybe
+            - declined
+        metadata:
+          $ref: "#/components/schemas/Metadata"
+      additionalProperties: false
+    Rsvp:
+      type: object
+      required:
+        - eventId
+        - profileId
+        - status
+      properties:
+        eventId:
+          type: string
+        profileId:
+          type: string
+        status:
+          type: string
+          enum:
+            - going
+            - maybe
+            - declined
+        metadata:
+          $ref: "#/components/schemas/Metadata"
+      additionalProperties: false
+    Notification:
+      type: object
+      required:
+        - id
+        - accountId
+        - kind
+        - createdAt
+      properties:
+        id:
+          type: string
+        accountId:
+          type: string
+        kind:
+          type: string
+        readAt:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+        metadata:
+          $ref: "#/components/schemas/Metadata"
+      additionalProperties: false
+      examples:
+        - id: noti_AdaExample000001
+          accountId: acct_AdaExample00001
+          kind: mention
+          createdAt: "2024-01-02T00:00:00.000Z"
+    NotificationPage:
+      type: object
+      required:
+        - items
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Notification"
+        nextCursor:
+          type: string
+      additionalProperties: false

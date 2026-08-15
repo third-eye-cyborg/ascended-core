@@ -1,0 +1,24 @@
+# Code owners for Ascended Core.
+#
+# The core-maintainers team must review changes to protected paths. See
+# GOVERNANCE.md for how review requirements are applied.
+
+# Default owners for everything (fallback).
+*                               @third-eye-cyborg/core-maintainers
+
+# Reference API contracts.
+/packages/api-contracts/        @third-eye-cyborg/core-maintainers
+
+# Vendor-neutral provider ports.
+/packages/providers/            @third-eye-cyborg/core-maintainers
+
+# CI/CD workflows.
+/.github/workflows/             @third-eye-cyborg/core-maintainers
+
+# Any package manifest (publishing surface).
+/packages/*/package.json        @third-eye-cyborg/core-maintainers
+
+# Governance & policy documents.
+/GOVERNANCE.md                  @third-eye-cyborg/core-maintainers
+/SECURITY.md                    @third-eye-cyborg/core-maintainers
+/LICENSE                        @third-eye-cyborg/core-maintainers

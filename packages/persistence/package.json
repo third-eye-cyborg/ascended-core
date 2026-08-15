@@ -1,0 +1,38 @@
+{
+  "name": "@ascended/persistence",
+  "version": "0.1.0",
+  "description": "Repository, unit-of-work, and transaction interfaces with in-memory implementations. No production schema.",
+  "type": "module",
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run",
+    "lint": "eslint src tests",
+    "format": "prettier --write src tests",
+    "clean": "rm -rf dist coverage"
+  },
+  "dependencies": {
+    "@ascended/core": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "tsup": "catalog:"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

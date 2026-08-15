@@ -1,0 +1,40 @@
+name: Feature request
+description: Suggest a new capability or improvement for Ascended Core.
+title: "feat: "
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the idea! Remember that Ascended Core is vendor-neutral
+        infrastructure — proposals must keep vendors generic and product
+        vocabulary out of Core types.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / motivation
+      description: What problem does this solve? Who benefits?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the API or behavior you have in mind.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+    validations:
+      required: false
+  - type: checkboxes
+    id: boundary
+    attributes:
+      label: Boundary awareness
+      options:
+        - label: This proposal keeps Core vendor-neutral (no named vendors).
+          required: true
+        - label: This proposal keeps product vocabulary in metadata extension points.
+          required: true

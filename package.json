@@ -1,0 +1,38 @@
+{
+  "name": "ascended-core",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Ascended Core monorepo — open-source infrastructure for privacy-conscious spiritual and community applications.",
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "scripts": {
+    "build": "pnpm -r --workspace-concurrency=4 build",
+    "typecheck": "pnpm -r --workspace-concurrency=4 typecheck",
+    "test": "pnpm -r --workspace-concurrency=4 test",
+    "lint": "pnpm -r --workspace-concurrency=4 lint",
+    "format": "pnpm -r --workspace-concurrency=4 format",
+    "check": "pnpm typecheck && pnpm lint && pnpm test && pnpm build",
+    "clean": "pnpm -r --workspace-concurrency=4 clean",
+    "codegen:api": "pnpm --filter @ascended/api-contracts codegen",
+    "codegen:sdk": "pnpm --filter @ascended/sdk codegen",
+    "smoke:server": "pnpm --filter @ascended/example-minimal-server smoke"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "typescript": "~5.9.3",
+    "tsx": "^4.21.0",
+    "vitest": "^3.2.4",
+    "prettier": "^3.5.3",
+    "eslint": "^9.31.0",
+    "@typescript-eslint/eslint-plugin": "^8.38.0",
+    "@typescript-eslint/parser": "^8.38.0",
+    "tsup": "^8.5.0",
+    "yaml": "^2.8.0",
+    "zod": "^3.25.76",
+    "orval": "^7.10.0"
+  },
+  "packageManager": "pnpm@9.15.0"
+}

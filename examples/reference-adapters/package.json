@@ -1,0 +1,30 @@
+{
+  "name": "@ascended/example-reference-adapters",
+  "version": "0.1.0",
+  "description": "Synthetic local adapter implementations wired end-to-end for demos and integration tests.",
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run",
+    "lint": "eslint src tests",
+    "format": "prettier --write src tests",
+    "clean": "rm -rf dist coverage"
+  },
+  "dependencies": {
+    "@ascended/core": "workspace:*",
+    "@ascended/contracts": "workspace:*",
+    "@ascended/events": "workspace:*",
+    "@ascended/providers": "workspace:*",
+    "@ascended/persistence": "workspace:*",
+    "@ascended/realtime": "workspace:*",
+    "@ascended/media": "workspace:*",
+    "@ascended/notifications": "workspace:*",
+    "@ascended/observability": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "tsx": "catalog:"
+  },
+  "private": true
+}

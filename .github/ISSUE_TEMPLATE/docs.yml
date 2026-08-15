@@ -1,0 +1,29 @@
+name: Documentation issue
+description: Report a problem or gap in the documentation.
+title: "docs: "
+labels: ["documentation", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve the docs!
+  - type: input
+    id: location
+    attributes:
+      label: Location
+      description: Which doc / file / URL is affected?
+      placeholder: "README.md, docs/privacy-model, ..."
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is wrong or missing?
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested improvement
+    validations:
+      required: false

@@ -1,0 +1,56 @@
+name: Bug report
+description: Report a defect in an @ascended/* package or a reference example.
+title: "bug: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for filing a bug! Please search existing issues first. Do **not**
+        include secrets or real user data — use synthetic data only.
+  - type: input
+    id: package
+    attributes:
+      label: Affected package
+      description: Which package or example is affected?
+      placeholder: "@ascended/privacy"
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      placeholder: "0.1.0"
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A clear description of the bug and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproduction steps
+      description: Minimal steps or a code snippet (synthetic data only).
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Node version, pnpm version, OS.
+    validations:
+      required: false
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I have searched existing issues.
+          required: true
+        - label: This report contains no secrets or real user data.
+          required: true

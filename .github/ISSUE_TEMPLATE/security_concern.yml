@@ -1,0 +1,36 @@
+name: Security concern
+description: Please do NOT report vulnerabilities here — see SECURITY.md.
+title: "security: "
+labels: ["security"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## ⚠️ Do not report vulnerabilities in public issues
+
+        For any security vulnerability, please use **private** reporting via
+        GitHub Security Advisories instead of this issue tracker. See
+        [SECURITY.md](../blob/main/SECURITY.md) for the full process and our
+        response SLAs.
+
+        1. Go to the repository's **Security** tab.
+        2. Choose **Report a vulnerability** to open a private advisory.
+
+        This template exists only to redirect you. Please close this issue and
+        use the private channel above for anything sensitive.
+  - type: checkboxes
+    id: acknowledge
+    attributes:
+      label: Acknowledgement
+      options:
+        - label: I understand security vulnerabilities must be reported privately per SECURITY.md.
+          required: true
+  - type: textarea
+    id: non-sensitive
+    attributes:
+      label: Non-sensitive note (optional)
+      description: >
+        Only for non-sensitive process questions. Do NOT include vulnerability
+        details, secrets, or exploit steps here.
+    validations:
+      required: false

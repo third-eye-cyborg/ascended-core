@@ -1,0 +1,90 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "outDir": "dist",
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "paths": {
+      "@ascended/ai-router": [
+        "./packages/ai-router/src/index.ts"
+      ],
+      "@ascended/api-contracts": [
+        "./packages/api-contracts/src/index.ts"
+      ],
+      "@ascended/contracts": [
+        "./packages/contracts/src/index.ts"
+      ],
+      "@ascended/core": [
+        "./packages/core/src/index.ts"
+      ],
+      "@ascended/events": [
+        "./packages/events/src/index.ts"
+      ],
+      "@ascended/media": [
+        "./packages/media/src/index.ts"
+      ],
+      "@ascended/notifications": [
+        "./packages/notifications/src/index.ts"
+      ],
+      "@ascended/observability": [
+        "./packages/observability/src/index.ts"
+      ],
+      "@ascended/persistence": [
+        "./packages/persistence/src/index.ts"
+      ],
+      "@ascended/privacy": [
+        "./packages/privacy/src/index.ts"
+      ],
+      "@ascended/providers": [
+        "./packages/providers/src/index.ts"
+      ],
+      "@ascended/realtime": [
+        "./packages/realtime/src/index.ts"
+      ],
+      "@ascended/sdk": [
+        "./packages/sdk/src/index.ts"
+      ],
+      "@ascended/example-minimal-server": [
+        "./examples/minimal-server/src/index.ts"
+      ],
+      "@ascended/example-openapi-client": [
+        "./examples/openapi-client/src/index.ts"
+      ],
+      "@ascended/example-reference-adapters": [
+        "./examples/reference-adapters/src/index.ts"
+      ]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "coverage"
+  ]
+}

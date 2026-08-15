@@ -1,0 +1,42 @@
+name: Codegen drift
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "packages/api-contracts/**"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: codegen-drift-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  drift:
+    name: API contracts drift check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build api-contracts
+        run: pnpm --filter @ascended/api-contracts build
+
+      - name: Run drift test
+        run: pnpm --filter @ascended/api-contracts test
