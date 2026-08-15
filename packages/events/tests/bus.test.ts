@@ -121,6 +121,33 @@ describe("retry and dead-letter", () => {
     expect(captured[0]?.error).toBe("boom");
   });
 
+  it("allows replay of a dead-lettered event after the outage is resolved", async () => {
+    const captured: DeadLetterRecord[] = [];
+    let attempts = 0;
+    let healthy = false;
+    const bus = new InMemoryEventBus({
+      policy: { maxAttempts: 2, backoffMs: 0 },
+      deadLetterSink: { capture: (r) => void captured.push(r) },
+    });
+    bus.subscribe(
+      EVENT_TYPES.CONTENT_POST_PUBLISHED,
+      () => {
+        attempts += 1;
+        if (!healthy) throw new Error("downstream down");
+      },
+      { idempotent: true },
+    );
+    const event = makeEvent({ idempotencyKey: "replay-me" });
+    await bus.publish(event);
+    expect(captured).toHaveLength(1);
+
+    // Replaying the same idempotency key after recovery must be processed,
+    // not silently discarded as a duplicate.
+    healthy = true;
+    await bus.publish(event);
+    expect(attempts).toBe(3);
+  });
+
   it("succeeds on a later attempt without dead-lettering", async () => {
     const captured: DeadLetterRecord[] = [];
     let attempts = 0;

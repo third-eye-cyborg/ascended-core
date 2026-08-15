@@ -35,6 +35,7 @@ export interface LogRecord {
  * `promptText`, etc. are all caught.
  */
 export const LOG_FORBIDDEN_KEYS: readonly string[] = [
+  "authorization",
   "content",
   "body",
   "prompt",
@@ -46,14 +47,29 @@ export const LOG_FORBIDDEN_KEYS: readonly string[] = [
 
 const REDACTED = "[redacted]";
 
-/** Strip or mask forbidden keys from a fields bag (shallow). */
+/**
+ * Strip or mask forbidden keys from a fields bag. Redaction is recursive:
+ * nested objects and arrays are walked so that shapes like
+ * `{ request: { authorization: "…" } }` can never leak verbatim.
+ */
 export function redactFields(fields?: LogFields): LogFields | undefined {
   if (fields === undefined) return undefined;
-  const out: LogFields = {};
-  for (const [key, value] of Object.entries(fields)) {
-    out[key] = isForbiddenKey(key) ? REDACTED : value;
+  return redactValue(fields, "") as LogFields;
+}
+
+function redactValue(value: unknown, key: string): unknown {
+  if (key !== "" && isForbiddenKey(key)) return REDACTED;
+  if (Array.isArray(value)) {
+    return value.map((item) => redactValue(item, ""));
   }
-  return out;
+  if (value !== null && typeof value === "object") {
+    const out: Record<string, unknown> = {};
+    for (const [childKey, childValue] of Object.entries(value)) {
+      out[childKey] = redactValue(childValue, childKey);
+    }
+    return out;
+  }
+  return value;
 }
 
 function isForbiddenKey(key: string): boolean {

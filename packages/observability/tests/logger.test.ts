@@ -29,6 +29,24 @@ describe("logger redaction", () => {
     expect(out?.ok).toBe("z");
   });
 
+  it("redacts forbidden keys recursively through nested objects and arrays", () => {
+    const out = redactFields({
+      request: { authorization: "Bearer raw", path: "/ok" },
+      items: [{ email: "nested@example.org", keep: 1 }, "plain"],
+      metadata: { prompt: "raw prompt", note: "kept" },
+    });
+    const request = out?.request as Record<string, unknown>;
+    expect(request.authorization).toBe("[redacted]");
+    expect(request.path).toBe("/ok");
+    const items = out?.items as unknown[];
+    expect((items[0] as Record<string, unknown>).email).toBe("[redacted]");
+    expect((items[0] as Record<string, unknown>).keep).toBe(1);
+    expect(items[1]).toBe("plain");
+    const metadata = out?.metadata as Record<string, unknown>;
+    expect(metadata.prompt).toBe("[redacted]");
+    expect(metadata.note).toBe("kept");
+  });
+
   it("records levels and messages", () => {
     const logger = new InMemoryLogger();
     logger.debug("d");

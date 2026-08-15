@@ -11,15 +11,19 @@
  */
 
 import { readFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
 
 import { OperationCatalog } from "./index.js";
 import { componentSchemas } from "./schemas.js";
 
-/** Absolute path to the OpenAPI document shipped with this package. */
-export const SPEC_PATH = fileURLToPath(
-  new URL("../spec/openapi.yaml", import.meta.url),
-);
+/** Options for {@link runDriftCheck}. */
+export interface DriftCheckOptions {
+  /**
+   * Absolute path to the OpenAPI document. Callers locate the spec themselves
+   * so this module stays free of `import.meta` and works identically from
+   * ESM and CommonJS builds.
+   */
+  specPath: string;
+}
 
 /** Outcome of a successful drift check. */
 export interface DriftCheckResult {
@@ -38,10 +42,10 @@ interface OpenApiDocument {
   };
 }
 
-async function loadSpec(): Promise<
+async function loadSpec(specPath: string): Promise<
   { doc: OpenApiDocument; mode: "yaml" } | { text: string; mode: "fallback" }
 > {
-  const text = readFileSync(SPEC_PATH, "utf8");
+  const text = readFileSync(specPath, "utf8");
   try {
     const yaml = (await import("yaml")) as { parse: (input: string) => unknown };
     const doc = yaml.parse(text) as OpenApiDocument;
@@ -110,8 +114,10 @@ function extractFromText(text: string): {
  * Run the drift check. Throws an Error describing the first mismatch found, or
  * returns a {@link DriftCheckResult} when the spec and code are aligned.
  */
-export async function runDriftCheck(): Promise<DriftCheckResult> {
-  const loaded = await loadSpec();
+export async function runDriftCheck(
+  options: DriftCheckOptions,
+): Promise<DriftCheckResult> {
+  const loaded = await loadSpec(options.specPath);
   const { schemaNames, operationIds } =
     loaded.mode === "yaml"
       ? extractFromDocument(loaded.doc)

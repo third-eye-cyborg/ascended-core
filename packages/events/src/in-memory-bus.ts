@@ -109,9 +109,8 @@ export class InMemoryEventBus implements EventBus {
       }
     }
 
-    if (subscription.idempotent) {
-      subscription.seen.add(event.idempotencyKey);
-    }
+    // Deliberately NOT marking the idempotency key as seen: a dead-lettered
+    // event may be replayed after the downstream outage is resolved.
     await this.toDeadLetter(event, attempts, lastError);
   }
 

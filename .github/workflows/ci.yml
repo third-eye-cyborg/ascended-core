@@ -49,3 +49,6 @@ jobs:
 
       - name: Boundary scan
         run: node scripts/checks/boundary-scan.mjs
+
+      - name: Package smoke (CJS/ESM load + LICENSE in tarballs)
+        run: node scripts/checks/package-smoke.mjs

@@ -31,9 +31,12 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "LICENSE",
+    "spec"
   ],
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "license": "Apache-2.0"
 }

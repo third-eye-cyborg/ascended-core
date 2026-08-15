@@ -18,7 +18,9 @@
     "clean": "pnpm -r --workspace-concurrency=4 clean",
     "codegen:api": "pnpm --filter @ascended/api-contracts codegen",
     "codegen:sdk": "pnpm --filter @ascended/sdk codegen",
-    "smoke:server": "pnpm --filter @ascended/example-minimal-server smoke"
+    "smoke:server": "pnpm --filter @ascended/example-minimal-server smoke",
+    "test:package-smoke": "node scripts/checks/package-smoke.mjs",
+    "check:boundary": "node scripts/checks/boundary-scan.mjs"
   },
   "devDependencies": {
     "@types/node": "^22.15.0",
