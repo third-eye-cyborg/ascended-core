@@ -5,8 +5,8 @@ packages:
 autoInstallPeers: false
 
 catalog:
-  typescript: ~5.9.3
-  vitest: ^3.2.4
+  typescript: ~7.0.2
+  vitest: ^4.1.10
   tsx: ^4.21.0
-  zod: ^3.25.76
+  zod: ^4.4.3
   tsup: ^8.5.0
