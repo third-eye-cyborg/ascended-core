@@ -2,6 +2,16 @@
   "name": "@third-eye-cyborg/ascended-contracts",
   "version": "0.1.0",
   "description": "Platform-neutral domain contracts: identity, content, community, conversation, events, avatars, search, and audit shapes.",
+  "author": "Third Eye Cyborg LLC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/third-eye-cyborg/ascended-core.git",
+    "directory": "packages/contracts"
+  },
+  "homepage": "https://github.com/third-eye-cyborg/ascended-core#readme",
+  "bugs": {
+    "url": "https://github.com/third-eye-cyborg/ascended-core/issues"
+  },
   "type": "module",
   "scripts": {
     "build": "tsup",

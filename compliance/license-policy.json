@@ -1,0 +1,12 @@
+{
+  "allowedProductionLicenses": [
+    "Apache-2.0",
+    "MIT"
+  ],
+  "approvedProductionDependencies": {
+    "zod": {
+      "license": "MIT",
+      "source": "https://github.com/colinhacks/zod"
+    }
+  }
+}

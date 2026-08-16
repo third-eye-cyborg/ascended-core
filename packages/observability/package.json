@@ -2,6 +2,16 @@
   "name": "@third-eye-cyborg/ascended-observability",
   "version": "0.1.0",
   "description": "Structured logging, tracing spans, metrics, health aggregation, and request-id context with in-memory collectors.",
+  "author": "Third Eye Cyborg LLC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/third-eye-cyborg/ascended-core.git",
+    "directory": "packages/observability"
+  },
+  "homepage": "https://github.com/third-eye-cyborg/ascended-core#readme",
+  "bugs": {
+    "url": "https://github.com/third-eye-cyborg/ascended-core/issues"
+  },
   "type": "module",
   "scripts": {
     "build": "tsup",

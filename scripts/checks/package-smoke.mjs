@@ -2,7 +2,7 @@
  * Package smoke check: verifies that every publishable package's built
  * CommonJS and ESM entry points actually load (catches CJS-breaking syntax
  * such as un-shimmed import.meta in dist output) and that `npm pack` tarballs
- * include the LICENSE file.
+ * include release metadata and required legal notices.
  *
  * Run AFTER `pnpm -r build`. Usage: node scripts/checks/package-smoke.mjs
  */
@@ -65,6 +65,15 @@ for (const dir of readdirSync(packagesDir)) {
       console.error(`FAIL ${pkg.name} tarball is missing LICENSE`);
     } else {
       console.log(`ok   ${pkg.name} tarball includes LICENSE`);
+    }
+    if (pkg.author !== "Third Eye Cyborg LLC" || !pkg.repository?.url || !pkg.homepage || !pkg.bugs?.url) {
+      failures += 1;
+      console.error(`FAIL ${pkg.name} tarball manifest is missing provenance metadata`);
+    }
+    const hasExternalRuntimeDependency = Object.keys(pkg.dependencies ?? {}).some((name) => !name.startsWith("@third-eye-cyborg/"));
+    if (hasExternalRuntimeDependency && !files.includes("THIRD_PARTY_NOTICES.md")) {
+      failures += 1;
+      console.error(`FAIL ${pkg.name} tarball is missing THIRD_PARTY_NOTICES.md`);
     }
   } catch (error) {
     failures += 1;
