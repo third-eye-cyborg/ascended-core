@@ -46,6 +46,12 @@ jobs:
       - name: Boundary scan
         run: node scripts/checks/boundary-scan.mjs
 
+      - name: Third-party license and provenance check
+        run: pnpm check:third-party
+
+      - name: Generate production SPDX SBOM
+        run: pnpm sbom:production
+
       - name: Publish (dry-run)
         run: pnpm -r publish --no-git-checks --dry-run
 
@@ -79,6 +85,12 @@ jobs:
       - name: Boundary scan
         run: node scripts/checks/boundary-scan.mjs
 
+      - name: Third-party license and provenance check
+        run: pnpm check:third-party
+
+      - name: Generate production SPDX SBOM
+        run: pnpm sbom:production
+
       - name: Publish public packages to npm
         run: pnpm -r publish --access public --provenance --no-git-checks
         env:
@@ -88,3 +100,4 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           generate_release_notes: true
+          files: /tmp/ascended-core-production.spdx.json

@@ -46,6 +46,9 @@ downstream product) live in metadata extension points, not in Core.
 
 ## Install
 
+Ascended Core is a modular TypeScript library. Install only the public packages
+your application needs from the `@third-eye-cyborg` npm scope.
+
 ```sh
 pnpm add @third-eye-cyborg/ascended-core
 ```
@@ -55,6 +58,28 @@ Add any additional packages you need, for example:
 ```sh
 pnpm add @third-eye-cyborg/ascended-contracts @third-eye-cyborg/ascended-privacy @third-eye-cyborg/ascended-events
 ```
+
+### Public npm packages
+
+| Package | Install command | Purpose |
+| --- | --- | --- |
+| `@third-eye-cyborg/ascended-core` | `pnpm add @third-eye-cyborg/ascended-core` | Shared IDs, errors, results, lifecycle, and health primitives. |
+| `@third-eye-cyborg/ascended-contracts` | `pnpm add @third-eye-cyborg/ascended-contracts` | Platform-neutral domain contracts and guards. |
+| `@third-eye-cyborg/ascended-events` | `pnpm add @third-eye-cyborg/ascended-events` | Typed domain events and event-bus contracts. |
+| `@third-eye-cyborg/ascended-privacy` | `pnpm add @third-eye-cyborg/ascended-privacy` | Privacy modes, enforcement hooks, and minimization helpers. |
+| `@third-eye-cyborg/ascended-ai-router` | `pnpm add @third-eye-cyborg/ascended-ai-router` | Provider registry and privacy-aware AI routing. |
+| `@third-eye-cyborg/ascended-providers` | `pnpm add @third-eye-cyborg/ascended-providers` | Vendor-neutral provider ports and in-memory adapters. |
+| `@third-eye-cyborg/ascended-persistence` | `pnpm add @third-eye-cyborg/ascended-persistence` | Repository and transaction contracts. |
+| `@third-eye-cyborg/ascended-realtime` | `pnpm add @third-eye-cyborg/ascended-realtime` | Presence, room, pub/sub, and call-session abstractions. |
+| `@third-eye-cyborg/ascended-media` | `pnpm add @third-eye-cyborg/ascended-media` | Media upload, lifecycle, and transformation contracts. |
+| `@third-eye-cyborg/ascended-notifications` | `pnpm add @third-eye-cyborg/ascended-notifications` | Notification preferences and delivery contracts. |
+| `@third-eye-cyborg/ascended-observability` | `pnpm add @third-eye-cyborg/ascended-observability` | Logging, tracing, metrics, and health aggregation. |
+| `@third-eye-cyborg/ascended-api-contracts` | `pnpm add @third-eye-cyborg/ascended-api-contracts` | Public OpenAPI contracts and Zod validation types. |
+| `@third-eye-cyborg/ascended-sdk` | `pnpm add @third-eye-cyborg/ascended-sdk` | Typed TypeScript client for the reference API. |
+
+Use the same package names with `npm install` or `yarn add` if those are your
+project's package managers. The full package list, examples, and API guides are
+available in [`docs/`](./docs).
 
 ## Quickstart
 

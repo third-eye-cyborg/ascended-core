@@ -36,6 +36,18 @@ jobs:
       - name: Production dependency audit
         run: pnpm audit:production
 
+      - name: Third-party license and provenance check
+        run: pnpm check:third-party
+
+      - name: Generate production SPDX SBOM
+        run: pnpm sbom:production
+
+      - name: Upload production SBOM
+        uses: actions/upload-artifact@v4
+        with:
+          name: ascended-core-production-sbom
+          path: /tmp/ascended-core-production.spdx.json
+
       - name: Lint
         run: pnpm lint
 

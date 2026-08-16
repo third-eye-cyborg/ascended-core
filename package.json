@@ -3,6 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "description": "Ascended Core monorepo — open-source infrastructure for privacy-conscious spiritual and community applications.",
+  "author": "Third Eye Cyborg LLC",
+  "repository": "https://github.com/third-eye-cyborg/ascended-core.git",
+  "homepage": "https://github.com/third-eye-cyborg/ascended-core#readme",
+  "bugs": "https://github.com/third-eye-cyborg/ascended-core/issues",
+  "license": "Apache-2.0",
   "type": "module",
   "engines": {
     "node": ">=20.0.0",
@@ -21,6 +26,8 @@
     "smoke:server": "pnpm --filter @third-eye-cyborg/ascended-example-minimal-server smoke",
     "test:package-smoke": "node scripts/checks/package-smoke.mjs",
     "check:boundary": "node scripts/checks/boundary-scan.mjs",
+    "check:third-party": "node scripts/checks/third-party-compliance.mjs",
+    "sbom:production": "node scripts/checks/third-party-compliance.mjs --sbom /tmp/ascended-core-production.spdx.json",
     "audit:production": "pnpm audit --prod --audit-level=high"
   },
   "devDependencies": {
