@@ -50,6 +50,25 @@ Ascended Core is **vendor-neutral infrastructure**. This policy covers the
 packages published from this repository (the `@ascended/*` packages) and the
 reference examples.
 
+## Automated dependency checks
+
+Every pull request and push to `main` runs a production dependency audit:
+
+```bash
+pnpm audit:production
+```
+
+Dependabot also monitors npm and GitHub Actions dependencies and opens grouped
+update pull requests for maintainer review. Updates are validated through the
+same CI checks as every other pull request; alerts and updates are not
+suppressed merely to make a check pass.
+
+GitHub Code Scanning is not enabled for this private repository's current GitHub
+configuration. Until it is available, the dependency audit, Dependabot,
+least-privilege Actions permissions, boundary scan, package smoke check, and
+private vulnerability reporting process are the project's automated security
+baseline.
+
 Out of scope:
 
 - Vulnerabilities in downstream products built on top of Ascended Core
