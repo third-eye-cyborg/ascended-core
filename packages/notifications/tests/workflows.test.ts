@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { createId, toIsoTimestamp } from "@ascended/core";
+import { createId, toIsoTimestamp } from "@third-eye-cyborg/ascended-core";
 import { InMemoryReminderQueue } from "../src/workflows";
 import type { NotificationRequest } from "../src/types";
 import { FakeClock } from "./support";

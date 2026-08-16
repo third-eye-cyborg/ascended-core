@@ -2,8 +2,8 @@
  * In-memory {@link CallSessionPort}. Pure bookkeeping — no transport.
  */
 
-import { CoreError, ErrorCode, createId, nowIso } from "@ascended/core";
-import type { EntityId } from "@ascended/core";
+import { CoreError, ErrorCode, createId, nowIso } from "@third-eye-cyborg/ascended-core";
+import type { EntityId } from "@third-eye-cyborg/ascended-core";
 import type { EventBus } from "../events";
 import type {
   CallParticipant,

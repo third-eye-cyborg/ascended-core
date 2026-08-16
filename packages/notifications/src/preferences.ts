@@ -3,7 +3,7 @@
  * templates a recipient will receive.
  */
 
-import type { EntityId } from "@ascended/core";
+import type { EntityId } from "@third-eye-cyborg/ascended-core";
 import { NotificationChannel } from "./types";
 
 /** A recipient's notification preferences. */

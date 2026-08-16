@@ -6,7 +6,7 @@
  * real user data. Do not use them in production.
  */
 
-import type { Platform, RequestContext } from "@ascended/privacy";
+import type { Platform, RequestContext } from "@third-eye-cyborg/ascended-privacy";
 
 import type {
   AIRecommendationProvider,

@@ -9,7 +9,7 @@ import {
   type HealthCheckable,
   type HealthReport,
   type Metadata,
-} from "@ascended/core";
+} from "@third-eye-cyborg/ascended-core";
 
 /** A document to be indexed and made searchable. */
 export interface SearchDocument {

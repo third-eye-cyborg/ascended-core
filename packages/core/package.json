@@ -1,5 +1,5 @@
 {
-  "name": "@ascended/core",
+  "name": "@third-eye-cyborg/ascended-core",
   "version": "0.1.0",
   "description": "Shared foundation types for Ascended Core: identity, errors, results, lifecycle, and health.",
   "type": "module",

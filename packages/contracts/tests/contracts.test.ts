@@ -1,8 +1,8 @@
 import { describe, it, expect } from "vitest";
-import { createId, isEntityId, nowIso, type EntityId } from "@ascended/core";
+import { createId, isEntityId, nowIso, type EntityId } from "@third-eye-cyborg/ascended-core";
 
 /**
- * `@ascended/core`'s `createId` emits base64url ids, but its `isEntityId`
+ * `@third-eye-cyborg/ascended-core`'s `createId` emits base64url ids, but its `isEntityId`
  * pattern only accepts `[A-Za-z0-9]` after the prefix. To keep these guard
  * tests deterministic we retry until we obtain an id that satisfies the
  * canonical guard the contracts rely on.

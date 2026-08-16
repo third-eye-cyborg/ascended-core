@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { createId, type EntityId, type IsoTimestamp } from "@ascended/core";
+import { createId, type EntityId, type IsoTimestamp } from "@third-eye-cyborg/ascended-core";
 import { InMemoryRepository } from "../src/index";
 
 interface Widget {

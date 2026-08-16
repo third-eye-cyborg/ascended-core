@@ -32,52 +32,52 @@
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
     "paths": {
-      "@ascended/ai-router": [
+      "@third-eye-cyborg/ascended-ai-router": [
         "./packages/ai-router/src/index.ts"
       ],
-      "@ascended/api-contracts": [
+      "@third-eye-cyborg/ascended-api-contracts": [
         "./packages/api-contracts/src/index.ts"
       ],
-      "@ascended/contracts": [
+      "@third-eye-cyborg/ascended-contracts": [
         "./packages/contracts/src/index.ts"
       ],
-      "@ascended/core": [
+      "@third-eye-cyborg/ascended-core": [
         "./packages/core/src/index.ts"
       ],
-      "@ascended/events": [
+      "@third-eye-cyborg/ascended-events": [
         "./packages/events/src/index.ts"
       ],
-      "@ascended/media": [
+      "@third-eye-cyborg/ascended-media": [
         "./packages/media/src/index.ts"
       ],
-      "@ascended/notifications": [
+      "@third-eye-cyborg/ascended-notifications": [
         "./packages/notifications/src/index.ts"
       ],
-      "@ascended/observability": [
+      "@third-eye-cyborg/ascended-observability": [
         "./packages/observability/src/index.ts"
       ],
-      "@ascended/persistence": [
+      "@third-eye-cyborg/ascended-persistence": [
         "./packages/persistence/src/index.ts"
       ],
-      "@ascended/privacy": [
+      "@third-eye-cyborg/ascended-privacy": [
         "./packages/privacy/src/index.ts"
       ],
-      "@ascended/providers": [
+      "@third-eye-cyborg/ascended-providers": [
         "./packages/providers/src/index.ts"
       ],
-      "@ascended/realtime": [
+      "@third-eye-cyborg/ascended-realtime": [
         "./packages/realtime/src/index.ts"
       ],
-      "@ascended/sdk": [
+      "@third-eye-cyborg/ascended-sdk": [
         "./packages/sdk/src/index.ts"
       ],
-      "@ascended/example-minimal-server": [
+      "@third-eye-cyborg/ascended-example-minimal-server": [
         "./examples/minimal-server/src/index.ts"
       ],
-      "@ascended/example-openapi-client": [
+      "@third-eye-cyborg/ascended-example-openapi-client": [
         "./examples/openapi-client/src/index.ts"
       ],
-      "@ascended/example-reference-adapters": [
+      "@third-eye-cyborg/ascended-example-reference-adapters": [
         "./examples/reference-adapters/src/index.ts"
       ]
     }

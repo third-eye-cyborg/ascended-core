@@ -5,7 +5,7 @@
  * the `metadata` extension point rather than being hard-coded here.
  */
 
-import { isEntityId, type EntityId, type IsoTimestamp, type Metadata } from "@ascended/core";
+import { isEntityId, type EntityId, type IsoTimestamp, type Metadata } from "@third-eye-cyborg/ascended-core";
 import { hasTimestamps, isEnumMember, isRecord } from "./internal/guards";
 
 /** A registered account. Authentication details live in adapters, not here. */

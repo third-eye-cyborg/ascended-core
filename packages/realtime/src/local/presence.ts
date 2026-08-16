@@ -3,8 +3,8 @@
  * TTL expiry is deterministic in tests.
  */
 
-import { createId, nowIso, toIsoTimestamp } from "@ascended/core";
-import type { EntityId, Metadata } from "@ascended/core";
+import { createId, nowIso, toIsoTimestamp } from "@third-eye-cyborg/ascended-core";
+import type { EntityId, Metadata } from "@third-eye-cyborg/ascended-core";
 import type { EventBus } from "../events";
 import type { Clock, PresenceEntry, PresenceTracker } from "../presence";
 import { PresenceStatus } from "../presence";

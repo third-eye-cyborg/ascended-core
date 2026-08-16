@@ -10,7 +10,7 @@ import {
   HealthState,
   type HealthCheckable,
   type HealthReport,
-} from "@ascended/core";
+} from "@third-eye-cyborg/ascended-core";
 
 /** A stored object's bytes together with its declared content type. */
 export interface StoredObject {

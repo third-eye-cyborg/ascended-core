@@ -34,7 +34,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build api-contracts
-        run: pnpm --filter @ascended/api-contracts build
+        run: pnpm --filter @third-eye-cyborg/ascended-api-contracts build
 
       - name: Run drift test
-        run: pnpm --filter @ascended/api-contracts test
+        run: pnpm --filter @third-eye-cyborg/ascended-api-contracts test

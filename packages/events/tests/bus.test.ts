@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { createId, nowIso, type EntityId } from "@ascended/core";
+import { createId, nowIso, type EntityId } from "@third-eye-cyborg/ascended-core";
 import {
   createEventHarness,
   EVENT_TYPES,

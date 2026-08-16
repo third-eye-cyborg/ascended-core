@@ -11,7 +11,7 @@ import {
   type HealthCheckable,
   type HealthReport,
   type Metadata,
-} from "@ascended/core";
+} from "@third-eye-cyborg/ascended-core";
 
 /** An auditable event. Payloads must be redaction-safe (no secrets/PII). */
 export interface AuditEvent {

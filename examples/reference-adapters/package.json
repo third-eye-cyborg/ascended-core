@@ -1,5 +1,5 @@
 {
-  "name": "@ascended/example-reference-adapters",
+  "name": "@third-eye-cyborg/ascended-example-reference-adapters",
   "version": "0.1.0",
   "description": "Synthetic local adapter implementations wired end-to-end for demos and integration tests.",
   "type": "module",
@@ -11,15 +11,15 @@
     "clean": "rm -rf dist coverage"
   },
   "dependencies": {
-    "@ascended/core": "workspace:*",
-    "@ascended/contracts": "workspace:*",
-    "@ascended/events": "workspace:*",
-    "@ascended/providers": "workspace:*",
-    "@ascended/persistence": "workspace:*",
-    "@ascended/realtime": "workspace:*",
-    "@ascended/media": "workspace:*",
-    "@ascended/notifications": "workspace:*",
-    "@ascended/observability": "workspace:*"
+    "@third-eye-cyborg/ascended-core": "workspace:*",
+    "@third-eye-cyborg/ascended-contracts": "workspace:*",
+    "@third-eye-cyborg/ascended-events": "workspace:*",
+    "@third-eye-cyborg/ascended-providers": "workspace:*",
+    "@third-eye-cyborg/ascended-persistence": "workspace:*",
+    "@third-eye-cyborg/ascended-realtime": "workspace:*",
+    "@third-eye-cyborg/ascended-media": "workspace:*",
+    "@third-eye-cyborg/ascended-notifications": "workspace:*",
+    "@third-eye-cyborg/ascended-observability": "workspace:*"
   },
   "devDependencies": {
     "typescript": "catalog:",

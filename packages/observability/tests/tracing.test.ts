@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { type IsoTimestamp } from "@ascended/core";
+import { type IsoTimestamp } from "@third-eye-cyborg/ascended-core";
 import { InMemoryTracer } from "../src/index";
 
 describe("InMemoryTracer", () => {

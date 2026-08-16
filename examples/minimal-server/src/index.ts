@@ -1,5 +1,5 @@
 /**
- * `@ascended/example-minimal-server`
+ * `@third-eye-cyborg/ascended-example-minimal-server`
  *
  * A runnable reference API server with zero external runtime dependencies. It
  * composes the workspace's local in-memory adapters and exposes the reference

@@ -6,8 +6,8 @@
  * through dedicated request payloads, not through the context.
  */
 
-import { createId, nowIso } from "@ascended/core";
-import type { IsoTimestamp, Metadata } from "@ascended/core";
+import { createId, nowIso } from "@third-eye-cyborg/ascended-core";
+import type { IsoTimestamp, Metadata } from "@third-eye-cyborg/ascended-core";
 
 import { Platform, PrivacyMode } from "./modes";
 

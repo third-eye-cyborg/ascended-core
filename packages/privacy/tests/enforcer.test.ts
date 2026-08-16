@@ -1,4 +1,4 @@
-import { ErrorCode } from "@ascended/core";
+import { ErrorCode } from "@third-eye-cyborg/ascended-core";
 import { describe, it, expect } from "vitest";
 
 import {

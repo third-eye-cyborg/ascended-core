@@ -11,7 +11,7 @@ import {
   nowIso,
   type EntityId,
   type IsoTimestamp,
-} from "@ascended/core";
+} from "@third-eye-cyborg/ascended-core";
 import type {
   CursorPagination,
   Entity,

@@ -1,6 +1,6 @@
 # Events
 
-`@ascended/events` provides typed, **versioned** domain events, an `EventBus`
+`@third-eye-cyborg/ascended-events` provides typed, **versioned** domain events, an `EventBus`
 contract, idempotency and retry/dead-letter semantics, and a deterministic
 in-memory test harness. Events keep producers and consumers decoupled: payloads
 are minimal (ids + timestamps + `metadata`) and product vocabulary rides in
@@ -68,8 +68,8 @@ import {
   InMemoryEventBus,
   EVENT_TYPES,
   contentPostPublishedPayload,
-} from "@ascended/events";
-import { createId, nowIso } from "@ascended/core";
+} from "@third-eye-cyborg/ascended-events";
+import { createId, nowIso } from "@third-eye-cyborg/ascended-core";
 
 const bus = new InMemoryEventBus();
 
@@ -110,7 +110,7 @@ retries. This keeps a poison message from blocking the stream while preserving
 it for inspection and replay.
 
 ```ts
-import { DEFAULT_DELIVERY_POLICY } from "@ascended/events";
+import { DEFAULT_DELIVERY_POLICY } from "@third-eye-cyborg/ascended-events";
 // configure an InMemoryEventBus with a delivery policy + a dead-letter sink
 ```
 
@@ -121,7 +121,7 @@ drain the queue deterministically, and assert on what handlers received —
 without timers or network.
 
 ```ts
-import { createEventHarness } from "@ascended/events";
+import { createEventHarness } from "@third-eye-cyborg/ascended-events";
 
 const harness = createEventHarness();
 // publish through the harness, then inspect delivered/dead-lettered events

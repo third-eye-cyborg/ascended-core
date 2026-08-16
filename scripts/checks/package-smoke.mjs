@@ -22,7 +22,7 @@ for (const dir of readdirSync(packagesDir)) {
   const pkgPath = join(pkgDir, "package.json");
   if (!existsSync(pkgPath)) continue;
   const pkg = JSON.parse(readFileSync(pkgPath, "utf8"));
-  if (pkg.private || !pkg.name?.startsWith("@ascended/")) continue;
+  if (pkg.private || !pkg.name?.startsWith("@third-eye-cyborg/ascended-")) continue;
 
   const cjs = join(pkgDir, "dist", "index.cjs");
   const esm = join(pkgDir, "dist", "index.js");

@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { CoreError, ErrorCode, createId } from "@ascended/core";
+import { CoreError, ErrorCode, createId } from "@third-eye-cyborg/ascended-core";
 import { LocalMediaService } from "../src/local";
 import { MediaAssetState } from "../src/assets";
 import type { UploadPolicy } from "../src/uploads";

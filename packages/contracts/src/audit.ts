@@ -5,7 +5,7 @@
  * `metadata` bag must never contain secrets or raw PII.
  */
 
-import { isEntityId, type EntityId, type IsoTimestamp, type Metadata } from "@ascended/core";
+import { isEntityId, type EntityId, type IsoTimestamp, type Metadata } from "@third-eye-cyborg/ascended-core";
 import { isRecord } from "./internal/guards";
 
 /** A redaction-safe record of an action taken against a target. */

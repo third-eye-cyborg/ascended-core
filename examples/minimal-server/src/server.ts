@@ -17,7 +17,7 @@ import {
   createId,
   nowIso,
   type EntityId,
-} from "@ascended/core";
+} from "@third-eye-cyborg/ascended-core";
 import {
   ContentVisibility,
   EventKind,
@@ -29,10 +29,10 @@ import {
   type Post,
   type Reaction,
   type Rsvp,
-} from "@ascended/contracts";
-import { EVENT_TYPES } from "@ascended/events";
-import type { DomainEvent } from "@ascended/events";
-import { NotificationChannel } from "@ascended/notifications";
+} from "@third-eye-cyborg/ascended-contracts";
+import { EVENT_TYPES } from "@third-eye-cyborg/ascended-events";
+import type { DomainEvent } from "@third-eye-cyborg/ascended-events";
+import { NotificationChannel } from "@third-eye-cyborg/ascended-notifications";
 
 import { createPlatform, type Platform } from "./store.js";
 import {

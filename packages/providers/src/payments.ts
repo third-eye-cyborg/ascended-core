@@ -15,7 +15,7 @@ import {
   type HealthCheckable,
   type HealthReport,
   type Metadata,
-} from "@ascended/core";
+} from "@third-eye-cyborg/ascended-core";
 
 /** A capability an account is entitled to. */
 export interface Entitlement {

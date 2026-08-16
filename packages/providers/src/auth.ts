@@ -16,7 +16,7 @@ import {
   type HealthCheckable,
   type HealthReport,
   type Metadata,
-} from "@ascended/core";
+} from "@third-eye-cyborg/ascended-core";
 
 /** An authenticated session resolved from an opaque bearer token. */
 export interface AuthSession {

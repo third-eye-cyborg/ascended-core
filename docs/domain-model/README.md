@@ -1,6 +1,6 @@
 # Domain Model
 
-`@ascended/contracts` defines platform-neutral domain types organized into
+`@third-eye-cyborg/ascended-contracts` defines platform-neutral domain types organized into
 **bounded contexts**. Contracts are pure types plus small runtime type guards —
 no I/O, no persistence, no transport. Every context exposes typed shapes and
 `is*` guards (for example `isPost`, `isAccount`) so producers and consumers can
@@ -8,7 +8,7 @@ validate at boundaries.
 
 ## Shared foundations
 
-All contracts build on `@ascended/core`:
+All contracts build on `@third-eye-cyborg/ascended-core`:
 
 - **`EntityId`** — an opaque, prefixed string id (`acct_…`, `post_…`). Created
   with `createId("post")`; validated with `isEntityId`. Contracts never depend
@@ -17,8 +17,8 @@ All contracts build on `@ascended/core`:
 - **`Metadata`** — `Record<string, unknown>`, the extension point (see below).
 
 ```ts
-import { createId } from "@ascended/core";
-import { isPost, ContentVisibility, type Post } from "@ascended/contracts";
+import { createId } from "@third-eye-cyborg/ascended-core";
+import { isPost, ContentVisibility, type Post } from "@third-eye-cyborg/ascended-contracts";
 
 const post: Post = {
   id: createId("post"),
@@ -102,14 +102,14 @@ Community events and live sessions.
 
 - **`CommunityEvent`** + **`EventKind`**, **`Rsvp`** + **`RsvpStatus`**,
   **`LiveSession`**. (Distinct from the *domain-event bus* in
-  `@ascended/events` — this context models user-facing scheduled events.)
+  `@third-eye-cyborg/ascended-events` — this context models user-facing scheduled events.)
 
 ### Realtime (`realtime.ts`)
 Room and call descriptors mirrored as contracts.
 
 - **`RoomDescriptor`**, **`RoomParticipant`**, **`CallSession`** +
   **`CallSessionState`**. The behavioral implementations live in
-  `@ascended/realtime`.
+  `@third-eye-cyborg/ascended-realtime`.
 
 ### Avatar (`avatar.ts`)
 Character avatars and their generation jobs — vendor-neutral.
@@ -131,7 +131,7 @@ Search and recommendation request/response shapes.
 
 ### Audit (`audit.ts`)
 - **`AuditEvent`** + `isAuditEvent` — a neutral audit record shape. Audit
-  *storage* is a provider port (`@ascended/providers`), and audit trails contain
+  *storage* is a provider port (`@third-eye-cyborg/ascended-providers`), and audit trails contain
   no secrets or PII.
 
 ---

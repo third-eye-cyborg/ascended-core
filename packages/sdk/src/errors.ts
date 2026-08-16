@@ -4,8 +4,8 @@
  * Ascended Core, while adding HTTP status-code mapping.
  */
 
-import { CoreError, ErrorCode } from "@ascended/core";
-import type { CoreErrorDetails } from "@ascended/core";
+import { CoreError, ErrorCode } from "@third-eye-cyborg/ascended-core";
+import type { CoreErrorDetails } from "@third-eye-cyborg/ascended-core";
 
 /** Map an HTTP status code to a stable Core {@link ErrorCode}. */
 export function statusCodeToErrorCode(statusCode: number): ErrorCode {

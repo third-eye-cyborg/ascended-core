@@ -2,8 +2,8 @@
  * Local in-memory notification channel adapters for development and tests.
  */
 
-import { nowIso } from "@ascended/core";
-import type { EntityId, IsoTimestamp } from "@ascended/core";
+import { nowIso } from "@third-eye-cyborg/ascended-core";
+import type { EntityId, IsoTimestamp } from "@third-eye-cyborg/ascended-core";
 import type {
   EmailSenderPort,
   InAppNotificationPort,

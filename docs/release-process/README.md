@@ -1,7 +1,7 @@
 # Release Process
 
 Ascended Core publishes small, independently useful packages under the
-`@ascended/*` scope. Releases are **tag-driven**, versioned with semver, and
+`@third-eye-cyborg/ascended-*` scope. Releases are **tag-driven**, versioned with semver, and
 consumed downstream via explicit versions (see
 [adoption model](../architecture/adoption-model.md)).
 
@@ -46,7 +46,7 @@ maintainers never publish by hand from a laptop.
 1. Bump versions and update changelogs in a release PR.
 2. Merge to the default branch.
 3. Push an annotated tag for the release (for example `v0.2.0`).
-4. CI builds, tests, and publishes the affected `@ascended/*` packages to the
+4. CI builds, tests, and publishes the affected `@third-eye-cyborg/ascended-*` packages to the
    registry **with npm provenance** enabled, so each artifact is cryptographically
    linked to the source commit and CI workflow that produced it.
 

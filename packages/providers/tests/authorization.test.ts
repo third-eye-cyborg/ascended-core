@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { createId } from "@ascended/core";
+import { createId } from "@third-eye-cyborg/ascended-core";
 import {
   AllowAllPolicy,
   RoleBasedPolicy,

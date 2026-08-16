@@ -9,7 +9,7 @@ separate adapter repos**, never in Core.
 
 ## The ports
 
-From `@ascended/providers`:
+From `@third-eye-cyborg/ascended-providers`:
 
 | Port | Interface | In-memory adapter |
 | --- | --- | --- |
@@ -23,9 +23,9 @@ From `@ascended/providers`:
 | Search | `SearchIndexPort` | `InMemorySearchIndex` |
 | Audit | `AuditLogPort` | `InMemoryAuditLog` |
 
-AI ports live in `@ascended/providers` (`TextGenerationPort`,
+AI ports live in `@third-eye-cyborg/ascended-providers` (`TextGenerationPort`,
 `ImageGenerationPort`, `ThreeDGenerationPort`, `RecommendationPort`) and are
-routed with privacy awareness by `@ascended/ai-router`.
+routed with privacy awareness by `@third-eye-cyborg/ascended-ai-router`.
 
 ## Implementing a port
 
@@ -38,8 +38,8 @@ import type {
   AuthProvider,
   AuthSession,
   IssuedSession,
-} from "@ascended/providers";
-import { createId, nowIso, type EntityId } from "@ascended/core";
+} from "@third-eye-cyborg/ascended-providers";
+import { createId, nowIso, type EntityId } from "@third-eye-cyborg/ascended-core";
 
 // Adapter for "a cloud identity provider" — the vendor lives only in here.
 export class CloudIdentityAuthProvider implements AuthProvider {
@@ -80,7 +80,7 @@ do via a `CapabilityDescriptor`. The router asks a provider whether it can serve
 a request on a given platform **before** dispatching:
 
 ```ts
-import type { CapabilityDescriptor } from "@ascended/ai-router";
+import type { CapabilityDescriptor } from "@third-eye-cyborg/ascended-ai-router";
 
 const descriptor: CapabilityDescriptor = {
   available: true,
@@ -110,7 +110,7 @@ import {
   applyHealthToCapability,
   ProviderState,
   type ProviderHealthSnapshot,
-} from "@ascended/ai-router";
+} from "@third-eye-cyborg/ascended-ai-router";
 
 const health: ProviderHealthSnapshot = {
   providerName: "example-text-provider",
@@ -124,7 +124,7 @@ const effective = applyHealthToCapability(descriptor, health);
 // UNAVAILABLE → available:false
 ```
 
-Non-AI ports that need health surface it through `@ascended/observability`
+Non-AI ports that need health surface it through `@third-eye-cyborg/ascended-observability`
 (`HealthAggregator`, `ProviderHealthTracker`) using the core `HealthState`
 (`HEALTHY`/`DEGRADED`/`UNHEALTHY`).
 
@@ -134,14 +134,14 @@ Build and test features entirely against the in-memory adapters — no network,
 fully deterministic:
 
 ```ts
-import { InMemoryAuthProvider } from "@ascended/providers";
-import { LocalEchoTextProvider } from "@ascended/ai-router";
+import { InMemoryAuthProvider } from "@third-eye-cyborg/ascended-providers";
+import { LocalEchoTextProvider } from "@third-eye-cyborg/ascended-ai-router";
 
 const auth = new InMemoryAuthProvider();
 const text = new LocalEchoTextProvider(); // synthetic stub, tests/examples only
 ```
 
-The `@ascended/ai-router` stubs (`LocalEchoTextProvider`,
+The `@third-eye-cyborg/ascended-ai-router` stubs (`LocalEchoTextProvider`,
 `LocalPlaceholderImageProvider`, `LocalStub3DProvider`,
 `StaticRecommendationProvider`, `HumanOnlyRecommendationProvider`) exist purely
 for tests and examples and never call out to any service.
