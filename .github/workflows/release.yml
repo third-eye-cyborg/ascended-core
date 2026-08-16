@@ -46,6 +46,12 @@ jobs:
       - name: Boundary scan
         run: node scripts/checks/boundary-scan.mjs
 
+      - name: Third-party license and provenance check
+        run: pnpm check:third-party
+
+      - name: Generate production SPDX SBOM
+        run: pnpm sbom:production
+
       - name: Publish (dry-run)
         run: pnpm -r publish --no-git-checks --dry-run
 
