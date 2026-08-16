@@ -22,7 +22,7 @@ Useful scripts:
 - `pnpm lint` — ESLint across sources and tests.
 - `pnpm test` — Vitest across every package.
 - `pnpm build` — tsup build for every publishable package.
-- `pnpm --filter @ascended/example-minimal-server smoke` — run the reference server smoke test.
+- `pnpm --filter @third-eye-cyborg/ascended-example-minimal-server smoke` — run the reference server smoke test.
 - `node scripts/checks/boundary-scan.mjs` — run the boundary scan locally.
 
 ## Package conventions
@@ -30,7 +30,7 @@ Useful scripts:
 - Each package builds with **tsup** and tests with **vitest**.
 - **Strict TypeScript** is enabled repo-wide, including `noUncheckedIndexedAccess`.
   Handle possibly-undefined index access explicitly.
-- Public packages publish under the `@ascended` npm scope with
+- Public packages publish under the `@third-eye-cyborg` npm scope with
   `publishConfig.access = "public"`.
 - Keep the public API surface exported from each package's `src/index.ts`.
 - Do **not** edit `package.json`, `tsconfig.json`, or `vitest.config.ts` in a

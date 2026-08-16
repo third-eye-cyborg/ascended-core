@@ -9,7 +9,7 @@
  * payload.
  */
 
-import { CoreError, ErrorCode, nowIso } from "@ascended/core";
+import { CoreError, ErrorCode, nowIso } from "@third-eye-cyborg/ascended-core";
 
 import type { RequestContext } from "./context";
 import { PrivacyMode } from "./modes";

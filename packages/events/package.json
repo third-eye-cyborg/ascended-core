@@ -1,5 +1,5 @@
 {
-  "name": "@ascended/events",
+  "name": "@third-eye-cyborg/ascended-events",
   "version": "0.1.0",
   "description": "Typed, versioned domain events with an event-bus contract, idempotency, retry/dead-letter interfaces, and a deterministic in-memory test harness.",
   "type": "module",
@@ -12,7 +12,7 @@
     "clean": "rm -rf dist coverage"
   },
   "dependencies": {
-    "@ascended/core": "workspace:*",
+    "@third-eye-cyborg/ascended-core": "workspace:*",
     "zod": "catalog:"
   },
   "devDependencies": {

@@ -7,7 +7,7 @@
  * is reported so callers (tests, the smoke script) can print a summary.
  */
 
-import { createId, type EntityId } from "@ascended/core";
+import { createId, type EntityId } from "@third-eye-cyborg/ascended-core";
 
 import { demoTokenFor } from "./store.js";
 import type { RunningServer } from "./server.js";

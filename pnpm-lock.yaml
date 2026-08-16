@@ -70,37 +70,37 @@ importers:
 
   examples/minimal-server:
     dependencies:
-      '@ascended/ai-router':
+      '@third-eye-cyborg/ascended-ai-router':
         specifier: workspace:*
         version: link:../../packages/ai-router
-      '@ascended/contracts':
+      '@third-eye-cyborg/ascended-contracts':
         specifier: workspace:*
         version: link:../../packages/contracts
-      '@ascended/core':
+      '@third-eye-cyborg/ascended-core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@ascended/events':
+      '@third-eye-cyborg/ascended-events':
         specifier: workspace:*
         version: link:../../packages/events
-      '@ascended/media':
+      '@third-eye-cyborg/ascended-media':
         specifier: workspace:*
         version: link:../../packages/media
-      '@ascended/notifications':
+      '@third-eye-cyborg/ascended-notifications':
         specifier: workspace:*
         version: link:../../packages/notifications
-      '@ascended/observability':
+      '@third-eye-cyborg/ascended-observability':
         specifier: workspace:*
         version: link:../../packages/observability
-      '@ascended/persistence':
+      '@third-eye-cyborg/ascended-persistence':
         specifier: workspace:*
         version: link:../../packages/persistence
-      '@ascended/privacy':
+      '@third-eye-cyborg/ascended-privacy':
         specifier: workspace:*
         version: link:../../packages/privacy
-      '@ascended/providers':
+      '@third-eye-cyborg/ascended-providers':
         specifier: workspace:*
         version: link:../../packages/providers
-      '@ascended/realtime':
+      '@third-eye-cyborg/ascended-realtime':
         specifier: workspace:*
         version: link:../../packages/realtime
     devDependencies:
@@ -116,13 +116,13 @@ importers:
 
   examples/openapi-client:
     dependencies:
-      '@ascended/core':
+      '@third-eye-cyborg/ascended-core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@ascended/example-minimal-server':
+      '@third-eye-cyborg/ascended-example-minimal-server':
         specifier: workspace:*
         version: link:../minimal-server
-      '@ascended/sdk':
+      '@third-eye-cyborg/ascended-sdk':
         specifier: workspace:*
         version: link:../../packages/sdk
     devDependencies:
@@ -138,31 +138,31 @@ importers:
 
   examples/reference-adapters:
     dependencies:
-      '@ascended/contracts':
+      '@third-eye-cyborg/ascended-contracts':
         specifier: workspace:*
         version: link:../../packages/contracts
-      '@ascended/core':
+      '@third-eye-cyborg/ascended-core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@ascended/events':
+      '@third-eye-cyborg/ascended-events':
         specifier: workspace:*
         version: link:../../packages/events
-      '@ascended/media':
+      '@third-eye-cyborg/ascended-media':
         specifier: workspace:*
         version: link:../../packages/media
-      '@ascended/notifications':
+      '@third-eye-cyborg/ascended-notifications':
         specifier: workspace:*
         version: link:../../packages/notifications
-      '@ascended/observability':
+      '@third-eye-cyborg/ascended-observability':
         specifier: workspace:*
         version: link:../../packages/observability
-      '@ascended/persistence':
+      '@third-eye-cyborg/ascended-persistence':
         specifier: workspace:*
         version: link:../../packages/persistence
-      '@ascended/providers':
+      '@third-eye-cyborg/ascended-providers':
         specifier: workspace:*
         version: link:../../packages/providers
-      '@ascended/realtime':
+      '@third-eye-cyborg/ascended-realtime':
         specifier: workspace:*
         version: link:../../packages/realtime
     devDependencies:
@@ -178,10 +178,10 @@ importers:
 
   packages/ai-router:
     dependencies:
-      '@ascended/core':
+      '@third-eye-cyborg/ascended-core':
         specifier: workspace:*
         version: link:../core
-      '@ascended/privacy':
+      '@third-eye-cyborg/ascended-privacy':
         specifier: workspace:*
         version: link:../privacy
     devDependencies:
@@ -197,7 +197,7 @@ importers:
 
   packages/api-contracts:
     dependencies:
-      '@ascended/core':
+      '@third-eye-cyborg/ascended-core':
         specifier: workspace:*
         version: link:../core
       zod:
@@ -216,7 +216,7 @@ importers:
 
   packages/contracts:
     dependencies:
-      '@ascended/core':
+      '@third-eye-cyborg/ascended-core':
         specifier: workspace:*
         version: link:../core
     devDependencies:
@@ -244,7 +244,7 @@ importers:
 
   packages/events:
     dependencies:
-      '@ascended/core':
+      '@third-eye-cyborg/ascended-core':
         specifier: workspace:*
         version: link:../core
       zod:
@@ -263,10 +263,10 @@ importers:
 
   packages/media:
     dependencies:
-      '@ascended/core':
+      '@third-eye-cyborg/ascended-core':
         specifier: workspace:*
         version: link:../core
-      '@ascended/events':
+      '@third-eye-cyborg/ascended-events':
         specifier: workspace:*
         version: link:../events
     devDependencies:
@@ -282,10 +282,10 @@ importers:
 
   packages/notifications:
     dependencies:
-      '@ascended/core':
+      '@third-eye-cyborg/ascended-core':
         specifier: workspace:*
         version: link:../core
-      '@ascended/events':
+      '@third-eye-cyborg/ascended-events':
         specifier: workspace:*
         version: link:../events
     devDependencies:
@@ -301,7 +301,7 @@ importers:
 
   packages/observability:
     dependencies:
-      '@ascended/core':
+      '@third-eye-cyborg/ascended-core':
         specifier: workspace:*
         version: link:../core
     devDependencies:
@@ -317,7 +317,7 @@ importers:
 
   packages/persistence:
     dependencies:
-      '@ascended/core':
+      '@third-eye-cyborg/ascended-core':
         specifier: workspace:*
         version: link:../core
     devDependencies:
@@ -333,7 +333,7 @@ importers:
 
   packages/privacy:
     dependencies:
-      '@ascended/core':
+      '@third-eye-cyborg/ascended-core':
         specifier: workspace:*
         version: link:../core
     devDependencies:
@@ -349,7 +349,7 @@ importers:
 
   packages/providers:
     dependencies:
-      '@ascended/core':
+      '@third-eye-cyborg/ascended-core':
         specifier: workspace:*
         version: link:../core
     devDependencies:
@@ -365,10 +365,10 @@ importers:
 
   packages/realtime:
     dependencies:
-      '@ascended/core':
+      '@third-eye-cyborg/ascended-core':
         specifier: workspace:*
         version: link:../core
-      '@ascended/events':
+      '@third-eye-cyborg/ascended-events':
         specifier: workspace:*
         version: link:../events
     devDependencies:
@@ -384,10 +384,10 @@ importers:
 
   packages/sdk:
     dependencies:
-      '@ascended/api-contracts':
+      '@third-eye-cyborg/ascended-api-contracts':
         specifier: workspace:*
         version: link:../api-contracts
-      '@ascended/core':
+      '@third-eye-cyborg/ascended-core':
         specifier: workspace:*
         version: link:../core
       zod:

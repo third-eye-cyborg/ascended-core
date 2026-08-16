@@ -47,7 +47,7 @@ release lines.
 ## Scope
 
 Ascended Core is **vendor-neutral infrastructure**. This policy covers the
-packages published from this repository (the `@ascended/*` packages) and the
+packages published from this repository (the `@third-eye-cyborg/ascended-*` packages) and the
 reference examples.
 
 ## Automated dependency checks

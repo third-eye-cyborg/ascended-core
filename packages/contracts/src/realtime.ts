@@ -2,7 +2,7 @@
  * Realtime bounded context: room descriptors, participants, and call sessions.
  */
 
-import { isEntityId, type EntityId, type IsoTimestamp, type Metadata } from "@ascended/core";
+import { isEntityId, type EntityId, type IsoTimestamp, type Metadata } from "@third-eye-cyborg/ascended-core";
 import { hasTimestamps, isEnumMember, isRecord } from "./internal/guards";
 
 /** Describes a realtime room that participants can join. */

@@ -12,7 +12,7 @@ import {
   type HealthCheckable,
   type HealthReport,
   type ProbeStatus,
-} from "@ascended/core";
+} from "@third-eye-cyborg/ascended-core";
 
 /** Rank health states so the worst one can be selected. */
 function stateRank(state: HealthState): number {

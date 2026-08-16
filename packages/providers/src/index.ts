@@ -1,5 +1,5 @@
 /**
- * @ascended/providers
+ * @third-eye-cyborg/ascended-providers
  *
  * Vendor-neutral provider PORT interfaces plus generic in-memory adapters for
  * tests and examples. No real vendor is referenced anywhere in this package.

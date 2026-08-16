@@ -12,10 +12,10 @@ releases and publish to npm.
       (use `node scripts/release/version.mjs <package-dir> <semver>`).
 - [ ] **CHANGELOG.md** updated with a dated entry for the new version.
 - [ ] **License confirmed** — `LICENSE` present and © Third Eye Cyborg LLC.
-- [ ] **npm scope ownership verified** — the `@ascended` scope on npm is owned
+- [ ] **npm scope ownership verified** — the `@third-eye-cyborg` scope on npm is owned
       by the org and the publishing token has publish rights.
 - [ ] Docs reviewed for accuracy (README, migration-and-adoption, examples).
-- [ ] `pnpm --filter @ascended/example-minimal-server smoke` passes.
+- [ ] `pnpm --filter @third-eye-cyborg/ascended-example-minimal-server smoke` passes.
 
 ## Tag & publish
 

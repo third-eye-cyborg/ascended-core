@@ -5,7 +5,7 @@
  * to carry an opaque `id`.
  */
 
-import type { EntityId } from "@ascended/core";
+import type { EntityId } from "@third-eye-cyborg/ascended-core";
 
 /** The minimal shape a repository entity must satisfy. */
 export interface Entity {

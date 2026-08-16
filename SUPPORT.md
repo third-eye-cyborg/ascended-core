@@ -22,7 +22,7 @@ in [SECURITY.md](./SECURITY.md).
 
 ## What is in scope
 
-- The `@ascended/*` packages published from this repository.
+- The `@third-eye-cyborg/ascended-*` packages published from this repository.
 - The reference examples in `examples/`.
 - Documentation in `docs/`.
 

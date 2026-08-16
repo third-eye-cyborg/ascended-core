@@ -7,7 +7,7 @@
  * serializers here isolates the HTTP surface from the internal domain model.
  */
 
-import { CoreError, ErrorCode } from "@ascended/core";
+import { CoreError, ErrorCode } from "@third-eye-cyborg/ascended-core";
 import type {
   Community,
   CommunityEvent,
@@ -16,8 +16,8 @@ import type {
   Post,
   Reaction,
   Rsvp,
-} from "@ascended/contracts";
-import type { InboxItem } from "@ascended/notifications";
+} from "@third-eye-cyborg/ascended-contracts";
+import type { InboxItem } from "@third-eye-cyborg/ascended-notifications";
 
 /** Health probe response body. */
 export interface HealthWire {

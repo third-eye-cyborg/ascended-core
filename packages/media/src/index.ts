@@ -1,5 +1,5 @@
 /**
- * `@ascended/media` — upload sessions, asset lifecycle, and transform request
+ * `@third-eye-cyborg/ascended-media` — upload sessions, asset lifecycle, and transform request
  * contracts with a local in-memory adapter.
  */
 

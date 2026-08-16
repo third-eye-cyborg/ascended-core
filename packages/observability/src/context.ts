@@ -7,7 +7,7 @@
  */
 
 import { AsyncLocalStorage } from "node:async_hooks";
-import { createId, nowIso, type IsoTimestamp } from "@ascended/core";
+import { createId, nowIso, type IsoTimestamp } from "@third-eye-cyborg/ascended-core";
 
 /** Ambient context describing the in-flight request/operation. */
 export interface RequestScope {

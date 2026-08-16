@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { createId, type EntityId } from "@ascended/core";
+import { createId, type EntityId } from "@third-eye-cyborg/ascended-core";
 import { InMemoryRepository, InMemoryUnitOfWork } from "../src/index";
 
 interface Account {

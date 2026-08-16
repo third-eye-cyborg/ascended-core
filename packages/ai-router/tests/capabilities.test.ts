@@ -1,5 +1,5 @@
-import { nowIso } from "@ascended/core";
-import { Platform } from "@ascended/privacy";
+import { nowIso } from "@third-eye-cyborg/ascended-core";
+import { Platform } from "@third-eye-cyborg/ascended-privacy";
 import { describe, it, expect } from "vitest";
 
 import {

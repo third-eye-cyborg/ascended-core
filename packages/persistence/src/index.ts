@@ -1,5 +1,5 @@
 /**
- * @ascended/persistence
+ * @third-eye-cyborg/ascended-persistence
  *
  * Storage-agnostic repository, unit-of-work, and migration contracts with
  * in-memory implementations for tests and examples. No production schema or SQL.

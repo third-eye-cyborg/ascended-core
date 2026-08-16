@@ -2,7 +2,7 @@
  * Retry and dead-letter contracts for event delivery.
  */
 
-import type { IsoTimestamp } from "@ascended/core";
+import type { IsoTimestamp } from "@third-eye-cyborg/ascended-core";
 import type { DomainEvent } from "./envelope";
 
 /**

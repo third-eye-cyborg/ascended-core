@@ -1,5 +1,5 @@
 /**
- * `@ascended/realtime` — room lifecycle, presence, pub/sub, and call/session
+ * `@third-eye-cyborg/ascended-realtime` — room lifecycle, presence, pub/sub, and call/session
  * abstractions with local in-memory implementations.
  */
 

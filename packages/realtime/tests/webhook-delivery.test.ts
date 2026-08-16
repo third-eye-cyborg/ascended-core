@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { createId, nowIso } from "@ascended/core";
+import { createId, nowIso } from "@third-eye-cyborg/ascended-core";
 import type { DomainEvent } from "../src/events";
 import {
   RecordingWebhookDelivery,

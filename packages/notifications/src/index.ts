@@ -1,5 +1,5 @@
 /**
- * `@ascended/notifications` — preferences, delivery attempts, and multi-channel
+ * `@third-eye-cyborg/ascended-notifications` — preferences, delivery attempts, and multi-channel
  * (in-app/email/push) workflow contracts with local adapters.
  */
 

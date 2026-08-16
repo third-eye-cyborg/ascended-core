@@ -3,7 +3,7 @@
  * recommendation request/response shapes.
  */
 
-import { isEntityId, type EntityId, type Metadata } from "@ascended/core";
+import { isEntityId, type EntityId, type Metadata } from "@third-eye-cyborg/ascended-core";
 import { isRecord } from "./internal/guards";
 
 /** A search request. */

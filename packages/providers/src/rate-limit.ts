@@ -7,7 +7,7 @@ import {
   HealthState,
   type HealthCheckable,
   type HealthReport,
-} from "@ascended/core";
+} from "@third-eye-cyborg/ascended-core";
 
 /** The outcome of attempting to consume rate-limit budget. */
 export interface RateLimitDecision {

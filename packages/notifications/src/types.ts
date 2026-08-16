@@ -3,7 +3,7 @@
  * `data` must be redaction-safe (no secrets, no raw PII).
  */
 
-import type { EntityId, IsoTimestamp, Metadata } from "@ascended/core";
+import type { EntityId, IsoTimestamp, Metadata } from "@third-eye-cyborg/ascended-core";
 
 /** Delivery channel for a notification. */
 export enum NotificationChannel {

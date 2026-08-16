@@ -4,8 +4,8 @@ import {
   Platform,
   PrivacyMode,
   PrivacyPolicyEnforcer,
-} from "@ascended/privacy";
-import type { RequestContext } from "@ascended/privacy";
+} from "@third-eye-cyborg/ascended-privacy";
+import type { RequestContext } from "@third-eye-cyborg/ascended-privacy";
 import { describe, it, expect } from "vitest";
 
 import {

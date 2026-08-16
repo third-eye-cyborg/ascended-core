@@ -1,15 +1,15 @@
 /**
  * Event-bus interop contract for notification services.
  *
- * The concrete bus is provided by `@ascended/events`. Services depend on the
+ * The concrete bus is provided by `@third-eye-cyborg/ascended-events`. Services depend on the
  * minimal *structural* port defined here so they stay decoupled from that
  * package's build order and remain trivially testable. Any object exposing an
- * async `publish` — including the `@ascended/events` bus — satisfies it.
+ * async `publish` — including the `@third-eye-cyborg/ascended-events` bus — satisfies it.
  */
 
-import type { EntityId, IsoTimestamp, Metadata } from "@ascended/core";
+import type { EntityId, IsoTimestamp, Metadata } from "@third-eye-cyborg/ascended-core";
 
-/** Minimal, versioned domain-event envelope compatible with `@ascended/events`. */
+/** Minimal, versioned domain-event envelope compatible with `@third-eye-cyborg/ascended-events`. */
 export interface DomainEvent<TPayload = unknown> {
   /** Unique event id, e.g. `evt_…`. */
   id: EntityId;

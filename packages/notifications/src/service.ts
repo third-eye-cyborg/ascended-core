@@ -3,7 +3,7 @@
  * dispatches to injected channel senders, and emits `notification.requested`.
  */
 
-import { CoreError, ErrorCode, createId, nowIso } from "@ascended/core";
+import { CoreError, ErrorCode, createId, nowIso } from "@third-eye-cyborg/ascended-core";
 import type { EventBus } from "./events";
 import type { NotificationPreferencesPort } from "./preferences";
 import {
