@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "tool": {
+    "name": "scancode-toolkit",
+    "version": "32.5.0",
+    "linuxAsset": "scancode-toolkit-v32.5.0_py3.11-linux.tar.gz",
+    "linuxAssetSha256": "99fd0a1ca46f984e6a35a1fa6990d0029e4e78b764bc43563009a2b2e020812a"
+  },
+  "allowedLicenseKeys": [
+    "0bsd",
+    "apache-2.0",
+    "bsd-new",
+    "bsd-simplified",
+    "bsd-zero",
+    "cc-by-4.0",
+    "cc0-1.0",
+    "isc",
+    "mit",
+    "unlicense"
+  ],
+  "forbiddenLicenseKeyPrefixes": [
+    "agpl",
+    "cddl",
+    "cpal",
+    "epl",
+    "gpl",
+    "lgpl",
+    "mpl",
+    "osl",
+    "sspl"
+  ],
+  "allowedCopyrightHolders": [
+    "third eye cyborg llc"
+  ],
+  "reviewOnlyPaths": {
+    "compliance/scancode-policy.json": "This policy intentionally names restricted license families so the checker can reject them in scanned content.",
+    "CONTRIBUTING.md": "The dependency policy documentation intentionally names license families and explains when copyleft dependencies require review.",
+    "scripts/checks/third-party-compliance.mjs": "The compliance checker contains license identifiers as policy data and validation logic, not bundled third-party code.",
+    "scripts/checks/__tests__/third-party-compliance.test.mjs": "Tests intentionally use synthetic license strings, including copyleft examples, to verify rejection behavior.",
+    "scripts/checks/__tests__/validate-sbom.test.mjs": "Tests intentionally use synthetic SPDX documents and license strings to verify SBOM validation behavior."
+  }
+}

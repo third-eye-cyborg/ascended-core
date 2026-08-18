@@ -22,13 +22,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+        with:
+          version: 9
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 22
           cache: pnpm
@@ -45,6 +47,59 @@ jobs:
 
       - name: Boundary scan
         run: node scripts/checks/boundary-scan.mjs
+
+      - name: Install ScanCode Toolkit
+        run: bash scripts/checks/install-scancode.sh
+
+      - name: Scan licenses and copyrights
+        run: pnpm check:scancode
+
+      - name: License compliance
+        run: node scripts/checks/third-party-compliance.mjs
+
+      - name: Generate SBOM
+        run: node scripts/checks/third-party-compliance.mjs --sbom > sbom.spdx.json
+
+      - name: Validate SBOM
+        run: node scripts/checks/validate-sbom.mjs sbom.spdx.json
+
+      # ── Vulnerability scan ──────────────────────────────────────────────────
+      # Scans the generated SBOM against OSV, NVD, and GitHub Advisory databases
+      # via Grype.  The step fails when any CRITICAL or HIGH severity CVE is
+      # found in the resolved dependency set.
+      #
+      # FALSE-POSITIVE TRIAGE
+      # ----------------------
+      # 1. Run `grype sbom:sbom.spdx.json` locally to inspect the full report.
+      # 2. Check https://github.com/advisories/<GHSA-…> or
+      #    https://osv.dev/vulnerability/<CVE-…> for details on the matched
+      #    vulnerability and whether the affected code path is actually reachable.
+      # 3. If the finding is a confirmed false positive (e.g. the vulnerable code
+      #    path is not reachable in our usage, or the CVE targets a platform we
+      #    don't ship), add an ignore rule to .grype.yaml at the repo root:
+      #
+      #      ignore:
+      #        - vulnerability: CVE-XXXX-XXXXX
+      #          reason: "not reachable — only affects <platform/feature>"
+      #
+      # 4. Open a tracking issue so the ignore rule is revisited when an upstream
+      #    fix is released and can replace the exemption.
+      # Downloads the Grype binary from a pinned GitHub release tag (not from
+      # the mutable main branch) and verifies its SHA-256 checksum against the
+      # official checksums file before installing, so a compromised CDN or CI
+      # runner cannot swap in a different binary undetected.
+      - name: Install Grype
+        run: |
+          GRYPE_VERSION="0.88.0"
+          BASE_URL="https://github.com/anchore/grype/releases/download/v${GRYPE_VERSION}"
+          curl -sSfL "${BASE_URL}/grype_${GRYPE_VERSION}_linux_amd64.tar.gz" -o grype.tar.gz
+          curl -sSfL "${BASE_URL}/grype_${GRYPE_VERSION}_checksums.txt"       -o grype_checksums.txt
+          grep "grype_${GRYPE_VERSION}_linux_amd64.tar.gz" grype_checksums.txt | sha256sum --check --status
+          tar -xzf grype.tar.gz grype
+          sudo mv grype /usr/local/bin/grype
+
+      - name: Vulnerability scan (Grype)
+        run: grype sbom:sbom.spdx.json --fail-on high
 
       - name: Publish (dry-run)
         run: pnpm -r publish --no-git-checks --dry-run
@@ -55,13 +110,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+        with:
+          version: 9
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 22
           cache: pnpm
@@ -79,12 +136,76 @@ jobs:
       - name: Boundary scan
         run: node scripts/checks/boundary-scan.mjs
 
+      - name: Install ScanCode Toolkit
+        run: bash scripts/checks/install-scancode.sh
+
+      - name: Scan licenses and copyrights
+        run: pnpm check:scancode
+
+      - name: License compliance
+        run: node scripts/checks/third-party-compliance.mjs
+
+      - name: Generate SBOM
+        run: node scripts/checks/third-party-compliance.mjs --sbom > sbom.spdx.json
+
+      - name: Validate SBOM
+        run: node scripts/checks/validate-sbom.mjs sbom.spdx.json
+
+      # ── Vulnerability scan ──────────────────────────────────────────────────
+      # Scans the generated SBOM against OSV, NVD, and GitHub Advisory databases
+      # via Grype.  The step fails when any CRITICAL or HIGH severity CVE is
+      # found in the resolved dependency set.
+      #
+      # FALSE-POSITIVE TRIAGE
+      # ----------------------
+      # 1. Run `grype sbom:sbom.spdx.json` locally to inspect the full report.
+      # 2. Check https://github.com/advisories/<GHSA-…> or
+      #    https://osv.dev/vulnerability/<CVE-…> for details on the matched
+      #    vulnerability and whether the affected code path is actually reachable.
+      # 3. If the finding is a confirmed false positive (e.g. the vulnerable code
+      #    path is not reachable in our usage, or the CVE targets a platform we
+      #    don't ship), add an ignore rule to .grype.yaml at the repo root:
+      #
+      #      ignore:
+      #        - vulnerability: CVE-XXXX-XXXXX
+      #          reason: "not reachable — only affects <platform/feature>"
+      #
+      # 4. Open a tracking issue so the ignore rule is revisited when an upstream
+      #    fix is released and can replace the exemption.
+      # Downloads the Grype binary from a pinned GitHub release tag (not from
+      # the mutable main branch) and verifies its SHA-256 checksum against the
+      # official checksums file before installing, so a compromised CDN or CI
+      # runner cannot swap in a different binary undetected.
+      - name: Install Grype
+        run: |
+          GRYPE_VERSION="0.88.0"
+          BASE_URL="https://github.com/anchore/grype/releases/download/v${GRYPE_VERSION}"
+          curl -sSfL "${BASE_URL}/grype_${GRYPE_VERSION}_linux_amd64.tar.gz" -o grype.tar.gz
+          curl -sSfL "${BASE_URL}/grype_${GRYPE_VERSION}_checksums.txt"       -o grype_checksums.txt
+          grep "grype_${GRYPE_VERSION}_linux_amd64.tar.gz" grype_checksums.txt | sha256sum --check --status
+          tar -xzf grype.tar.gz grype
+          sudo mv grype /usr/local/bin/grype
+
+      - name: Vulnerability scan (Grype)
+        run: grype sbom:sbom.spdx.json --fail-on high
+
       - name: Publish public packages to npm
         run: pnpm -r publish --access public --provenance --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+      - name: Upload SBOM as release artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: sbom-spdx-json
+          path: |
+            sbom.spdx.json
+            .reports/scancode/scancode.json
+
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2
         with:
           generate_release_notes: true
+          files: |
+            sbom.spdx.json
+            .reports/scancode/scancode.json
