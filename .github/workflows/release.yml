@@ -46,8 +46,13 @@ jobs:
       - name: Boundary scan
         run: node scripts/checks/boundary-scan.mjs
 
+      - name: Setup Python 3.11 for ScanCode
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
       - name: Install ScanCode Toolkit
-        run: bash scripts/checks/install-scancode.sh
+        run: SCANCODE_PYTHON=$(which python3.11) bash scripts/checks/install-scancode.sh
 
       - name: Scan licenses and copyrights
         run: pnpm check:scancode
@@ -115,8 +120,13 @@ jobs:
       - name: Boundary scan
         run: node scripts/checks/boundary-scan.mjs
 
+      - name: Setup Python 3.11 for ScanCode
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
       - name: Install ScanCode Toolkit
-        run: bash scripts/checks/install-scancode.sh
+        run: SCANCODE_PYTHON=$(which python3.11) bash scripts/checks/install-scancode.sh
 
       - name: Scan licenses and copyrights
         run: pnpm check:scancode
