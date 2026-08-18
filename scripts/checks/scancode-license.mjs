@@ -75,6 +75,8 @@ const scanArgs = [
   ".cache",
   "--ignore",
   ".reports",
+  "--ignore",
+  "evidence",
   "--json-pp",
   reportPath,
   ROOT,

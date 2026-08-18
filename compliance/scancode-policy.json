@@ -36,6 +36,7 @@
     "compliance/scancode-policy.json": "This policy intentionally names restricted license families so the checker can reject them in scanned content.",
     "CONTRIBUTING.md": "The dependency policy documentation intentionally names license families and explains when copyleft dependencies require review.",
     "scripts/checks/third-party-compliance.mjs": "The compliance checker contains license identifiers as policy data and validation logic, not bundled third-party code.",
+    "scripts/checks/scancode-license.mjs": "The copyright-gate checker contains copyright detection logic, copyright-holder matching examples, and test infrastructure as policy data and validation logic, not bundled third-party code.",
     "scripts/checks/__tests__/third-party-compliance.test.mjs": "Tests intentionally use synthetic license strings, including copyleft examples, to verify rejection behavior.",
     "scripts/checks/__tests__/validate-sbom.test.mjs": "Tests intentionally use synthetic SPDX documents and license strings to verify SBOM validation behavior."
   }
