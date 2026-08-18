@@ -23,8 +23,6 @@ jobs:
 
       - name: Setup pnpm
         uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
-        with:
-          version: 9
 
       - name: Setup Node
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
@@ -34,6 +32,9 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Production dependency audit
+        run: pnpm audit:production
 
       - name: Lint
         run: pnpm lint
@@ -55,8 +56,13 @@ jobs:
           BOUNDARY_SCAN_VERBOSE: "1"
         run: node scripts/checks/boundary-scan.mjs
 
+      - name: Setup Python 3.11 for ScanCode
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: "3.11"
+
       - name: Install ScanCode Toolkit
-        run: bash scripts/checks/install-scancode.sh
+        run: SCANCODE_PYTHON=$(which python3.11) bash scripts/checks/install-scancode.sh
 
       - name: Scan licenses and copyrights
         run: pnpm check:scancode
