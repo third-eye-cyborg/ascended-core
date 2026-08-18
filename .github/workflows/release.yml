@@ -68,7 +68,7 @@ jobs:
 
       - name: Install Grype
         run: |
-          GRYPE_VERSION="0.88.0"
+          GRYPE_VERSION="0.117.0"
           BASE_URL="https://github.com/anchore/grype/releases/download/v${GRYPE_VERSION}"
           curl -sSfL "${BASE_URL}/grype_${GRYPE_VERSION}_linux_amd64.tar.gz" -o grype.tar.gz
           curl -sSfL "${BASE_URL}/grype_${GRYPE_VERSION}_checksums.txt"       -o grype_checksums.txt
@@ -142,7 +142,7 @@ jobs:
 
       - name: Install Grype
         run: |
-          GRYPE_VERSION="0.88.0"
+          GRYPE_VERSION="0.117.0"
           BASE_URL="https://github.com/anchore/grype/releases/download/v${GRYPE_VERSION}"
           curl -sSfL "${BASE_URL}/grype_${GRYPE_VERSION}_linux_amd64.tar.gz" -o grype.tar.gz
           curl -sSfL "${BASE_URL}/grype_${GRYPE_VERSION}_checksums.txt"       -o grype_checksums.txt
