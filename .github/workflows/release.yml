@@ -72,7 +72,8 @@ jobs:
           BASE_URL="https://github.com/anchore/grype/releases/download/v${GRYPE_VERSION}"
           curl -sSfL "${BASE_URL}/grype_${GRYPE_VERSION}_linux_amd64.tar.gz" -o grype.tar.gz
           curl -sSfL "${BASE_URL}/grype_${GRYPE_VERSION}_checksums.txt"       -o grype_checksums.txt
-          grep "grype_${GRYPE_VERSION}_linux_amd64.tar.gz" grype_checksums.txt | sha256sum --check --status
+          EXPECTED=$(grep "grype_${GRYPE_VERSION}_linux_amd64.tar.gz" grype_checksums.txt | awk '{print $1}')
+          echo "${EXPECTED}  grype.tar.gz" | sha256sum --check --status
           tar -xzf grype.tar.gz grype
           sudo mv grype /usr/local/bin/grype
 
@@ -146,7 +147,8 @@ jobs:
           BASE_URL="https://github.com/anchore/grype/releases/download/v${GRYPE_VERSION}"
           curl -sSfL "${BASE_URL}/grype_${GRYPE_VERSION}_linux_amd64.tar.gz" -o grype.tar.gz
           curl -sSfL "${BASE_URL}/grype_${GRYPE_VERSION}_checksums.txt"       -o grype_checksums.txt
-          grep "grype_${GRYPE_VERSION}_linux_amd64.tar.gz" grype_checksums.txt | sha256sum --check --status
+          EXPECTED=$(grep "grype_${GRYPE_VERSION}_linux_amd64.tar.gz" grype_checksums.txt | awk '{print $1}')
+          echo "${EXPECTED}  grype.tar.gz" | sha256sum --check --status
           tar -xzf grype.tar.gz grype
           sudo mv grype /usr/local/bin/grype
 
