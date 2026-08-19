@@ -6,7 +6,7 @@
 
 import { describe, expect, it } from "vitest";
 
-import { createId } from "@third-eye-cyborg/ascended-core";
+import { createId } from "@third-eye-cyborg/core";
 
 import {
   createReferencePlatform,

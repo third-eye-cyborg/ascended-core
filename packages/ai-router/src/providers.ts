@@ -7,8 +7,8 @@
  * vendor-specific name substrings.
  */
 
-import type { Metadata } from "@third-eye-cyborg/ascended-core";
-import type { Platform, RequestContext } from "@third-eye-cyborg/ascended-privacy";
+import type { Metadata } from "@third-eye-cyborg/core";
+import type { Platform, RequestContext } from "@third-eye-cyborg/privacy";
 
 /**
  * Generic provider family identifiers used by the router. Additional families

@@ -1,5 +1,5 @@
 {
-  "name": "@third-eye-cyborg/ascended-example-minimal-server",
+  "name": "@third-eye-cyborg/example-minimal-server",
   "version": "0.1.0",
   "description": "Runnable reference server demonstrating profiles, posts, communities, events, and notifications on local adapters.",
   "type": "module",
@@ -13,17 +13,17 @@
     "smoke": "tsx tests/smoke.ts"
   },
   "dependencies": {
-    "@third-eye-cyborg/ascended-core": "workspace:*",
-    "@third-eye-cyborg/ascended-contracts": "workspace:*",
-    "@third-eye-cyborg/ascended-events": "workspace:*",
-    "@third-eye-cyborg/ascended-privacy": "workspace:*",
-    "@third-eye-cyborg/ascended-ai-router": "workspace:*",
-    "@third-eye-cyborg/ascended-providers": "workspace:*",
-    "@third-eye-cyborg/ascended-persistence": "workspace:*",
-    "@third-eye-cyborg/ascended-realtime": "workspace:*",
-    "@third-eye-cyborg/ascended-media": "workspace:*",
-    "@third-eye-cyborg/ascended-notifications": "workspace:*",
-    "@third-eye-cyborg/ascended-observability": "workspace:*"
+    "@third-eye-cyborg/core": "workspace:*",
+    "@third-eye-cyborg/contracts": "workspace:*",
+    "@third-eye-cyborg/events": "workspace:*",
+    "@third-eye-cyborg/privacy": "workspace:*",
+    "@third-eye-cyborg/ai-router": "workspace:*",
+    "@third-eye-cyborg/providers": "workspace:*",
+    "@third-eye-cyborg/persistence": "workspace:*",
+    "@third-eye-cyborg/realtime": "workspace:*",
+    "@third-eye-cyborg/media": "workspace:*",
+    "@third-eye-cyborg/notifications": "workspace:*",
+    "@third-eye-cyborg/observability": "workspace:*"
   },
   "devDependencies": {
     "typescript": "catalog:",

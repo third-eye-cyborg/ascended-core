@@ -7,14 +7,14 @@
  * repo, not in Core.
  */
 
-import type { Metadata } from "@third-eye-cyborg/ascended-core";
+import type { Metadata } from "@third-eye-cyborg/core";
 import type {
   AiOperation,
   CapabilityDescriptor,
   TextGenerationPort,
   TextGenerationRequest,
   TextGenerationResult,
-} from "@third-eye-cyborg/ascended-providers";
+} from "@third-eye-cyborg/providers";
 
 /** Abstract provider identifier reported in capability descriptors. */
 export const SYNTHETIC_TEXT_PROVIDER_ID = "synthetic-text";

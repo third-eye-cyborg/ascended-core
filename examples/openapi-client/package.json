@@ -1,5 +1,5 @@
 {
-  "name": "@third-eye-cyborg/ascended-example-openapi-client",
+  "name": "@third-eye-cyborg/example-openapi-client",
   "version": "0.1.0",
   "description": "Example client consuming the generated SDK against the minimal server.",
   "type": "module",
@@ -11,9 +11,9 @@
     "clean": "rm -rf dist coverage"
   },
   "dependencies": {
-    "@third-eye-cyborg/ascended-core": "workspace:*",
-    "@third-eye-cyborg/ascended-example-minimal-server": "workspace:*",
-    "@third-eye-cyborg/ascended-sdk": "workspace:*"
+    "@third-eye-cyborg/core": "workspace:*",
+    "@third-eye-cyborg/example-minimal-server": "workspace:*",
+    "@third-eye-cyborg/sdk": "workspace:*"
   },
   "devDependencies": {
     "typescript": "catalog:",

@@ -1,5 +1,5 @@
 {
-  "name": "@third-eye-cyborg/ascended-providers",
+  "name": "@third-eye-cyborg/providers",
   "version": "0.1.0",
   "description": "Provider ports (auth, storage, email, push, payments, search, rate limiting, audit) plus generic in-memory adapters for tests and examples.",
   "type": "module",
@@ -12,7 +12,7 @@
     "clean": "rm -rf dist coverage"
   },
   "dependencies": {
-    "@third-eye-cyborg/ascended-core": "workspace:*"
+    "@third-eye-cyborg/core": "workspace:*"
   },
   "devDependencies": {
     "typescript": "catalog:",

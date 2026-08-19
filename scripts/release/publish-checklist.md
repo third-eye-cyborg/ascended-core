@@ -12,10 +12,13 @@ releases and publish to npm.
       (use `node scripts/release/version.mjs <package-dir> <semver>`).
 - [ ] **CHANGELOG.md** updated with a dated entry for the new version.
 - [ ] **License confirmed** — `LICENSE` present and © Third Eye Cyborg LLC.
-- [ ] **npm scope ownership verified** — the `@third-eye-cyborg` scope on npm is owned
-      by the org and the publishing token has publish rights.
+- [ ] **npm scope ownership verified** — `pnpm check:npm-publish-access`
+      confirms the `thirdeyecyborg` maintainer token has package-write access
+      to `@third-eye-cyborg` and every public package uses that scope.
+- [ ] **Publish dry-run passes** — manually dispatch the Release workflow and
+      confirm every public package is packed without uploading to npm.
 - [ ] Docs reviewed for accuracy (README, migration-and-adoption, examples).
-- [ ] `pnpm --filter @third-eye-cyborg/ascended-example-minimal-server smoke` passes.
+- [ ] `pnpm --filter @third-eye-cyborg/example-minimal-server smoke` passes.
 
 ## Tag & publish
 

@@ -652,7 +652,7 @@ export const ALLOWED_LICENSES = new Set([
 
 /**
  * Returns the parsed package.json for every non-private workspace package
- * whose name starts with "@ascended/".
+ * whose name starts with "@third-eye-cyborg/".
  *
  * @returns {{ dir: string; pkg: Record<string, unknown> }[]}
  */
@@ -667,7 +667,7 @@ export function readWorkspacePackages() {
     const pkg = /** @type {Record<string, unknown>} */ (
       JSON.parse(readFileSync(pkgPath, "utf8"))
     );
-    if (pkg["private"] || !String(pkg["name"] ?? "").startsWith("@ascended/"))
+    if (pkg["private"] || !String(pkg["name"] ?? "").startsWith("@third-eye-cyborg/"))
       continue;
     out.push({ dir, pkg });
   }
@@ -885,7 +885,7 @@ export function generateSbom(opts = {}) {
     if (atIdx <= 0) return;
     const name = bare.slice(0, atIdx);
     const version = bare.slice(atIdx + 1);
-    if (name.startsWith("@ascended/")) return; // workspace package — not an external dep
+    if (name.startsWith("@third-eye-cyborg/")) return; // workspace package — not an external dep
     if (!depMap.has(`${name}@${version}`)) return; // not tracked in the SBOM
     const childSpdxId = toSpdxId(`${name}-${version}`);
     if (!edges.has(parentSpdxId)) edges.set(parentSpdxId, new Set());
@@ -923,7 +923,7 @@ export function generateSbom(opts = {}) {
     if (atIdx <= 0) continue;
     const name = bare.slice(0, atIdx);
     const version = bare.slice(atIdx + 1);
-    if (name.startsWith("@ascended/")) continue;
+    if (name.startsWith("@third-eye-cyborg/")) continue;
     if (!depMap.has(`${name}@${version}`)) continue;
     const parentSpdxId = toSpdxId(`${name}-${version}`);
     for (const { resolvedKey } of snapDeps) {
@@ -1111,17 +1111,17 @@ export function tracePackage(target, opts = {}) {
     if (!edges.has(parentLabel)) edges.set(parentLabel, new Set());
     for (const [, snapshotKey] of depMap) {
       const bare = stripPeerSuffix(snapshotKey);
-      if (!bare.startsWith("@ascended/")) edges.get(parentLabel)?.add(bare);
+      if (!bare.startsWith("@third-eye-cyborg/")) edges.get(parentLabel)?.add(bare);
     }
   }
 
   for (const [snapshotKey, deps] of snapshots) {
     const parentBare = stripPeerSuffix(snapshotKey);
-    if (parentBare.startsWith("@ascended/")) continue;
+    if (parentBare.startsWith("@third-eye-cyborg/")) continue;
     if (!edges.has(parentBare)) edges.set(parentBare, new Set());
     for (const { resolvedKey } of deps) {
       const childBare = stripPeerSuffix(resolvedKey);
-      if (!childBare.startsWith("@ascended/")) edges.get(parentBare)?.add(childBare);
+      if (!childBare.startsWith("@third-eye-cyborg/")) edges.get(parentBare)?.add(childBare);
     }
   }
 
@@ -1131,7 +1131,7 @@ export function tracePackage(target, opts = {}) {
   for (const [lockKey, resolution] of lockPkgs) {
     if ("directory" in resolution) continue; // workspace link — not external
     const bare = stripPeerSuffix(lockKey);
-    if (!bare.startsWith("@ascended/")) allKnown.add(bare);
+    if (!bare.startsWith("@third-eye-cyborg/")) allKnown.add(bare);
   }
 
   // ── 6. Find labels that match the requested target spec ───────────────────
@@ -1269,9 +1269,9 @@ async function runComplianceChecks() {
     if (!existsSync(pkgPath)) continue;
     const pkg = JSON.parse(readFileSync(pkgPath, "utf8"));
     if (pkg.private) continue;
-    if (!pkg.name?.startsWith("@ascended/")) continue;
+    if (!pkg.name?.startsWith("@third-eye-cyborg/")) continue;
     for (const depName of Object.keys(pkg.dependencies ?? {})) {
-      if (depName.startsWith("@ascended/")) continue;
+      if (depName.startsWith("@third-eye-cyborg/")) continue;
       if (!depUsage.has(depName)) depUsage.set(depName, []);
       depUsage.get(depName).push(pkg.name);
     }

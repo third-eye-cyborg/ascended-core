@@ -1,5 +1,5 @@
 /**
- * @third-eye-cyborg/ascended-contracts
+ * @third-eye-cyborg/contracts
  *
  * Platform-neutral domain contract types (pure types plus small runtime
  * validators/guards; no I/O) across the platform's bounded contexts.

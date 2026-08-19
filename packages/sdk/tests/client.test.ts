@@ -1,4 +1,4 @@
-import { ErrorCode } from "@third-eye-cyborg/ascended-core";
+import { ErrorCode } from "@third-eye-cyborg/core";
 import { describe, expect, it, vi } from "vitest";
 
 import { AscendedCoreClient } from "../src/client.js";

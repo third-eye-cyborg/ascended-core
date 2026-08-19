@@ -20,11 +20,11 @@ never appears in Core code.
    ┌────────────────────────────┐         explicit version adoption
    │  Ascended Core (public)    │  ───────────────────────────────▶  ┌──────────────────────────┐
    │  versioned npm packages    │                                     │ Downstream product        │
-   │  @third-eye-cyborg/ascended-* @ 0.x         │  ◀───────────────────────────────  │ (private, hosted)         │
+   │  @third-eye-cyborg/* @ 0.x         │  ◀───────────────────────────────  │ (private, hosted)         │
    └────────────────────────────┘         public PR contributions      └──────────────────────────┘
 ```
 
-- **Down (adoption):** the private product pins and upgrades `@third-eye-cyborg/ascended-*`
+- **Down (adoption):** the private product pins and upgrades `@third-eye-cyborg/*`
   package versions deliberately (see the workflow below).
 - **Up (contribution):** improvements discovered while building the product are
   contributed back as **public pull requests** to Core, released, and only then
@@ -53,10 +53,10 @@ packages**:
 // downstream product package.json (illustrative)
 {
   "dependencies": {
-    "@third-eye-cyborg/ascended-core": "0.1.0",
-    "@third-eye-cyborg/ascended-contracts": "0.1.0",
-    "@third-eye-cyborg/ascended-events": "0.1.0",
-    "@third-eye-cyborg/ascended-privacy": "0.1.0"
+    "@third-eye-cyborg/core": "0.1.0",
+    "@third-eye-cyborg/contracts": "0.1.0",
+    "@third-eye-cyborg/events": "0.1.0",
+    "@third-eye-cyborg/privacy": "0.1.0"
   }
 }
 ```
@@ -74,7 +74,7 @@ public release stream:
 1. **Public PR** — the change is proposed against Ascended Core in the open,
    with synthetic-only examples and no vendor names.
 2. **Review & merge** — maintainers review against Core's boundaries and merge.
-3. **Release** — a tagged, versioned release publishes updated `@third-eye-cyborg/ascended-*`
+3. **Release** — a tagged, versioned release publishes updated `@third-eye-cyborg/*`
    packages (see [release-process](../release-process/README.md)).
 4. **Private adoption PR** — the downstream product opens its own PR to bump the
    adopted version and integrate.

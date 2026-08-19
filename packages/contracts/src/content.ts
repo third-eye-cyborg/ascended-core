@@ -3,7 +3,7 @@
  * attachments, and a moderation-surface interface shape (no rules).
  */
 
-import { isEntityId, type EntityId, type IsoTimestamp, type Metadata } from "@third-eye-cyborg/ascended-core";
+import { isEntityId, type EntityId, type IsoTimestamp, type Metadata } from "@third-eye-cyborg/core";
 import { hasTimestamps, isEnumMember, isRecord } from "./internal/guards";
 
 /** Who can see a piece of content. */

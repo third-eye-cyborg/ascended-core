@@ -6,8 +6,8 @@
  * emit `media.asset_uploaded` through an injected {@link EventBus}.
  */
 
-import { CoreError, ErrorCode, createId, nowIso, toIsoTimestamp } from "@third-eye-cyborg/ascended-core";
-import type { EntityId } from "@third-eye-cyborg/ascended-core";
+import { CoreError, ErrorCode, createId, nowIso, toIsoTimestamp } from "@third-eye-cyborg/core";
+import type { EntityId } from "@third-eye-cyborg/core";
 import type { EventBus } from "./events";
 import { MediaAssetState, MediaKind } from "./assets";
 import type { MediaAsset } from "./assets";

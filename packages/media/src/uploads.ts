@@ -3,7 +3,7 @@
  * bytes; this package models the *bookkeeping* only — no multipart parsing.
  */
 
-import type { EntityId, IsoTimestamp } from "@third-eye-cyborg/ascended-core";
+import type { EntityId, IsoTimestamp } from "@third-eye-cyborg/core";
 
 /** How a client is expected to transfer bytes. */
 export type UploadMethod = "direct" | "proxy";

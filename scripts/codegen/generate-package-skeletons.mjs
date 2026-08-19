@@ -94,7 +94,7 @@ const scripts = {
 function pkgJson(name, cfg, isExample) {
   const dir = isExample ? "examples" : "packages";
   const pkg = {
-    name: isExample ? `@third-eye-cyborg/ascended-example-${name}` : `@third-eye-cyborg/ascended-${name}`,
+    name: isExample ? `@third-eye-cyborg/example-${name}` : `@third-eye-cyborg/${name}`,
     version: "0.1.0",
     description: cfg.desc,
     type: "module",
@@ -112,7 +112,7 @@ function pkgJson(name, cfg, isExample) {
       : scripts,
     dependencies: Object.fromEntries([
       ...cfg.deps.map((d) => [
-        isExample ? (Object.keys(EXAMPLES).includes(d) ? `@third-eye-cyborg/ascended-example-${d}` : `@third-eye-cyborg/ascended-${d}`) : `@third-eye-cyborg/ascended-${d}`,
+        isExample ? (Object.keys(EXAMPLES).includes(d) ? `@third-eye-cyborg/example-${d}` : `@third-eye-cyborg/${d}`) : `@third-eye-cyborg/${d}`,
         "workspace:*",
       ]),
       ...(cfg.external ?? []).map((e) => [e, "catalog:"]),
@@ -144,7 +144,7 @@ function tsconfig(name, cfg, isExample) {
   const dir = isExample ? "examples" : "packages";
   const paths = Object.fromEntries(
     cfg.deps.map((d) => {
-      const pkgName = Object.keys(EXAMPLES).includes(d) ? `@third-eye-cyborg/ascended-example-${d}` : `@third-eye-cyborg/ascended-${d}`;
+      const pkgName = Object.keys(EXAMPLES).includes(d) ? `@third-eye-cyborg/example-${d}` : `@third-eye-cyborg/${d}`;
       const pkgDir = Object.keys(PACKAGES).includes(d) ? join("..", d) : join("..", "..", "packages", d);
       return [pkgName, [join(pkgDir, "src", "index.ts")]];
     }),
@@ -166,7 +166,7 @@ function vitestConfig(name, cfg, isExample) {
   const dir = isExample ? "examples" : "packages";
   const aliases = cfg.deps
     .map((d) => {
-      const pkgName = Object.keys(EXAMPLES).includes(d) ? `@third-eye-cyborg/ascended-example-${d}` : `@third-eye-cyborg/ascended-${d}`;
+      const pkgName = Object.keys(EXAMPLES).includes(d) ? `@third-eye-cyborg/example-${d}` : `@third-eye-cyborg/${d}`;
       const pkgDir = Object.keys(PACKAGES).includes(d) ? join("..", d) : join("..", "..", "packages", d);
       return `      ${JSON.stringify(pkgName)}: fileURLToPath(new URL(${JSON.stringify(join(pkgDir, "src", "index.ts"))}, import.meta.url)),`;
     })

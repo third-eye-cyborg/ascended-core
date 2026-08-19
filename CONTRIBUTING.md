@@ -22,7 +22,7 @@ Useful scripts:
 - `pnpm lint` — ESLint across sources and tests.
 - `pnpm test` — Vitest across every package.
 - `pnpm build` — tsup build for every publishable package.
-- `pnpm --filter @third-eye-cyborg/ascended-example-minimal-server smoke` — run the reference server smoke test.
+- `pnpm --filter @third-eye-cyborg/example-minimal-server smoke` — run the reference server smoke test.
 - `node scripts/checks/boundary-scan.mjs` — run the boundary scan locally.
 
 ## Package conventions

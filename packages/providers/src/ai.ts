@@ -5,7 +5,7 @@
  * generic names such as "example-text-provider" or "local-echo".
  */
 
-import type { Metadata } from "@third-eye-cyborg/ascended-core";
+import type { Metadata } from "@third-eye-cyborg/core";
 
 /** Abstract operations an AI provider may support. */
 export type AiOperation =

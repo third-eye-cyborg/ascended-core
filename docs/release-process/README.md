@@ -1,11 +1,23 @@
 # Release Process
 
 Ascended Core publishes small, independently useful packages under the
-`@third-eye-cyborg/ascended-*` scope. Releases are **tag-driven**, versioned with semver, and
+`@third-eye-cyborg/*` scope. Releases are **tag-driven**, versioned with semver, and
 consumed downstream via explicit versions (see
 [adoption model](../architecture/adoption-model.md)).
 
 All packages currently sit at **`0.1.0`** — the pre-1.0 (`0.x`) line.
+
+## npm namespace and publish access
+
+The canonical npm namespace is **`@third-eye-cyborg`** (including both
+hyphens). The former `@ascended` package names are not release targets.
+
+GitHub Actions publishes with the `NPM_TOKEN` repository secret. That credential
+must authenticate as the `thirdeyecyborg` npm maintainer and grant package-write
+access to `@third-eye-cyborg`, with automation/2FA bypass enabled. Before either
+a dry-run or tagged release, `pnpm check:npm-publish-access` verifies the npm
+identity and token metadata, then confirms every public package manifest uses
+the canonical scope and `publishConfig.access = "public"`.
 
 ## Semantic versioning policy
 
@@ -43,10 +55,14 @@ Every package maintains a changelog following
 Publishing is triggered by pushing a version **git tag**; CI does the release —
 maintainers never publish by hand from a laptop.
 
+A manual workflow dispatch performs the same validation and package publish
+command with `--dry-run`; it never uploads a package or creates a GitHub
+Release.
+
 1. Bump versions and update changelogs in a release PR.
 2. Merge to the default branch.
 3. Push an annotated tag for the release (for example `v0.2.0`).
-4. CI builds, tests, and publishes the affected `@third-eye-cyborg/ascended-*` packages to the
+4. CI builds, tests, and publishes the affected `@third-eye-cyborg/*` packages to the
    registry **with npm provenance** enabled, so each artifact is cryptographically
    linked to the source commit and CI workflow that produced it.
 

@@ -8,7 +8,7 @@ import {
   parseIsoTimestamp,
   type IsoTimestamp,
   type Metadata,
-} from "@third-eye-cyborg/ascended-core";
+} from "@third-eye-cyborg/core";
 
 /** Terminal status of a span. */
 export type SpanStatus = "ok" | "error";

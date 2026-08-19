@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { createId, nowIso, type EntityId, type IsoTimestamp } from "@third-eye-cyborg/ascended-core";
+import { createId, nowIso, type EntityId, type IsoTimestamp } from "@third-eye-cyborg/core";
 import {
   domainEventSchema,
   envelopeMetaSchema,

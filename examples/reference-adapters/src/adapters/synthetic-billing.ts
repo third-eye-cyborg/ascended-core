@@ -6,14 +6,14 @@
  * a synthetic webhook grants the entitlement a checkout was opened for.
  */
 
-import { createId, type EntityId } from "@third-eye-cyborg/ascended-core";
+import { createId, type EntityId } from "@third-eye-cyborg/core";
 import type {
   BillingPort,
   BillingWebhookEvent,
   CheckoutSession,
   CreateCheckoutSessionInput,
   Entitlement,
-} from "@third-eye-cyborg/ascended-providers";
+} from "@third-eye-cyborg/providers";
 
 /** Synthetic checkout base URL (reserved documentation domain). */
 export const SYNTHETIC_CHECKOUT_BASE_URL = "https://checkout.example.org";
