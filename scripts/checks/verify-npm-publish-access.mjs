@@ -55,15 +55,13 @@ function isConfiguredToken(tokenRecord) {
   if (tokenRecord.token === configuredToken) return true;
   if (typeof tokenRecord.token !== "string") return false;
 
-  const maskParts = tokenRecord.token.split("...");
-  if (maskParts.length !== 2) return false;
-
-  const [prefix, suffix] = maskParts;
+  // npm token list returns only a display prefix for real tokens. Some npm
+  // versions append an ellipsis, while others emit the prefix alone.
+  const [prefix, suffix] = tokenRecord.token.split(/(?:\.\.\.|…)/);
   return (
     prefix.length > 0 &&
-    suffix.length > 0 &&
     configuredToken.startsWith(prefix) &&
-    configuredToken.endsWith(suffix)
+    (!suffix || configuredToken.endsWith(suffix))
   );
 }
 
