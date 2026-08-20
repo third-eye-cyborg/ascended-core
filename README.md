@@ -2,7 +2,7 @@
 
 <!-- Badge placeholders — wire these up once CI and npm publishing are live. -->
 [![CI](https://img.shields.io/badge/CI-pending-lightgrey.svg)](./.github/workflows/ci.yml)
-[![npm](https://img.shields.io/badge/npm-%40third--eye--cyborg%2Fascended--core-lightgrey.svg)](https://www.npmjs.com/package/@third-eye-cyborg/ascended-core)
+[![npm](https://img.shields.io/badge/npm-%40third--eye--cyborg%2Fascended--core-lightgrey.svg)](https://www.npmjs.com/package/@third-eye-cyborg/core)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](./LICENSE)
 [![Node](https://img.shields.io/badge/node-%3E%3D20-brightgreen.svg)](./package.json)
 
@@ -19,47 +19,47 @@ downstream product) live in metadata extension points, not in Core.
 
 ## Features
 
-- **Domain contracts** (`@third-eye-cyborg/ascended-contracts`) — platform-neutral types and
+- **Domain contracts** (`@third-eye-cyborg/contracts`) — platform-neutral types and
   guards for identity, content, communities, conversations, events, and
   moderation surfaces.
-- **Privacy modes** (`@third-eye-cyborg/ascended-privacy`) — cloud / private-local / human-only
+- **Privacy modes** (`@third-eye-cyborg/privacy`) — cloud / private-local / human-only
   modes, declarative policy enforcement, data minimization, and
   redaction-safe telemetry.
-- **AI routing** (`@third-eye-cyborg/ascended-ai-router`) — a provider registry with capability
+- **AI routing** (`@third-eye-cyborg/ai-router`) — a provider registry with capability
   routing, privacy-aware fallbacks, and routing telemetry for text, image, 3D,
   and recommendation workloads.
-- **Events** (`@third-eye-cyborg/ascended-events`) — typed, versioned domain events with an
+- **Events** (`@third-eye-cyborg/events`) — typed, versioned domain events with an
   event-bus contract, idempotency, retry/dead-letter interfaces, and an
   in-memory test harness.
-- **Provider ports** (`@third-eye-cyborg/ascended-providers`) — vendor-neutral port interfaces
+- **Provider ports** (`@third-eye-cyborg/providers`) — vendor-neutral port interfaces
   (auth, authorization, object storage, email, push) plus generic in-memory
   adapters for tests and examples.
-- **Realtime, media, notifications** (`@third-eye-cyborg/ascended-realtime`, `@third-eye-cyborg/ascended-media`,
-  `@third-eye-cyborg/ascended-notifications`) — contracts and adapters for presence/rooms,
+- **Realtime, media, notifications** (`@third-eye-cyborg/realtime`, `@third-eye-cyborg/media`,
+  `@third-eye-cyborg/notifications`) — contracts and adapters for presence/rooms,
   media pipelines, and multi-channel notification delivery.
-- **Observability** (`@third-eye-cyborg/ascended-observability`) — logging, metrics, and tracing
+- **Observability** (`@third-eye-cyborg/observability`) — logging, metrics, and tracing
   contracts designed to stay redaction-safe.
-- **Persistence** (`@third-eye-cyborg/ascended-persistence`) — repository port interfaces with
+- **Persistence** (`@third-eye-cyborg/persistence`) — repository port interfaces with
   in-memory reference implementations.
-- **Reference API + SDK** (`@third-eye-cyborg/ascended-api-contracts`, `@third-eye-cyborg/ascended-sdk`) — schema
+- **Reference API + SDK** (`@third-eye-cyborg/api-contracts`, `@third-eye-cyborg/sdk`) — schema
   contracts for the reference HTTP API and a typed client SDK.
 
 ## Install
 
 ```sh
-pnpm add @third-eye-cyborg/ascended-core
+pnpm add @third-eye-cyborg/core
 ```
 
 Add any additional packages you need, for example:
 
 ```sh
-pnpm add @third-eye-cyborg/ascended-contracts @third-eye-cyborg/ascended-privacy @third-eye-cyborg/ascended-events
+pnpm add @third-eye-cyborg/contracts @third-eye-cyborg/privacy @third-eye-cyborg/events
 ```
 
 ## Quickstart
 
 ```ts
-import { createId, ok, err, isEntityId } from "@third-eye-cyborg/ascended-core";
+import { createId, ok, err, isEntityId } from "@third-eye-cyborg/core";
 
 // Opaque, prefixed, vendor-neutral entity ids.
 const accountId = createId("acct");
@@ -81,7 +81,7 @@ if (result.ok) {
 }
 ```
 
-> `ok`/`err` shapes follow the exports of `@third-eye-cyborg/ascended-core`. Read
+> `ok`/`err` shapes follow the exports of `@third-eye-cyborg/core`. Read
 > `packages/core/src/index.ts` for the authoritative surface.
 
 ## Run the reference server
@@ -90,7 +90,7 @@ A runnable reference server demonstrates profiles, posts, communities, events,
 and notifications on local in-memory adapters:
 
 ```sh
-pnpm --filter @third-eye-cyborg/ascended-example-minimal-server smoke
+pnpm --filter @third-eye-cyborg/example-minimal-server smoke
 ```
 
 ## Repo layout

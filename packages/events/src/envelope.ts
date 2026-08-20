@@ -4,7 +4,7 @@
  */
 
 import { z } from "zod";
-import type { EntityId, IsoTimestamp } from "@third-eye-cyborg/ascended-core";
+import type { EntityId, IsoTimestamp } from "@third-eye-cyborg/core";
 
 /**
  * A versioned, self-describing domain event.

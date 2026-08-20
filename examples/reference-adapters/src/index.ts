@@ -1,5 +1,5 @@
 /**
- * `@third-eye-cyborg/ascended-example-reference-adapters`
+ * `@third-eye-cyborg/example-reference-adapters`
  *
  * Synthetic adapter implementations wired end-to-end against Core's ports,
  * for demos and integration tests. Everything is offline and deterministic.

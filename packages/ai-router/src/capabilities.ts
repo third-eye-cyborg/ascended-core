@@ -6,9 +6,9 @@
  * capability. There are no vendor families here — only generic ones.
  */
 
-import { HealthState } from "@third-eye-cyborg/ascended-core";
-import type { IsoTimestamp } from "@third-eye-cyborg/ascended-core";
-import { Platform } from "@third-eye-cyborg/ascended-privacy";
+import { HealthState } from "@third-eye-cyborg/core";
+import type { IsoTimestamp } from "@third-eye-cyborg/core";
+import { Platform } from "@third-eye-cyborg/privacy";
 
 import type { CapabilityDescriptor, ProviderFamily } from "./providers";
 

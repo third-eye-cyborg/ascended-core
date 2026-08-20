@@ -3,7 +3,7 @@
  * invites.
  */
 
-import { isEntityId, type EntityId, type IsoTimestamp, type Metadata } from "@third-eye-cyborg/ascended-core";
+import { isEntityId, type EntityId, type IsoTimestamp, type Metadata } from "@third-eye-cyborg/core";
 import { hasTimestamps, isRecord } from "./internal/guards";
 
 /** A community groups people, channels, and roles together. */

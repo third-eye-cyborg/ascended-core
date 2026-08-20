@@ -12,7 +12,7 @@ import {
   type HealthCheckable,
   type HealthReport,
   type Metadata,
-} from "@third-eye-cyborg/ascended-core";
+} from "@third-eye-cyborg/core";
 
 /** The subject attempting an action. */
 export interface PolicyActor {

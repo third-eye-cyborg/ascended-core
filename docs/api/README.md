@@ -2,14 +2,14 @@
 
 Ascended Core ships two transport-facing packages:
 
-- **`@third-eye-cyborg/ascended-api-contracts`** — vendor-neutral request/response contracts and
+- **`@third-eye-cyborg/api-contracts`** — vendor-neutral request/response contracts and
   the API specification that clients target. It layers on top of
-  `@third-eye-cyborg/ascended-contracts` (domain types) and `@third-eye-cyborg/ascended-core` (ids, `Result`,
+  `@third-eye-cyborg/contracts` (domain types) and `@third-eye-cyborg/core` (ids, `Result`,
   `CoreError`).
-- **`@third-eye-cyborg/ascended-sdk`** — a thin, typed client derived from `api-contracts` for
+- **`@third-eye-cyborg/sdk`** — a thin, typed client derived from `api-contracts` for
   consuming the API from applications and examples.
 
-> **Status:** `@third-eye-cyborg/ascended-api-contracts` and `@third-eye-cyborg/ascended-sdk` are being brought up
+> **Status:** `@third-eye-cyborg/api-contracts` and `@third-eye-cyborg/sdk` are being brought up
 > alongside the core packages. This document describes the **planned reference
 > surface** they expose; where a formal OpenAPI/spec artifact exists in
 > `packages/api-contracts`, it is the source of truth and supersedes the summary
@@ -33,8 +33,8 @@ carries the optional `metadata` extension point.
 | Realtime | join room, session lifecycle | `RoomDescriptor`, `CallSession` |
 | Avatar | create avatar, poll generation | `AvatarProfile`, `AvatarGeneration` |
 | Search | search, recommendations | `SearchQuery`, `SearchResultSet`, `RecommendationResponse` |
-| Media | begin upload, transform | (`@third-eye-cyborg/ascended-media` contracts) |
-| Notifications | preferences, inbox | (`@third-eye-cyborg/ascended-notifications` contracts) |
+| Media | begin upload, transform | (`@third-eye-cyborg/media` contracts) |
+| Notifications | preferences, inbox | (`@third-eye-cyborg/notifications` contracts) |
 
 ### Cross-cutting conventions
 
@@ -59,7 +59,7 @@ neutral domain shapes and surfaces failures as `CoreError`.
 ```ts
 // Illustrative usage — see packages/sdk and examples/openapi-client for the
 // exact, generated client surface.
-import { createClient } from "@third-eye-cyborg/ascended-sdk";
+import { createClient } from "@third-eye-cyborg/sdk";
 
 const client = createClient({
   baseUrl: "https://api.example.org",

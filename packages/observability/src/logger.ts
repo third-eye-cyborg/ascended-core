@@ -5,7 +5,7 @@
  * stripped before a record is emitted so logs stay redaction-safe by default.
  */
 
-import { nowIso, type IsoTimestamp } from "@third-eye-cyborg/ascended-core";
+import { nowIso, type IsoTimestamp } from "@third-eye-cyborg/core";
 
 /** Severity levels, ordered least to most severe. */
 export type LogLevel = "debug" | "info" | "warn" | "error";

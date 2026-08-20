@@ -1,5 +1,5 @@
 /**
- * @third-eye-cyborg/ascended-events
+ * @third-eye-cyborg/events
  *
  * Typed, versioned domain events with an event-bus contract, idempotency,
  * retry/dead-letter interfaces, and a deterministic in-memory test harness.

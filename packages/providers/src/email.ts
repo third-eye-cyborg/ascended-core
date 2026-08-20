@@ -12,7 +12,7 @@ import {
   type IsoTimestamp,
   type HealthCheckable,
   type HealthReport,
-} from "@third-eye-cyborg/ascended-core";
+} from "@third-eye-cyborg/core";
 
 /** An outbound email message. Bodies must never be logged verbatim. */
 export interface EmailMessage {

@@ -10,7 +10,7 @@
 #   available — offered by this Core version but not yet integrated.
 
 engine:
-  package: "@third-eye-cyborg/ascended-core"
+  package: "@third-eye-cyborg/core"
   version: "0.1.0"
 
 features:

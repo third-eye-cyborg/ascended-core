@@ -1,14 +1,14 @@
 # Privacy Model
 
-`@third-eye-cyborg/ascended-privacy` makes privacy a **first-class routing concern**. Before any
+`@third-eye-cyborg/privacy` makes privacy a **first-class routing concern**. Before any
 provider call is dispatched (especially AI calls routed by
-`@third-eye-cyborg/ascended-ai-router`), a `PrivacyPolicyEnforcer` decides whether it is allowed
+`@third-eye-cyborg/ai-router`), a `PrivacyPolicyEnforcer` decides whether it is allowed
 under the user's active **privacy mode**. Enforcement is declarative,
 family-based, and vendor-free — decisions never depend on a vendor's name.
 
 ## The three privacy modes
 
-`PrivacyMode` (from `@third-eye-cyborg/ascended-privacy`):
+`PrivacyMode` (from `@third-eye-cyborg/privacy`):
 
 | Mode | Value | Meaning |
 | --- | --- | --- |
@@ -36,7 +36,7 @@ import {
   defaultPolicyForMode,
   createEnforcer,
   createRequestContext,
-} from "@third-eye-cyborg/ascended-privacy";
+} from "@third-eye-cyborg/privacy";
 
 const policy = defaultPolicyForMode(PrivacyMode.PRIVATE_LOCAL);
 const enforcer = createEnforcer(policy);
@@ -89,7 +89,7 @@ with `code = PRIVACY_BLOCKED`, `statusCode = 403`). It carries:
 - A redaction-safe **`blockedCall`** telemetry payload (see below).
 
 ```ts
-import { PrivacyBlockedError } from "@third-eye-cyborg/ascended-privacy";
+import { PrivacyBlockedError } from "@third-eye-cyborg/privacy";
 
 try {
   enforcer.validateProviderCall("x", "cloud-image", context);

@@ -9,9 +9,9 @@
  * 5. falls through to the next provider on failure.
  */
 
-import { CoreError, ErrorCode } from "@third-eye-cyborg/ascended-core";
-import { PrivacyBlockedError } from "@third-eye-cyborg/ascended-privacy";
-import type { PrivacyPolicyEnforcer, RequestContext } from "@third-eye-cyborg/ascended-privacy";
+import { CoreError, ErrorCode } from "@third-eye-cyborg/core";
+import { PrivacyBlockedError } from "@third-eye-cyborg/privacy";
+import type { PrivacyPolicyEnforcer, RequestContext } from "@third-eye-cyborg/privacy";
 
 import type { CapabilityDescriptor } from "./providers";
 import type {

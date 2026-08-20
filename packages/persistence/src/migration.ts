@@ -6,7 +6,7 @@
  * private implementations can plug in.
  */
 
-import type { IsoTimestamp } from "@third-eye-cyborg/ascended-core";
+import type { IsoTimestamp } from "@third-eye-cyborg/core";
 
 /** A record describing a single migration that has been applied. */
 export interface MigrationRecord {

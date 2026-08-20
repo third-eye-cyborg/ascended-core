@@ -8,7 +8,7 @@
  * reproducible.
  */
 
-import { nowIso } from "@third-eye-cyborg/ascended-core";
+import { nowIso } from "@third-eye-cyborg/core";
 import type { EventBus, EventHandler, SubscriptionOptions, Unsubscribe } from "./bus";
 import {
   DEFAULT_DELIVERY_POLICY,

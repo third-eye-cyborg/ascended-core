@@ -4,7 +4,7 @@ import { defineConfig } from "vitest/config";
 export default defineConfig({
   resolve: {
     alias: {
-      "@third-eye-cyborg/ascended-core": fileURLToPath(new URL("../../packages/core/src/index.ts", import.meta.url)),
+      "@third-eye-cyborg/core": fileURLToPath(new URL("../../packages/core/src/index.ts", import.meta.url)),
     },
   },
 });

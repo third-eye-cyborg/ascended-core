@@ -1,5 +1,5 @@
 /**
- * @third-eye-cyborg/ascended-observability
+ * @third-eye-cyborg/observability
  *
  * Request-scoped context, redaction-safe structured logging, metrics, tracing,
  * and health aggregation with in-memory collectors for tests and examples.

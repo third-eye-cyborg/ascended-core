@@ -4,7 +4,7 @@ import {
   nowIso,
   type HealthCheckable,
   type HealthReport,
-} from "@third-eye-cyborg/ascended-core";
+} from "@third-eye-cyborg/core";
 import {
   HealthAggregator,
   ProviderHealthTracker,

@@ -4,7 +4,7 @@
  * without a clean leave.
  */
 
-import type { EntityId, IsoTimestamp, Metadata } from "@third-eye-cyborg/ascended-core";
+import type { EntityId, IsoTimestamp, Metadata } from "@third-eye-cyborg/core";
 
 /** Coarse presence status. Product-specific states go in {@link Metadata}. */
 export enum PresenceStatus {

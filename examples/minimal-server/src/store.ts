@@ -6,7 +6,7 @@
  * adapters so the server can demonstrate the full domain surface offline.
  */
 
-import { createId, type EntityId } from "@third-eye-cyborg/ascended-core";
+import { createId, type EntityId } from "@third-eye-cyborg/core";
 import type {
   Community,
   CommunityEvent,
@@ -15,26 +15,26 @@ import type {
   Post,
   Reaction,
   Rsvp,
-} from "@third-eye-cyborg/ascended-contracts";
-import { InMemoryEventBus } from "@third-eye-cyborg/ascended-events";
-import { InMemoryRepository } from "@third-eye-cyborg/ascended-persistence";
+} from "@third-eye-cyborg/contracts";
+import { InMemoryEventBus } from "@third-eye-cyborg/events";
+import { InMemoryRepository } from "@third-eye-cyborg/persistence";
 import {
   InMemoryAuthProvider,
   type AuthProvider,
-} from "@third-eye-cyborg/ascended-providers";
+} from "@third-eye-cyborg/providers";
 import {
   InMemoryInAppInbox,
   InMemoryPreferences,
   NotificationService,
   RecordingEmailSender,
   RecordingPushSender,
-} from "@third-eye-cyborg/ascended-notifications";
+} from "@third-eye-cyborg/notifications";
 import {
   InMemoryLogger,
   InMemoryMetrics,
   type Logger,
   type MetricsPort,
-} from "@third-eye-cyborg/ascended-observability";
+} from "@third-eye-cyborg/observability";
 
 /** All repositories and adapters the request handlers operate against. */
 export interface Platform {

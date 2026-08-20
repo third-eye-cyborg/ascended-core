@@ -7,7 +7,7 @@
  * `VALIDATION` code so callers never receive silently malformed data.
  */
 
-import { ErrorCode } from "@third-eye-cyborg/ascended-core";
+import { ErrorCode } from "@third-eye-cyborg/core";
 import {
   CommunityPageSchema,
   CommunitySchema,
@@ -21,7 +21,7 @@ import {
   ProfileSchema,
   ReactionSchema,
   RsvpSchema,
-} from "@third-eye-cyborg/ascended-api-contracts";
+} from "@third-eye-cyborg/api-contracts";
 import type {
   Community,
   CommunityCreate,
@@ -40,7 +40,7 @@ import type {
   ReactionCreate,
   Rsvp,
   RsvpCreate,
-} from "@third-eye-cyborg/ascended-api-contracts";
+} from "@third-eye-cyborg/api-contracts";
 import type { z } from "zod";
 
 import { ApiError } from "./errors.js";

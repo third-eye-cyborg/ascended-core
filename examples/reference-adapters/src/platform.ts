@@ -14,25 +14,25 @@ import {
   nowIso,
   type EntityId,
   type Metadata,
-} from "@third-eye-cyborg/ascended-core";
-import type { Post } from "@third-eye-cyborg/ascended-contracts";
-import { EVENT_TYPES, InMemoryEventBus } from "@third-eye-cyborg/ascended-events";
-import { InMemoryRepository } from "@third-eye-cyborg/ascended-persistence";
-import { InMemoryAuditLog, InMemorySearchIndex } from "@third-eye-cyborg/ascended-providers";
-import { LocalPubSub } from "@third-eye-cyborg/ascended-realtime";
+} from "@third-eye-cyborg/core";
+import type { Post } from "@third-eye-cyborg/contracts";
+import { EVENT_TYPES, InMemoryEventBus } from "@third-eye-cyborg/events";
+import { InMemoryRepository } from "@third-eye-cyborg/persistence";
+import { InMemoryAuditLog, InMemorySearchIndex } from "@third-eye-cyborg/providers";
+import { LocalPubSub } from "@third-eye-cyborg/realtime";
 import {
   InMemoryInAppInbox,
   InMemoryPreferences,
   NotificationService,
   RecordingEmailSender,
   RecordingPushSender,
-} from "@third-eye-cyborg/ascended-notifications";
+} from "@third-eye-cyborg/notifications";
 import {
   HealthAggregator,
   InMemoryLogger,
   InMemoryMetrics,
   ProviderHealthTracker,
-} from "@third-eye-cyborg/ascended-observability";
+} from "@third-eye-cyborg/observability";
 
 import { SyntheticBillingAdapter } from "./adapters/synthetic-billing.js";
 import { SyntheticTextGenerator } from "./adapters/synthetic-text-generation.js";
