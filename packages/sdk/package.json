@@ -1,6 +1,6 @@
 {
   "name": "@third-eye-cyborg/sdk",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Hand-curated TypeScript client SDK for the Ascended Core reference API.",
   "type": "module",
   "scripts": {

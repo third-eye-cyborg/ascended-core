@@ -5,6 +5,19 @@ All notable changes to Ascended Core are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.1] - 2026-08-20
+
+### Fixed
+
+- Hardened the npm publish credential preflight to accept valid shortened
+  token metadata returned by current npm CLI versions while rejecting ambiguous
+  or generic display prefixes.
+
+### Changed
+
+- Added automated coverage for exact, masked, shortened, malformed, and
+  ambiguous npm token metadata before release publication.
+
 ## [0.1.0] - 2026-08-14
 
 Initial public release of the Ascended Core monorepo.
@@ -35,4 +48,5 @@ Initial public release of the Ascended Core monorepo.
 - Reference examples: `example-minimal-server`, `openapi-client`, and
   `reference-adapters`.
 
+[0.1.1]: https://github.com/third-eye-cyborg/ascended-core/releases/tag/v0.1.1
 [0.1.0]: https://github.com/third-eye-cyborg/ascended-core/releases/tag/v0.1.0

@@ -1,6 +1,6 @@
 {
   "name": "@third-eye-cyborg/contracts",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Platform-neutral domain contracts: identity, content, community, conversation, events, avatars, search, and audit shapes.",
   "type": "module",
   "scripts": {

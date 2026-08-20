@@ -5,7 +5,7 @@ Ascended Core publishes small, independently useful packages under the
 consumed downstream via explicit versions (see
 [adoption model](../architecture/adoption-model.md)).
 
-All packages currently sit at **`0.1.0`** — the pre-1.0 (`0.x`) line.
+All packages currently sit at **`0.1.1`** — the pre-1.0 (`0.x`) line.
 
 ## npm namespace and publish access
 

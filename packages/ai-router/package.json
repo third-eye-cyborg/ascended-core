@@ -1,6 +1,6 @@
 {
   "name": "@third-eye-cyborg/ai-router",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Provider registry, capability routing, privacy-aware fallbacks, and routing telemetry for AI text/image/3D/recommendation workloads.",
   "type": "module",
   "scripts": {

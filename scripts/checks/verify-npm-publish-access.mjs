@@ -6,12 +6,14 @@
 
 import { execFileSync } from "node:child_process";
 import { readdirSync, readFileSync } from "node:fs";
-import { join } from "node:path";
+import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const EXPECTED_NPM_USER = "thirdeyecyborg";
 const EXPECTED_SCOPE = "@third-eye-cyborg";
 const NPM_REGISTRY = "https://registry.npmjs.org/";
+const NPM_TOKEN_PREFIX = "npm_";
+const MINIMUM_DISPLAY_TOKEN_SUFFIX_LENGTH = 2;
 const rootDir = fileURLToPath(new URL("../..", import.meta.url));
 const packagesDir = join(rootDir, "packages");
 
@@ -32,90 +34,111 @@ function runNpm(args) {
   }
 }
 
-const configuredToken =
-  process.env.NODE_AUTH_TOKEN || process.env.NPM_TOKEN;
-if (!configuredToken) {
-  fail("NODE_AUTH_TOKEN is not configured");
-}
-
-const npmUser = runNpm(["whoami"]);
-if (npmUser !== EXPECTED_NPM_USER) {
-  fail(`expected npm user ${EXPECTED_NPM_USER}, received ${npmUser || "none"}`);
-}
-
-let tokens;
-try {
-  const metadata = JSON.parse(runNpm(["token", "list", "--json"]));
-  tokens = Array.isArray(metadata) ? metadata : Object.values(metadata);
-} catch {
-  fail("npm returned unreadable token metadata");
-}
-
-function isConfiguredToken(tokenRecord) {
+export function isConfiguredToken(tokenRecord, configuredToken) {
+  if (!configuredToken || !tokenRecord) return false;
   if (tokenRecord.token === configuredToken) return true;
   if (typeof tokenRecord.token !== "string") return false;
 
-  // npm token list returns only a display prefix for real tokens. Some npm
-  // versions append an ellipsis, while others emit the prefix alone.
-  const [prefix, suffix] = tokenRecord.token.split(/(?:\.\.\.|…)/);
+  const maskParts = tokenRecord.token.split("...");
+  if (maskParts.length === 2) {
+    const [prefix, suffix] = maskParts;
+    return (
+      prefix.length > 0 &&
+      suffix.length > 0 &&
+      configuredToken.startsWith(prefix) &&
+      configuredToken.endsWith(suffix)
+    );
+  }
+
+  // Some npm CLI versions return a display prefix without the usual
+  // `prefix...suffix` mask. Require the npm token namespace plus a
+  // non-generic display suffix; ambiguity is rejected by the caller.
   return (
-    prefix.length > 0 &&
-    configuredToken.startsWith(prefix) &&
-    (!suffix || configuredToken.endsWith(suffix))
+    tokenRecord.token.startsWith(NPM_TOKEN_PREFIX) &&
+    tokenRecord.token.length >= NPM_TOKEN_PREFIX.length + MINIMUM_DISPLAY_TOKEN_SUFFIX_LENGTH &&
+    configuredToken.startsWith(tokenRecord.token)
   );
 }
 
-const token = tokens.find(isConfiguredToken);
-if (!token) {
-  fail("npm did not return metadata for the configured release credential");
+export function matchingConfiguredTokens(tokens, configuredToken) {
+  return tokens.filter((record) => isConfiguredToken(record, configuredToken));
 }
 
-const now = Date.now();
-const active =
-  !token.revoked &&
-  (!token.expiry || Date.parse(token.expiry) > now);
-const packageWrite = token.permissions?.some(
-    (permission) =>
-      permission.name === "package" && permission.action === "write",
-  );
-const canonicalScope = token.scopes?.some(
-    (scope) =>
-      scope.name === EXPECTED_SCOPE && scope.type === "package",
-  );
-
-if (
-  !active ||
-  token.bypass_2fa !== true ||
-  !packageWrite ||
-  !canonicalScope
-) {
-  fail(
-    `the npm credential lacks active package-write access to ${EXPECTED_SCOPE} with automation/2FA bypass`,
-  );
+export function uniquelyConfiguredToken(tokens, configuredToken) {
+  const matches = matchingConfiguredTokens(tokens, configuredToken);
+  return matches.length === 1 ? matches[0] : null;
 }
 
-const publicPackages = [];
-for (const entry of readdirSync(packagesDir, { withFileTypes: true })) {
-  if (!entry.isDirectory()) continue;
-
-  const manifestPath = join(packagesDir, entry.name, "package.json");
-  const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
-  if (manifest.private) continue;
-
-  if (!manifest.name?.startsWith(`${EXPECTED_SCOPE}/`)) {
-    fail(`${manifestPath} is outside the ${EXPECTED_SCOPE} scope`);
-  }
-  if (manifest.publishConfig?.access !== "public") {
-    fail(`${manifest.name} must set publishConfig.access to public`);
+function main() {
+  const configuredToken = process.env.NODE_AUTH_TOKEN || process.env.NPM_TOKEN;
+  if (!configuredToken) {
+    fail("NODE_AUTH_TOKEN is not configured");
   }
 
-  publicPackages.push(manifest.name);
+  const npmUser = runNpm(["whoami"]);
+  if (npmUser !== EXPECTED_NPM_USER) {
+    fail(`expected npm user ${EXPECTED_NPM_USER}, received ${npmUser || "none"}`);
+  }
+
+  let tokens;
+  try {
+    const metadata = JSON.parse(runNpm(["token", "list", "--json"]));
+    tokens = Array.isArray(metadata) ? metadata : Object.values(metadata);
+  } catch {
+    fail("npm returned unreadable token metadata");
+  }
+
+  const matchingTokens = matchingConfiguredTokens(tokens, configuredToken);
+  if (matchingTokens.length === 0) {
+    fail("npm did not return metadata for the configured release credential");
+  }
+  if (matchingTokens.length > 1) {
+    fail("npm returned ambiguous metadata for the configured release credential");
+  }
+  const token = uniquelyConfiguredToken(tokens, configuredToken);
+
+  const now = Date.now();
+  const active = !token.revoked && (!token.expiry || Date.parse(token.expiry) > now);
+  const packageWrite = token.permissions?.some(
+    (permission) => permission.name === "package" && permission.action === "write",
+  );
+  const canonicalScope = token.scopes?.some(
+    (scope) => scope.name === EXPECTED_SCOPE && scope.type === "package",
+  );
+
+  if (!active || token.bypass_2fa !== true || !packageWrite || !canonicalScope) {
+    fail(
+      `the npm credential lacks active package-write access to ${EXPECTED_SCOPE} with automation/2FA bypass`,
+    );
+  }
+
+  const publicPackages = [];
+  for (const entry of readdirSync(packagesDir, { withFileTypes: true })) {
+    if (!entry.isDirectory()) continue;
+
+    const manifestPath = join(packagesDir, entry.name, "package.json");
+    const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
+    if (manifest.private) continue;
+
+    if (!manifest.name?.startsWith(`${EXPECTED_SCOPE}/`)) {
+      fail(`${manifestPath} is outside the ${EXPECTED_SCOPE} scope`);
+    }
+    if (manifest.publishConfig?.access !== "public") {
+      fail(`${manifest.name} must set publishConfig.access to public`);
+    }
+
+    publicPackages.push(manifest.name);
+  }
+
+  if (publicPackages.length === 0) {
+    fail("no public packages were found");
+  }
+
+  console.log(
+    `npm publish preflight passed for ${publicPackages.length} public packages in ${EXPECTED_SCOPE}`,
+  );
 }
 
-if (publicPackages.length === 0) {
-  fail("no public packages were found");
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  main();
 }
-
-console.log(
-  `npm publish preflight passed for ${publicPackages.length} public packages in ${EXPECTED_SCOPE}`,
-);
