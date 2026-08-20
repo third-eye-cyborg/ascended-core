@@ -1,6 +1,6 @@
 {
   "name": "@third-eye-cyborg/privacy",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Privacy modes (cloud / private-local / human-only), policy enforcement hooks, data minimization, and redaction-safe telemetry helpers.",
   "type": "module",
   "scripts": {

@@ -1,6 +1,6 @@
 {
   "name": "@third-eye-cyborg/notifications",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Notification preferences, delivery attempts, and multi-channel (in-app/email/push) workflow contracts with local adapters.",
   "type": "module",
   "scripts": {

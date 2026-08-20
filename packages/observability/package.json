@@ -1,6 +1,6 @@
 {
   "name": "@third-eye-cyborg/observability",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Structured logging, tracing spans, metrics, health aggregation, and request-id context with in-memory collectors.",
   "type": "module",
   "scripts": {
