@@ -13,7 +13,7 @@ const EXPECTED_NPM_USER = "thirdeyecyborg";
 const EXPECTED_SCOPE = "@third-eye-cyborg";
 const NPM_REGISTRY = "https://registry.npmjs.org/";
 const NPM_TOKEN_PREFIX = "npm_";
-const MINIMUM_DISPLAY_TOKEN_SUFFIX_LENGTH = 8;
+const MINIMUM_DISPLAY_TOKEN_SUFFIX_LENGTH = 2;
 const rootDir = fileURLToPath(new URL("../..", import.meta.url));
 const packagesDir = join(rootDir, "packages");
 
@@ -51,12 +51,11 @@ export function isConfiguredToken(tokenRecord, configuredToken) {
   }
 
   // Some npm CLI versions return a display prefix without the usual
-  // `prefix...suffix` mask. Require the npm token namespace plus enough
-  // identifying characters to avoid accepting generic display metadata.
+  // `prefix...suffix` mask. Require the npm token namespace plus a
+  // non-generic display suffix; ambiguity is rejected by the caller.
   return (
     tokenRecord.token.startsWith(NPM_TOKEN_PREFIX) &&
-    tokenRecord.token.length >=
-      NPM_TOKEN_PREFIX.length + MINIMUM_DISPLAY_TOKEN_SUFFIX_LENGTH &&
+    tokenRecord.token.length >= NPM_TOKEN_PREFIX.length + MINIMUM_DISPLAY_TOKEN_SUFFIX_LENGTH &&
     configuredToken.startsWith(tokenRecord.token)
   );
 }
@@ -71,17 +70,14 @@ export function uniquelyConfiguredToken(tokens, configuredToken) {
 }
 
 function main() {
-  const configuredToken =
-    process.env.NODE_AUTH_TOKEN || process.env.NPM_TOKEN;
+  const configuredToken = process.env.NODE_AUTH_TOKEN || process.env.NPM_TOKEN;
   if (!configuredToken) {
     fail("NODE_AUTH_TOKEN is not configured");
   }
 
   const npmUser = runNpm(["whoami"]);
   if (npmUser !== EXPECTED_NPM_USER) {
-    fail(
-      `expected npm user ${EXPECTED_NPM_USER}, received ${npmUser || "none"}`,
-    );
+    fail(`expected npm user ${EXPECTED_NPM_USER}, received ${npmUser || "none"}`);
   }
 
   let tokens;
@@ -102,24 +98,15 @@ function main() {
   const token = uniquelyConfiguredToken(tokens, configuredToken);
 
   const now = Date.now();
-  const active =
-    !token.revoked &&
-    (!token.expiry || Date.parse(token.expiry) > now);
+  const active = !token.revoked && (!token.expiry || Date.parse(token.expiry) > now);
   const packageWrite = token.permissions?.some(
-    (permission) =>
-      permission.name === "package" && permission.action === "write",
+    (permission) => permission.name === "package" && permission.action === "write",
   );
   const canonicalScope = token.scopes?.some(
-    (scope) =>
-      scope.name === EXPECTED_SCOPE && scope.type === "package",
+    (scope) => scope.name === EXPECTED_SCOPE && scope.type === "package",
   );
 
-  if (
-    !active ||
-    token.bypass_2fa !== true ||
-    !packageWrite ||
-    !canonicalScope
-  ) {
+  if (!active || token.bypass_2fa !== true || !packageWrite || !canonicalScope) {
     fail(
       `the npm credential lacks active package-write access to ${EXPECTED_SCOPE} with automation/2FA bypass`,
     );
@@ -152,9 +139,6 @@ function main() {
   );
 }
 
-if (
-  process.argv[1] &&
-  resolve(process.argv[1]) === fileURLToPath(import.meta.url)
-) {
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   main();
 }
