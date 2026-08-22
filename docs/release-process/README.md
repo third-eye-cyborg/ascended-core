@@ -12,12 +12,16 @@ All packages currently sit at **`0.1.1`** — the pre-1.0 (`0.x`) line.
 The canonical npm namespace is **`@third-eye-cyborg`** (including both
 hyphens). The former `@ascended` package names are not release targets.
 
-GitHub Actions publishes with the `NPM_TOKEN` repository secret. That credential
-must authenticate as the `thirdeyecyborg` npm maintainer and grant package-write
-access to `@third-eye-cyborg`, with automation/2FA bypass enabled. Before either
-a dry-run or tagged release, `pnpm check:npm-publish-access` verifies the npm
-identity and token metadata, then confirms every public package manifest uses
-the canonical scope and `publishConfig.access = "public"`.
+GitHub Actions publishes through npm **trusted publishing**. Each public package
+has a GitHub Actions trusted publisher configured for the `third-eye-cyborg`
+organization, `ascended-core` repository, and `release.yml` workflow. No npm
+write token is used by GitHub.
+
+The workflow's `id-token: write` permission lets npm exchange GitHub's
+short-lived OIDC identity for a publish credential. Before either a dry-run or
+tagged release, `pnpm check:npm-publish-access` verifies the OIDC environment,
+the supported Node/npm versions, and that every public package manifest uses
+the canonical scope with `publishConfig.access = "public"`.
 
 ## Semantic versioning policy
 

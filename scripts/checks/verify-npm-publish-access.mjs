@@ -1,7 +1,9 @@
 /**
- * Verify that the release credential and every publishable package agree on
- * the canonical npm namespace. This script intentionally never logs raw token
- * metadata.
+ * Verify that a GitHub Actions release run can use npm trusted publishing and
+ * that every publishable package agrees on the canonical npm namespace.
+ *
+ * npm performs the OIDC exchange during `npm publish`, so this guard verifies
+ * the CI prerequisites without trying to enumerate or log any credentials.
  */
 
 import { execFileSync } from "node:child_process";
@@ -9,11 +11,9 @@ import { readdirSync, readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const EXPECTED_NPM_USER = "thirdeyecyborg";
 const EXPECTED_SCOPE = "@third-eye-cyborg";
-const NPM_REGISTRY = "https://registry.npmjs.org/";
-const NPM_TOKEN_PREFIX = "npm_";
-const MINIMUM_DISPLAY_TOKEN_SUFFIX_LENGTH = 2;
+const MINIMUM_NODE_VERSION = [22, 14, 0];
+const MINIMUM_NPM_VERSION = [11, 5, 1];
 const rootDir = fileURLToPath(new URL("../..", import.meta.url));
 const packagesDir = join(rootDir, "packages");
 
@@ -22,94 +22,54 @@ function fail(message) {
   process.exit(1);
 }
 
-function runNpm(args) {
-  try {
-    return execFileSync("npm", [...args, `--registry=${NPM_REGISTRY}`], {
-      cwd: rootDir,
-      encoding: "utf8",
-      stdio: ["ignore", "pipe", "pipe"],
-    }).trim();
-  } catch {
-    fail(`npm ${args[0]} could not verify the configured release credential`);
-  }
+export function parseVersion(version) {
+  const match = /^v?(\d+)\.(\d+)\.(\d+)/.exec(version ?? "");
+  return match ? match.slice(1).map(Number) : null;
 }
 
-export function isConfiguredToken(tokenRecord, configuredToken) {
-  if (!configuredToken || !tokenRecord) return false;
-  if (tokenRecord.token === configuredToken) return true;
-  if (typeof tokenRecord.token !== "string") return false;
-
-  const maskParts = tokenRecord.token.split("...");
-  if (maskParts.length === 2) {
-    const [prefix, suffix] = maskParts;
-    return (
-      prefix.length > 0 &&
-      suffix.length > 0 &&
-      configuredToken.startsWith(prefix) &&
-      configuredToken.endsWith(suffix)
-    );
+export function isAtLeastVersion(actual, minimum) {
+  if (!actual) return false;
+  for (let index = 0; index < minimum.length; index += 1) {
+    const part = actual[index] ?? 0;
+    const minimumPart = minimum[index] ?? 0;
+    if (part > minimumPart) return true;
+    if (part < minimumPart) return false;
   }
+  return true;
+}
 
-  // Some npm CLI versions return a display prefix without the usual
-  // `prefix...suffix` mask. Require the npm token namespace plus a
-  // non-generic display suffix; ambiguity is rejected by the caller.
-  return (
-    tokenRecord.token.startsWith(NPM_TOKEN_PREFIX) &&
-    tokenRecord.token.length >= NPM_TOKEN_PREFIX.length + MINIMUM_DISPLAY_TOKEN_SUFFIX_LENGTH &&
-    configuredToken.startsWith(tokenRecord.token)
+export function hasGitHubActionsOidcEnvironment(environment) {
+  return Boolean(
+    environment.GITHUB_ACTIONS === "true" &&
+    environment.ACTIONS_ID_TOKEN_REQUEST_URL &&
+    environment.ACTIONS_ID_TOKEN_REQUEST_TOKEN,
   );
 }
 
-export function matchingConfiguredTokens(tokens, configuredToken) {
-  return tokens.filter((record) => isConfiguredToken(record, configuredToken));
-}
-
-export function uniquelyConfiguredToken(tokens, configuredToken) {
-  const matches = matchingConfiguredTokens(tokens, configuredToken);
-  return matches.length === 1 ? matches[0] : null;
+export function isPublicPackageManifest(manifest) {
+  return (
+    manifest.private !== true &&
+    typeof manifest.name === "string" &&
+    manifest.name.startsWith(`${EXPECTED_SCOPE}/`) &&
+    manifest.publishConfig?.access === "public"
+  );
 }
 
 function main() {
-  const configuredToken = process.env.NODE_AUTH_TOKEN || process.env.NPM_TOKEN;
-  if (!configuredToken) {
-    fail("NODE_AUTH_TOKEN is not configured");
+  if (process.env.NODE_AUTH_TOKEN || process.env.NPM_TOKEN) {
+    fail("npm tokens must not be configured; trusted publishing uses GitHub OIDC");
   }
-
-  const npmUser = runNpm(["whoami"]);
-  if (npmUser !== EXPECTED_NPM_USER) {
-    fail(`expected npm user ${EXPECTED_NPM_USER}, received ${npmUser || "none"}`);
+  if (!hasGitHubActionsOidcEnvironment(process.env)) {
+    fail("GitHub Actions OIDC is unavailable; require id-token: write");
   }
-
-  let tokens;
-  try {
-    const metadata = JSON.parse(runNpm(["token", "list", "--json"]));
-    tokens = Array.isArray(metadata) ? metadata : Object.values(metadata);
-  } catch {
-    fail("npm returned unreadable token metadata");
+  if (!isAtLeastVersion(parseVersion(process.versions.node), MINIMUM_NODE_VERSION)) {
+    fail(`Node ${MINIMUM_NODE_VERSION.join(".")} or newer is required for trusted publishing`);
   }
-
-  const matchingTokens = matchingConfiguredTokens(tokens, configuredToken);
-  if (matchingTokens.length === 0) {
-    fail("npm did not return metadata for the configured release credential");
-  }
-  if (matchingTokens.length > 1) {
-    fail("npm returned ambiguous metadata for the configured release credential");
-  }
-  const token = uniquelyConfiguredToken(tokens, configuredToken);
-
-  const now = Date.now();
-  const active = !token.revoked && (!token.expiry || Date.parse(token.expiry) > now);
-  const packageWrite = token.permissions?.some(
-    (permission) => permission.name === "package" && permission.action === "write",
-  );
-  const canonicalScope = token.scopes?.some(
-    (scope) => scope.name === EXPECTED_SCOPE && scope.type === "package",
-  );
-
-  if (!active || token.bypass_2fa !== true || !packageWrite || !canonicalScope) {
-    fail(
-      `the npm credential lacks active package-write access to ${EXPECTED_SCOPE} with automation/2FA bypass`,
-    );
+  const npmVersion = execFileSync("npm", ["--version"], {
+    encoding: "utf8",
+  }).trim();
+  if (!isAtLeastVersion(parseVersion(npmVersion), MINIMUM_NPM_VERSION)) {
+    fail(`npm ${MINIMUM_NPM_VERSION.join(".")} or newer is required for trusted publishing`);
   }
 
   const publicPackages = [];
@@ -119,7 +79,6 @@ function main() {
     const manifestPath = join(packagesDir, entry.name, "package.json");
     const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
     if (manifest.private) continue;
-
     if (!manifest.name?.startsWith(`${EXPECTED_SCOPE}/`)) {
       fail(`${manifestPath} is outside the ${EXPECTED_SCOPE} scope`);
     }
@@ -135,7 +94,7 @@ function main() {
   }
 
   console.log(
-    `npm publish preflight passed for ${publicPackages.length} public packages in ${EXPECTED_SCOPE}`,
+    `npm trusted-publishing preflight passed for ${publicPackages.length} public packages in ${EXPECTED_SCOPE}`,
   );
 }
 

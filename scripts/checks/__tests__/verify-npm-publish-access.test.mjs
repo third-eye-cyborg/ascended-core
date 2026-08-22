@@ -1,50 +1,62 @@
 import { describe, expect, it } from "vitest";
 
 import {
-  isConfiguredToken,
-  matchingConfiguredTokens,
-  uniquelyConfiguredToken,
+  hasGitHubActionsOidcEnvironment,
+  isAtLeastVersion,
+  isPublicPackageManifest,
+  parseVersion,
 } from "../verify-npm-publish-access.mjs";
 
-const configuredToken = "npm_releaseCredential123456";
-
-describe("isConfiguredToken", () => {
-  it("accepts the exact credential when npm returns it", () => {
-    expect(isConfiguredToken({ token: configuredToken }, configuredToken)).toBe(true);
+describe("trusted publishing preflight helpers", () => {
+  it("requires GitHub's complete OIDC environment", () => {
+    expect(
+      hasGitHubActionsOidcEnvironment({
+        GITHUB_ACTIONS: "true",
+        ACTIONS_ID_TOKEN_REQUEST_URL: "https://token.actions.githubusercontent.com",
+        ACTIONS_ID_TOKEN_REQUEST_TOKEN: "request-token",
+      }),
+    ).toBe(true);
+    expect(
+      hasGitHubActionsOidcEnvironment({
+        GITHUB_ACTIONS: "true",
+        ACTIONS_ID_TOKEN_REQUEST_URL: "https://token.actions.githubusercontent.com",
+      }),
+    ).toBe(false);
   });
 
-  it("accepts npm's prefix/suffix masked token metadata", () => {
-    expect(isConfiguredToken({ token: "npm_release...123456" }, configuredToken)).toBe(true);
+  it("parses and compares semantic runtime versions", () => {
+    expect(parseVersion("v22.14.0")).toEqual([22, 14, 0]);
+    expect(parseVersion("11.5.1")).toEqual([11, 5, 1]);
+    expect(parseVersion("22")).toBeNull();
+    expect(isAtLeastVersion([22, 14, 0], [22, 14, 0])).toBe(true);
+    expect(isAtLeastVersion([22, 15, 0], [22, 14, 0])).toBe(true);
+    expect(isAtLeastVersion([22, 13, 9], [22, 14, 0])).toBe(false);
   });
 
-  it("accepts npm CLI's prefix-only token metadata", () => {
-    expect(isConfiguredToken({ token: "npm_releaseCred" }, configuredToken)).toBe(true);
-  });
-
-  it("accepts npm CLI's short non-generic prefix metadata", () => {
-    const shortPrefixToken = "npm_1fReleaseCredential";
-    expect(isConfiguredToken({ token: "npm_1f" }, shortPrefixToken)).toBe(true);
-  });
-
-  it("rejects unrelated metadata, including npm's generic prefix", () => {
-    expect(isConfiguredToken({ token: "npm" }, configuredToken)).toBe(false);
-    expect(isConfiguredToken({ token: "npm_" }, configuredToken)).toBe(false);
-    expect(isConfiguredToken({ token: "npm_r" }, configuredToken)).toBe(false);
-    expect(isConfiguredToken({ token: "npm_otherCredential" }, configuredToken)).toBe(false);
-    expect(isConfiguredToken({ token: "npm_release...different" }, configuredToken)).toBe(false);
-  });
-
-  it("rejects malformed or missing token metadata", () => {
-    expect(isConfiguredToken({ token: "npm_release...123...456" }, configuredToken)).toBe(false);
-    expect(isConfiguredToken({ token: "" }, configuredToken)).toBe(false);
-    expect(isConfiguredToken({}, configuredToken)).toBe(false);
-    expect(isConfiguredToken({ token: "npm_release" }, "")).toBe(false);
-  });
-
-  it("leaves multiple matching shortened records ambiguous", () => {
-    const records = [{ token: "npm_releaseC" }, { token: "npm_releaseCred" }];
-
-    expect(matchingConfiguredTokens(records, configuredToken)).toHaveLength(2);
-    expect(uniquelyConfiguredToken(records, configuredToken)).toBeNull();
+  it("accepts only public manifests in the canonical npm scope", () => {
+    expect(
+      isPublicPackageManifest({
+        name: "@third-eye-cyborg/core",
+        publishConfig: { access: "public" },
+      }),
+    ).toBe(true);
+    expect(
+      isPublicPackageManifest({
+        name: "@third-eye-cyborg/core",
+        private: true,
+        publishConfig: { access: "public" },
+      }),
+    ).toBe(false);
+    expect(
+      isPublicPackageManifest({
+        name: "@other/core",
+        publishConfig: { access: "public" },
+      }),
+    ).toBe(false);
+    expect(
+      isPublicPackageManifest({
+        name: "@third-eye-cyborg/core",
+      }),
+    ).toBe(false);
   });
 });
