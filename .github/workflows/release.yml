@@ -30,7 +30,6 @@ jobs:
         with:
           node-version: 22
           cache: pnpm
-          registry-url: "https://registry.npmjs.org"
       - name: Setup npm for trusted publishing
         run: |
           npm install --global npm@11.5.1
@@ -144,7 +143,6 @@ jobs:
         with:
           node-version: 22
           cache: pnpm
-          registry-url: "https://registry.npmjs.org"
       - name: Setup npm for trusted publishing
         run: |
           npm install --global npm@11.5.1
