@@ -111,7 +111,11 @@ jobs:
         run: pnpm check:npm-publish-access
 
       - name: Publish (dry-run)
-        run: pnpm -r publish --access public --no-git-checks --dry-run
+        run: |
+          for package_dir in packages/*; do
+            if [ "$(node -p \"require('./${package_dir}/package.json').private === true\")" = "true" ]; then continue; fi
+            npm publish "${package_dir}" --access public --no-git-checks --dry-run
+          done
 
       - name: Upload compliance reports
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
@@ -221,7 +225,11 @@ jobs:
         run: pnpm check:npm-publish-access
 
       - name: Publish public packages to npm
-        run: pnpm -r publish --access public --provenance --no-git-checks
+        run: |
+          for package_dir in packages/*; do
+            if [ "$(node -p \"require('./${package_dir}/package.json').private === true\")" = "true" ]; then continue; fi
+            npm publish "${package_dir}" --access public --provenance --no-git-checks
+          done
 
       - name: Upload SBOM as release artifact
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
