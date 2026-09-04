@@ -2,6 +2,16 @@
   "name": "@third-eye-cyborg/core",
   "version": "0.1.1",
   "description": "Shared foundation types for Ascended Core: identity, errors, results, lifecycle, and health.",
+  "author": "Third Eye Cyborg LLC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/third-eye-cyborg/ascended-core.git",
+    "directory": "packages/core"
+  },
+  "homepage": "https://github.com/third-eye-cyborg/ascended-core#readme",
+  "bugs": {
+    "url": "https://github.com/third-eye-cyborg/ascended-core/issues"
+  },
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",

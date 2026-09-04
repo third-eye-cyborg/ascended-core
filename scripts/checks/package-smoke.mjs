@@ -2,27 +2,23 @@
  * Package smoke check: verifies that every publishable package's built
  * CommonJS and ESM entry points actually load (catches CJS-breaking syntax
  * such as un-shimmed import.meta in dist output) and that `npm pack` tarballs
- * include the LICENSE file.
+ * include release metadata and required legal notices.
  *
  * Run AFTER `pnpm -r build`. Usage: node scripts/checks/package-smoke.mjs
  */
 
-import { readdirSync, readFileSync, existsSync } from "node:fs";
-import { join } from "node:path";
 import { execFileSync } from "node:child_process";
+import { join } from "node:path";
 import { pathToFileURL } from "node:url";
+import { listPublishableWorkspaces } from "./workspace-packages.mjs";
 
 const root = new URL("../../", import.meta.url).pathname;
-const packagesDir = join(root, "packages");
 
 let failures = 0;
 
-for (const dir of readdirSync(packagesDir)) {
-  const pkgDir = join(packagesDir, dir);
-  const pkgPath = join(pkgDir, "package.json");
-  if (!existsSync(pkgPath)) continue;
-  const pkg = JSON.parse(readFileSync(pkgPath, "utf8"));
-  if (pkg.private || !pkg.name?.startsWith("@third-eye-cyborg/")) continue;
+for (const workspace of listPublishableWorkspaces(root)) {
+  const pkgDir = workspace.path;
+  const pkg = workspace.pkg;
 
   const cjs = join(pkgDir, "dist", "index.cjs");
   const esm = join(pkgDir, "dist", "index.js");
@@ -65,6 +61,15 @@ for (const dir of readdirSync(packagesDir)) {
       console.error(`FAIL ${pkg.name} tarball is missing LICENSE`);
     } else {
       console.log(`ok   ${pkg.name} tarball includes LICENSE`);
+    }
+    if (pkg.author !== "Third Eye Cyborg LLC" || !pkg.repository?.url || !pkg.homepage || !pkg.bugs?.url) {
+      failures += 1;
+      console.error(`FAIL ${pkg.name} tarball manifest is missing provenance metadata`);
+    }
+    const hasExternalRuntimeDependency = Object.keys(pkg.dependencies ?? {}).some((name) => !name.startsWith("@third-eye-cyborg/"));
+    if (hasExternalRuntimeDependency && !files.includes("THIRD_PARTY_NOTICES.md")) {
+      failures += 1;
+      console.error(`FAIL ${pkg.name} tarball is missing THIRD_PARTY_NOTICES.md`);
     }
   } catch (error) {
     failures += 1;

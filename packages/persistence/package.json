@@ -2,6 +2,16 @@
   "name": "@third-eye-cyborg/persistence",
   "version": "0.1.1",
   "description": "Repository, unit-of-work, and transaction interfaces with in-memory implementations. No production schema.",
+  "author": "Third Eye Cyborg LLC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/third-eye-cyborg/ascended-core.git",
+    "directory": "packages/persistence"
+  },
+  "homepage": "https://github.com/third-eye-cyborg/ascended-core#readme",
+  "bugs": {
+    "url": "https://github.com/third-eye-cyborg/ascended-core/issues"
+  },
   "type": "module",
   "scripts": {
     "build": "tsup",
