@@ -44,6 +44,10 @@ Useful scripts:
 - Keep PRs focused and include a clear summary and test plan.
 - Fill out the pull request template, including the boundary checklist.
 - Ensure CI is green: typecheck, lint, test, build, and the boundary scan must pass.
+- Maintainer automation publishes branches and opens pull requests through the
+  branded GitHub App described in
+  [Maintainer publishing](./docs/maintainer-publishing.md). The App does not
+  bypass protected `main`.
 
 ## Boundary rules for contributions
 
