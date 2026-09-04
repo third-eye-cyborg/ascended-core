@@ -10,7 +10,7 @@ import {
   AscendedCoreClient,
   collectAll,
   type AscendedCoreClientOptions,
-} from "@third-eye-cyborg/ascended-sdk";
+} from "@third-eye-cyborg/sdk";
 
 /** One line of the demo transcript. */
 export interface DemoStep {

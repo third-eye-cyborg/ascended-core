@@ -1,12 +1,11 @@
 {
-  "allowedProductionLicenses": [
-    "Apache-2.0",
-    "MIT"
-  ],
-  "approvedProductionDependencies": {
-    "zod": {
-      "license": "MIT",
-      "source": "https://github.com/colinhacks/zod"
+  "version": "1",
+  "description": "Approved external production dependencies for Ascended Core publishable packages. Any external (non-workspace) runtime dependency not listed here will be flagged by scripts/checks/third-party-compliance.mjs. To add a new entry, follow the process in CONTRIBUTING.md under 'Adding a new external production dependency'.",
+  "approvedPackages": [
+    {
+      "name": "zod",
+      "allowedLicenses": ["MIT"],
+      "repository": "https://github.com/colinhacks/zod"
     }
-  }
+  ]
 }

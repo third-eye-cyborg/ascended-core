@@ -5,7 +5,7 @@
  * this contract never names a specific generation provider.
  */
 
-import { isEntityId, type EntityId, type IsoTimestamp, type Metadata } from "@third-eye-cyborg/ascended-core";
+import { isEntityId, type EntityId, type IsoTimestamp, type Metadata } from "@third-eye-cyborg/core";
 import { hasTimestamps, isEnumMember, isRecord } from "./internal/guards";
 
 /** A character avatar profile owned by an account. */

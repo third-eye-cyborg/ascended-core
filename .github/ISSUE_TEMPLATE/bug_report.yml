@@ -1,5 +1,5 @@
 name: Bug report
-description: Report a defect in an @third-eye-cyborg/ascended-* package or a reference example.
+description: Report a defect in an @third-eye-cyborg/* package or a reference example.
 title: "bug: "
 labels: ["bug", "triage"]
 body:
@@ -13,7 +13,7 @@ body:
     attributes:
       label: Affected package
       description: Which package or example is affected?
-      placeholder: "@third-eye-cyborg/ascended-privacy"
+      placeholder: "@third-eye-cyborg/privacy"
     validations:
       required: true
   - type: input

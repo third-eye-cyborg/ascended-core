@@ -3,8 +3,8 @@
  * events through an injected {@link EventBus}.
  */
 
-import { CoreError, ErrorCode, createId, nowIso } from "@third-eye-cyborg/ascended-core";
-import type { EntityId, Metadata } from "@third-eye-cyborg/ascended-core";
+import { CoreError, ErrorCode, createId, nowIso } from "@third-eye-cyborg/core";
+import type { EntityId, Metadata } from "@third-eye-cyborg/core";
 import type { EventBus } from "../events";
 import type {
   CreateRoomOptions,

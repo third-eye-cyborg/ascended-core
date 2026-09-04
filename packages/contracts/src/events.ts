@@ -1,9 +1,9 @@
 /**
  * Events bounded context: scheduled community events, RSVPs, and live
- * sessions. (Distinct from the domain-event bus in `@third-eye-cyborg/ascended-events`.)
+ * sessions. (Distinct from the domain-event bus in `@third-eye-cyborg/events`.)
  */
 
-import { isEntityId, type EntityId, type IsoTimestamp, type Metadata } from "@third-eye-cyborg/ascended-core";
+import { isEntityId, type EntityId, type IsoTimestamp, type Metadata } from "@third-eye-cyborg/core";
 import { hasTimestamps, isEnumMember, isRecord } from "./internal/guards";
 
 /** Scheduling shape of a community event. */

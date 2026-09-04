@@ -1,7 +1,7 @@
 # Migration & Adoption
 
 This document defines the **Core Adoption Manifest** — how a downstream product
-tracks which `@third-eye-cyborg/ascended-*` packages it has adopted and at what maturity — plus
+tracks which `@third-eye-cyborg/*` packages it has adopted and at what maturity — plus
 the workflows that move changes between the public engine and the private
 product, and an explicit statement of what Core does **not** include.
 
@@ -20,19 +20,19 @@ in each dependency.
 manifestVersion: 1
 product: ascended-social            # the private product adopting Core
 packages:
-  "@third-eye-cyborg/ascended-core":
+  "@third-eye-cyborg/core":
     version: "0.1.0"
     state: stable
-  "@third-eye-cyborg/ascended-contracts":
+  "@third-eye-cyborg/contracts":
     version: "0.1.0"
     state: adopted
-  "@third-eye-cyborg/ascended-events":
+  "@third-eye-cyborg/events":
     version: "0.1.0"
     state: canary
-  "@third-eye-cyborg/ascended-privacy":
+  "@third-eye-cyborg/privacy":
     version: "0.1.0"
     state: testing
-  "@third-eye-cyborg/ascended-ai-router":
+  "@third-eye-cyborg/ai-router":
     version: "0.1.0"
     state: available          # released, not yet adopted here
 ```

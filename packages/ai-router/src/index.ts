@@ -1,5 +1,5 @@
 /**
- * @third-eye-cyborg/ascended-ai-router
+ * @third-eye-cyborg/ai-router
  *
  * Provider registry, capability routing, privacy-aware fallbacks, and routing
  * telemetry for AI text / image / 3D / recommendation workloads. All provider

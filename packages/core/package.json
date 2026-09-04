@@ -1,6 +1,6 @@
 {
-  "name": "@third-eye-cyborg/ascended-core",
-  "version": "0.1.0",
+  "name": "@third-eye-cyborg/core",
+  "version": "0.1.1",
   "description": "Shared foundation types for Ascended Core: identity, errors, results, lifecycle, and health.",
   "author": "Third Eye Cyborg LLC",
   "repository": {

@@ -5,8 +5,8 @@
  */
 
 import { createHmac, timingSafeEqual } from "node:crypto";
-import type { IsoTimestamp } from "@third-eye-cyborg/ascended-core";
-import { nowIso } from "@third-eye-cyborg/ascended-core";
+import type { IsoTimestamp } from "@third-eye-cyborg/core";
+import { nowIso } from "@third-eye-cyborg/core";
 import type { DomainEvent } from "./events";
 
 /** A configured webhook endpoint. */

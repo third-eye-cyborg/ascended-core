@@ -12,14 +12,15 @@ releases and publish to npm.
       (use `node scripts/release/version.mjs <package-dir> <semver>`).
 - [ ] **CHANGELOG.md** updated with a dated entry for the new version.
 - [ ] **License confirmed** — `LICENSE` present and © Third Eye Cyborg LLC.
-- [ ] **Third-party compliance passes** — `pnpm check:third-party` reports only
-      approved production licenses and package provenance metadata.
-- [ ] **Production SBOM generated** — `pnpm sbom:production` produces the SPDX
-      report that will be attached to the GitHub Release.
-- [ ] **npm scope ownership verified** — the `@third-eye-cyborg` scope on npm is owned
-      by the org and the publishing token has publish rights.
+- [ ] **npm trusted publishers verified** — Every public
+      `@third-eye-cyborg/*` package trusts GitHub Actions for
+      `third-eye-cyborg/ascended-core` and `release.yml`; the workflow's
+      `pnpm check:npm-publish-access` OIDC preflight confirms the runtime and
+      every public package uses the canonical scope.
+- [ ] **Publish dry-run passes** — manually dispatch the Release workflow and
+      confirm every public package is packed without uploading to npm.
 - [ ] Docs reviewed for accuracy (README, migration-and-adoption, examples).
-- [ ] `pnpm --filter @third-eye-cyborg/ascended-example-minimal-server smoke` passes.
+- [ ] `pnpm --filter @third-eye-cyborg/example-minimal-server smoke` passes.
 
 ## Tag & publish
 

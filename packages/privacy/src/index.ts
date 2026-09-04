@@ -1,5 +1,5 @@
 /**
- * @third-eye-cyborg/ascended-privacy
+ * @third-eye-cyborg/privacy
  *
  * Privacy modes (cloud / private-local / human-only), declarative policy
  * enforcement, data minimization, and redaction-safe telemetry helpers.

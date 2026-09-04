@@ -32,52 +32,52 @@
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
     "paths": {
-      "@third-eye-cyborg/ascended-ai-router": [
+      "@third-eye-cyborg/ai-router": [
         "./packages/ai-router/src/index.ts"
       ],
-      "@third-eye-cyborg/ascended-api-contracts": [
+      "@third-eye-cyborg/api-contracts": [
         "./packages/api-contracts/src/index.ts"
       ],
-      "@third-eye-cyborg/ascended-contracts": [
+      "@third-eye-cyborg/contracts": [
         "./packages/contracts/src/index.ts"
       ],
-      "@third-eye-cyborg/ascended-core": [
+      "@third-eye-cyborg/core": [
         "./packages/core/src/index.ts"
       ],
-      "@third-eye-cyborg/ascended-events": [
+      "@third-eye-cyborg/events": [
         "./packages/events/src/index.ts"
       ],
-      "@third-eye-cyborg/ascended-media": [
+      "@third-eye-cyborg/media": [
         "./packages/media/src/index.ts"
       ],
-      "@third-eye-cyborg/ascended-notifications": [
+      "@third-eye-cyborg/notifications": [
         "./packages/notifications/src/index.ts"
       ],
-      "@third-eye-cyborg/ascended-observability": [
+      "@third-eye-cyborg/observability": [
         "./packages/observability/src/index.ts"
       ],
-      "@third-eye-cyborg/ascended-persistence": [
+      "@third-eye-cyborg/persistence": [
         "./packages/persistence/src/index.ts"
       ],
-      "@third-eye-cyborg/ascended-privacy": [
+      "@third-eye-cyborg/privacy": [
         "./packages/privacy/src/index.ts"
       ],
-      "@third-eye-cyborg/ascended-providers": [
+      "@third-eye-cyborg/providers": [
         "./packages/providers/src/index.ts"
       ],
-      "@third-eye-cyborg/ascended-realtime": [
+      "@third-eye-cyborg/realtime": [
         "./packages/realtime/src/index.ts"
       ],
-      "@third-eye-cyborg/ascended-sdk": [
+      "@third-eye-cyborg/sdk": [
         "./packages/sdk/src/index.ts"
       ],
-      "@third-eye-cyborg/ascended-example-minimal-server": [
+      "@third-eye-cyborg/example-minimal-server": [
         "./examples/minimal-server/src/index.ts"
       ],
-      "@third-eye-cyborg/ascended-example-openapi-client": [
+      "@third-eye-cyborg/example-openapi-client": [
         "./examples/openapi-client/src/index.ts"
       ],
-      "@third-eye-cyborg/ascended-example-reference-adapters": [
+      "@third-eye-cyborg/example-reference-adapters": [
         "./examples/reference-adapters/src/index.ts"
       ]
     }

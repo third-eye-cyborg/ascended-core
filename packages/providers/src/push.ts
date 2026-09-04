@@ -13,7 +13,7 @@ import {
   type HealthCheckable,
   type HealthReport,
   type Metadata,
-} from "@third-eye-cyborg/ascended-core";
+} from "@third-eye-cyborg/core";
 
 /**
  * Delivery target for a push notification. Either a platform device token or a

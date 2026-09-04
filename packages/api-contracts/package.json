@@ -1,6 +1,6 @@
 {
-  "name": "@third-eye-cyborg/ascended-api-contracts",
-  "version": "0.1.0",
+  "name": "@third-eye-cyborg/api-contracts",
+  "version": "0.1.1",
   "description": "Public-safe OpenAPI contract for the reference API plus generated Zod validation types and a drift check.",
   "author": "Third Eye Cyborg LLC",
   "repository": {
@@ -22,7 +22,7 @@
     "clean": "rm -rf dist coverage"
   },
   "dependencies": {
-    "@third-eye-cyborg/ascended-core": "workspace:*",
+    "@third-eye-cyborg/core": "workspace:*",
     "zod": "catalog:"
   },
   "devDependencies": {

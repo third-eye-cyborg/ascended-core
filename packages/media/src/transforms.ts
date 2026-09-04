@@ -3,7 +3,7 @@
  * derivative (resize/format/quality); execution is delegated to adapters.
  */
 
-import type { EntityId, IsoTimestamp } from "@third-eye-cyborg/ascended-core";
+import type { EntityId, IsoTimestamp } from "@third-eye-cyborg/core";
 
 /** Lifecycle state of a transform job. */
 export enum TransformJobState {

@@ -3,8 +3,8 @@
  * reminders only — there is no cron engine and no vendor push integration.
  */
 
-import { createId, toIsoTimestamp } from "@third-eye-cyborg/ascended-core";
-import type { EntityId, IsoTimestamp } from "@third-eye-cyborg/ascended-core";
+import { createId, toIsoTimestamp } from "@third-eye-cyborg/core";
+import type { EntityId, IsoTimestamp } from "@third-eye-cyborg/core";
 import type { NotificationRequest } from "./types";
 
 /** A scheduled reminder that will fire at or after `fireAt`. */

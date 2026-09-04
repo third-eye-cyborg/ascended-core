@@ -3,7 +3,7 @@
  * delivery state.
  */
 
-import { isEntityId, type EntityId, type IsoTimestamp, type Metadata } from "@third-eye-cyborg/ascended-core";
+import { isEntityId, type EntityId, type IsoTimestamp, type Metadata } from "@third-eye-cyborg/core";
 import { hasTimestamps, isEnumMember, isRecord } from "./internal/guards";
 
 /** Whether a conversation is one-to-one or multi-party. */

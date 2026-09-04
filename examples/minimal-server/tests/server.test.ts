@@ -1,6 +1,6 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
-import { createId } from "@third-eye-cyborg/ascended-core";
+import { createId } from "@third-eye-cyborg/core";
 
 import { createServer, type RunningServer } from "../src/server.js";
 import { runDemoFlow } from "../src/demo-flow.js";

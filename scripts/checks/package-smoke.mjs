@@ -16,9 +16,12 @@ const root = new URL("../../", import.meta.url).pathname;
 
 let failures = 0;
 
-// Same workspace set `pnpm -r publish` considers: every non-private
-// workspace, wherever it lives.
-for (const { path: pkgDir, pkg } of listPublishableWorkspaces(root)) {
+for (const dir of readdirSync(packagesDir)) {
+  const pkgDir = join(packagesDir, dir);
+  const pkgPath = join(pkgDir, "package.json");
+  if (!existsSync(pkgPath)) continue;
+  const pkg = JSON.parse(readFileSync(pkgPath, "utf8"));
+  if (pkg.private || !pkg.name?.startsWith("@third-eye-cyborg/")) continue;
 
   const cjs = join(pkgDir, "dist", "index.cjs");
   const esm = join(pkgDir, "dist", "index.js");

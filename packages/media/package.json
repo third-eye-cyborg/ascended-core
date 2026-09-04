@@ -1,6 +1,6 @@
 {
-  "name": "@third-eye-cyborg/ascended-media",
-  "version": "0.1.0",
+  "name": "@third-eye-cyborg/media",
+  "version": "0.1.1",
   "description": "Upload sessions, asset lifecycle, and transformation request contracts with a local filesystem-free in-memory adapter.",
   "author": "Third Eye Cyborg LLC",
   "repository": {
@@ -22,8 +22,8 @@
     "clean": "rm -rf dist coverage"
   },
   "dependencies": {
-    "@third-eye-cyborg/ascended-core": "workspace:*",
-    "@third-eye-cyborg/ascended-events": "workspace:*"
+    "@third-eye-cyborg/core": "workspace:*",
+    "@third-eye-cyborg/events": "workspace:*"
   },
   "devDependencies": {
     "typescript": "catalog:",

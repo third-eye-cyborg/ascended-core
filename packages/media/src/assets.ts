@@ -4,7 +4,7 @@
  * described here.
  */
 
-import type { EntityId, IsoTimestamp, Metadata } from "@third-eye-cyborg/ascended-core";
+import type { EntityId, IsoTimestamp, Metadata } from "@third-eye-cyborg/core";
 
 /** Broad category of a media asset. */
 export enum MediaKind {

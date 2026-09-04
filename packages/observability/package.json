@@ -1,6 +1,6 @@
 {
-  "name": "@third-eye-cyborg/ascended-observability",
-  "version": "0.1.0",
+  "name": "@third-eye-cyborg/observability",
+  "version": "0.1.1",
   "description": "Structured logging, tracing spans, metrics, health aggregation, and request-id context with in-memory collectors.",
   "author": "Third Eye Cyborg LLC",
   "repository": {
@@ -22,7 +22,7 @@
     "clean": "rm -rf dist coverage"
   },
   "dependencies": {
-    "@third-eye-cyborg/ascended-core": "workspace:*"
+    "@third-eye-cyborg/core": "workspace:*"
   },
   "devDependencies": {
     "typescript": "catalog:",

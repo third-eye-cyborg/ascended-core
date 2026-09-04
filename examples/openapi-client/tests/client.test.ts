@@ -5,12 +5,12 @@
 
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
-import { createId } from "@third-eye-cyborg/ascended-core";
+import { createId } from "@third-eye-cyborg/core";
 import {
   createServer,
   demoTokenFor,
   type RunningServer,
-} from "@third-eye-cyborg/ascended-example-minimal-server";
+} from "@third-eye-cyborg/example-minimal-server";
 
 import { runApiDemo } from "../src/demo.js";
 

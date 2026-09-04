@@ -1,15 +1,15 @@
 /**
  * Event-bus interop contract for media adapters.
  *
- * The concrete bus is provided by `@third-eye-cyborg/ascended-events`. To keep this package
+ * The concrete bus is provided by `@third-eye-cyborg/events`. To keep this package
  * decoupled from that package's build order and trivially testable, adapters
  * depend on the minimal *structural* port defined here. Any object exposing an
- * async `publish` — including the `@third-eye-cyborg/ascended-events` bus — satisfies it.
+ * async `publish` — including the `@third-eye-cyborg/events` bus — satisfies it.
  */
 
-import type { EntityId, IsoTimestamp, Metadata } from "@third-eye-cyborg/ascended-core";
+import type { EntityId, IsoTimestamp, Metadata } from "@third-eye-cyborg/core";
 
-/** Minimal, versioned domain-event envelope compatible with `@third-eye-cyborg/ascended-events`. */
+/** Minimal, versioned domain-event envelope compatible with `@third-eye-cyborg/events`. */
 export interface DomainEvent<TPayload = unknown> {
   /** Unique event id, e.g. `evt_…`. */
   id: EntityId;

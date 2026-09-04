@@ -8,7 +8,7 @@
  * "text").
  */
 
-import type { IsoTimestamp, Metadata } from "@third-eye-cyborg/ascended-core";
+import type { IsoTimestamp, Metadata } from "@third-eye-cyborg/core";
 
 /**
  * Keys that must never appear in telemetry because they typically carry raw

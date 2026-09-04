@@ -10,7 +10,7 @@
 
 import { createHash } from "node:crypto";
 
-import type { Metadata } from "@third-eye-cyborg/ascended-core";
+import type { Metadata } from "@third-eye-cyborg/core";
 
 /**
  * Return a shallow copy of `obj` with the given keys replaced by the redaction
