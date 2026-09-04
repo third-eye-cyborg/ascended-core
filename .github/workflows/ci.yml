@@ -43,13 +43,13 @@ jobs:
         run: pnpm check:third-party
 
       - name: Generate production SPDX SBOM
-        run: pnpm sbom:production
+        run: node scripts/checks/third-party-compliance.mjs --sbom > sbom.spdx.json
 
       - name: Upload production SBOM
         uses: actions/upload-artifact@v4
         with:
           name: ascended-core-production-sbom
-          path: /tmp/ascended-core-production.spdx.json
+          path: sbom.spdx.json
 
       - name: Lint
         run: pnpm lint
