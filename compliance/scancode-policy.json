@@ -38,6 +38,9 @@
     "scripts/checks/third-party-compliance.mjs": "The compliance checker contains license identifiers as policy data and validation logic, not bundled third-party code.",
     "scripts/checks/scancode-license.mjs": "The copyright-gate checker contains copyright detection logic, copyright-holder matching examples, and test infrastructure as policy data and validation logic, not bundled third-party code.",
     "scripts/checks/__tests__/third-party-compliance.test.mjs": "Tests intentionally use synthetic license strings, including copyleft examples, to verify rejection behavior.",
-    "scripts/checks/__tests__/validate-sbom.test.mjs": "Tests intentionally use synthetic SPDX documents and license strings to verify SBOM validation behavior."
+    "scripts/checks/__tests__/validate-sbom.test.mjs": "Tests intentionally use synthetic SPDX documents and license strings to verify SBOM validation behavior.",
+    "packages/api-contracts/THIRD_PARTY_NOTICES.md": "Third-party attribution ledger; copyright notices in this file require attribution and redistribution review rather than being treated as bundled source.",
+    "packages/events/THIRD_PARTY_NOTICES.md": "Third-party attribution ledger; copyright notices in this file require attribution and redistribution review rather than being treated as bundled source.",
+    "packages/sdk/THIRD_PARTY_NOTICES.md": "Third-party attribution ledger; copyright notices in this file require attribution and redistribution review rather than being treated as bundled source."
   }
 }
