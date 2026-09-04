@@ -3,6 +3,11 @@
   "version": "0.1.1",
   "private": true,
   "description": "Ascended Core monorepo — open-source infrastructure for privacy-conscious spiritual and community applications.",
+  "author": "Third Eye Cyborg LLC",
+  "repository": "https://github.com/third-eye-cyborg/ascended-core.git",
+  "homepage": "https://github.com/third-eye-cyborg/ascended-core#readme",
+  "bugs": "https://github.com/third-eye-cyborg/ascended-core/issues",
+  "license": "Apache-2.0",
   "type": "module",
   "engines": {
     "node": ">=20.0.0",
