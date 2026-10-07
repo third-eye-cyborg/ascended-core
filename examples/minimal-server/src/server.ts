@@ -90,7 +90,7 @@ const MAX_PAGE_LIMIT = 100;
 export function createServer(options: CreateServerOptions = {}): RunningServer {
   const platform = options.platform ?? createPlatform();
   const host = options.host ?? "127.0.0.1";
-  const version = options.version ?? "0.1.1";
+  const version = options.version ?? "0.2.0";
   const requestedPort = options.port ?? 0;
 
   const http = createHttpServer((req, res) => {

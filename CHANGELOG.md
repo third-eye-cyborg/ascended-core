@@ -66,6 +66,8 @@ one does, because the exported schemas move to Zod 4 (see below).
 - ScanCode copyright-holder gate: the Unreleased changelog no longer quotes
   the zod MIT copyright notice, which ScanCode treated as an unexpected
   third-party copyright holder in `CHANGELOG.md`.
+- The OpenAPI spec `info.version` and the reference server's default
+  reported version now read `0.2.0` instead of `0.1.1`.
 
 ### Security
 
