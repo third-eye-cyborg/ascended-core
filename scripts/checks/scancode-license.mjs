@@ -131,7 +131,10 @@ function isAllowedLicense(key) {
 }
 
 function hasAllowedHolder(copyright) {
-  const normalized = copyright.toLowerCase().replace(/[().,:]/g, " ");
+  const normalized = copyright
+    .toLowerCase()
+    .replace(/[().,:]/g, " ")
+    .replace(/\s+/g, " ");
   return allowedHolders.some((holder) => normalized.includes(holder));
 }
 

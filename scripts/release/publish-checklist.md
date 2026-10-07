@@ -11,7 +11,7 @@ releases and publish to npm.
 - [ ] **Version bumps** are consistent across affected packages
       (use `node scripts/release/version.mjs <package-dir> <semver>`).
 - [ ] **CHANGELOG.md** updated with a dated entry for the new version.
-- [ ] **License confirmed** — `LICENSE` present and © Third Eye Cyborg LLC.
+- [ ] **License confirmed** — `LICENSE` present and Copyright Third Eye Cyborg, LLC.
 - [ ] **npm trusted publishers verified** — Every public
       `@third-eye-cyborg/*` package trusts GitHub Actions for
       `third-eye-cyborg/ascended-core` and `release.yml`; the workflow's

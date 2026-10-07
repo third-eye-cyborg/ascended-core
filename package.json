@@ -3,26 +3,24 @@
   "version": "0.1.1",
   "private": true,
   "description": "Ascended Core monorepo — open-source infrastructure for privacy-conscious spiritual and community applications.",
-  "author": "Third Eye Cyborg LLC",
+  "author": "Third Eye Cyborg, LLC",
   "repository": "https://github.com/third-eye-cyborg/ascended-core.git",
   "homepage": "https://github.com/third-eye-cyborg/ascended-core#readme",
   "bugs": "https://github.com/third-eye-cyborg/ascended-core/issues",
   "license": "Apache-2.0",
   "type": "module",
   "engines": {
-    "node": ">=20.0.0",
+    "node": ">=22.12.0",
     "pnpm": ">=9.0.0"
   },
   "scripts": {
     "build": "pnpm -r --workspace-concurrency=4 build",
     "typecheck": "pnpm -r --workspace-concurrency=4 typecheck",
-    "test": "vitest run scripts/checks/__tests__ --maxWorkers=1 --minWorkers=1 && pnpm -r --workspace-concurrency=4 test",
+    "test": "vitest run scripts/checks/__tests__ --maxWorkers=1 && pnpm -r --workspace-concurrency=4 test",
     "lint": "pnpm -r --workspace-concurrency=4 lint",
     "format": "pnpm -r --workspace-concurrency=4 format",
     "check": "pnpm typecheck && pnpm lint && pnpm test && pnpm build",
     "clean": "pnpm -r --workspace-concurrency=4 clean",
-    "codegen:api": "pnpm --filter @third-eye-cyborg/api-contracts codegen",
-    "codegen:sdk": "pnpm --filter @third-eye-cyborg/sdk codegen",
     "smoke:server": "pnpm --filter @third-eye-cyborg/example-minimal-server smoke",
     "test:package-smoke": "node scripts/checks/package-smoke.mjs",
     "check:boundary": "node scripts/checks/boundary-scan.mjs",
@@ -32,25 +30,34 @@
     "check:npm-publish-access": "node scripts/checks/verify-npm-publish-access.mjs"
   },
   "devDependencies": {
-    "@types/node": "^22.15.0",
-    "typescript": "~5.9.3",
-    "tsx": "^4.21.0",
-    "vitest": "^3.2.4",
-    "prettier": "^3.5.3",
-    "eslint": "^9.31.0",
-    "@typescript-eslint/eslint-plugin": "^8.38.0",
-    "@typescript-eslint/parser": "^8.38.0",
-    "tsup": "^8.5.0",
-    "yaml": "^2.8.0",
-    "zod": "^3.25.76",
-    "orval": "^8.22.0"
+    "@types/node": "^22",
+    "typescript": "~6.0.3",
+    "tsx": "^4.23.15",
+    "vitest": "^5.0.3",
+    "prettier": "^3.9.9",
+    "eslint": "^10.12.0",
+    "@typescript-eslint/eslint-plugin": "^8.71.1",
+    "@typescript-eslint/parser": "^8.71.1",
+    "tsup": "^8.5.1",
+    "yaml": "^2.9.1",
+    "zod": "^4.6.5",
+    "orval": "^8.40.0"
   },
   "pnpm": {
     "overrides": {
+      "@types/node": "^22",
       "esbuild": ">=0.28.1 <0.29.0",
       "js-yaml": ">=4.3.1 <5.0.0",
       "lodash": ">=4.18.0 <5.0.0"
     }
   },
-  "packageManager": "pnpm@9.15.0"
+  "packageManager": "pnpm@9.15.0",
+  "keywords": [
+    "ascended-core",
+    "community",
+    "privacy",
+    "typescript",
+    "vendor-neutral"
+  ],
+  "sideEffects": false
 }

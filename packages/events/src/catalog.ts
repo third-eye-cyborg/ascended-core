@@ -28,7 +28,7 @@ export type EventType = (typeof EVENT_TYPES)[keyof typeof EVENT_TYPES];
 
 const id = z.string().min(1);
 const ts = z.string().min(1);
-const metadata = z.record(z.unknown()).optional();
+const metadata = z.record(z.string(), z.unknown()).optional();
 
 /** Payload schema for `identity.profile_created`. */
 export const identityProfileCreatedPayload = z.object({

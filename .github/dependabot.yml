@@ -13,6 +13,20 @@ updates:
           - "*"
     commit-message:
       prefix: "chore(deps)"
+    # Major bumps of these tools are coordinated by maintainers, not grouped
+    # Dependabot PRs. TypeScript 7, ESLint 10, Zod 4, and Vitest 5 each need
+    # a dedicated migration.
+    ignore:
+      - dependency-name: typescript
+        update-types: ["version-update:semver-major"]
+      - dependency-name: eslint
+        update-types: ["version-update:semver-major"]
+      - dependency-name: zod
+        update-types: ["version-update:semver-major"]
+      - dependency-name: vitest
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
 
   # GitHub Actions used in workflows.
   - package-ecosystem: github-actions

@@ -6,7 +6,7 @@
  * adapters so the server can demonstrate the full domain surface offline.
  */
 
-import { createId, type EntityId } from "@third-eye-cyborg/core";
+import { createId, isEntityId, type EntityId } from "@third-eye-cyborg/core";
 import type {
   Community,
   CommunityEvent,
@@ -54,9 +54,9 @@ export interface Platform {
   readonly metrics: MetricsPort;
   readonly logger: Logger;
   /**
-   * Demo auth: bearer tokens shaped `test-<accountId>` resolve to that account
-   * so examples never need a real identity provider. Returns the account id or
-   * `null` when the token is not recognised.
+   * Demo auth only: bearer tokens shaped `test-<accountId>` resolve when
+   * `accountId` is a valid Core entity id. This is not a production auth
+   * adapter — bind stays localhost and unknown tokens return `null`.
    */
   resolveToken(token: string): EntityId | null;
 }
@@ -95,7 +95,7 @@ export function createPlatform(): Platform {
     resolveToken(token: string): EntityId | null {
       if (!token.startsWith(DEMO_TOKEN_PREFIX)) return null;
       const accountId = token.slice(DEMO_TOKEN_PREFIX.length);
-      return accountId.length > 0 ? (accountId as EntityId) : null;
+      return isEntityId(accountId) ? accountId : null;
     },
   };
 }

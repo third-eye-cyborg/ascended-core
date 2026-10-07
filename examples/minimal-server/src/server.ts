@@ -90,7 +90,7 @@ const MAX_PAGE_LIMIT = 100;
 export function createServer(options: CreateServerOptions = {}): RunningServer {
   const platform = options.platform ?? createPlatform();
   const host = options.host ?? "127.0.0.1";
-  const version = options.version ?? "0.1.0";
+  const version = options.version ?? "0.1.1";
   const requestedPort = options.port ?? 0;
 
   const http = createHttpServer((req, res) => {
@@ -396,6 +396,15 @@ async function joinCommunity(
     });
   }
 
+  const existing = await platform.memberships.findMany(
+    { communityId: community.id, accountId: ctx.accountId },
+    { limit: 1 },
+  );
+  const alreadyJoined = existing.items[0];
+  if (alreadyJoined !== undefined) {
+    return { status: 200, body: toMembershipWire(alreadyJoined) };
+  }
+
   const now = nowIso();
   const membership: Membership = {
     id: createId("mbr"),
@@ -463,7 +472,22 @@ async function rsvpEvent(
   const status = parseRsvpStatus(requireString(body, "status"));
   const metadata = optionalMetadata(body);
 
+  const existing = await platform.rsvps.findMany(
+    { eventId: event.id, accountId: ctx.accountId },
+    { limit: 1 },
+  );
+  const alreadyRsvped = existing.items[0];
   const now = nowIso();
+
+  if (alreadyRsvped !== undefined) {
+    const updated = await platform.rsvps.update(alreadyRsvped.id, {
+      status,
+      updatedAt: now,
+      ...(metadata !== undefined ? { metadata } : {}),
+    });
+    return { status: 200, body: toRsvpWire(updated) };
+  }
+
   const rsvp: Rsvp = {
     id: createId("rsvp"),
     eventId: event.id,
@@ -489,10 +513,28 @@ async function listMyNotifications(
   ctx: RequestContext,
   platform: Platform,
 ): Promise<RouteResult> {
-  const items = platform.inbox.list(ctx.accountId);
+  const all = platform.inbox.list(ctx.accountId);
+  const page = pagination(ctx.url);
+  let start = 0;
+  if (page.cursor !== undefined) {
+    const parsed = Number(page.cursor);
+    if (!Number.isInteger(parsed) || parsed < 0) {
+      throw new CoreError({
+        code: ErrorCode.VALIDATION,
+        message: "cursor must be a non-negative integer offset",
+      });
+    }
+    start = parsed;
+  }
+  const slice = all.slice(start, start + page.limit);
   const body: PageWire<ReturnType<typeof toNotificationWire>> = {
-    items: items.map((item, index) => toNotificationWire(ctx.accountId, item, index)),
+    items: slice.map((item, index) =>
+      toNotificationWire(ctx.accountId, item, start + index),
+    ),
   };
+  if (start + slice.length < all.length) {
+    body.nextCursor = String(start + slice.length);
+  }
   return { status: 200, body };
 }
 
@@ -628,7 +670,7 @@ function routeLabel(path: string): string {
 
 function methodNotAllowed(): CoreError {
   return new CoreError({
-    code: ErrorCode.VALIDATION,
+    code: ErrorCode.UNSUPPORTED,
     message: "method not allowed",
     statusCode: 405,
   });
@@ -646,6 +688,8 @@ function statusForError(error: CoreError): number {
       return 403;
     case ErrorCode.NOT_FOUND:
       return 404;
+    case ErrorCode.UNSUPPORTED:
+      return 405;
     case ErrorCode.CONFLICT:
       return 409;
     case ErrorCode.RATE_LIMITED:

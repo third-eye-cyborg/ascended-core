@@ -69,8 +69,12 @@ export class PrivacyPolicyEnforcer {
     providerFamily: string,
     context: RequestContext,
   ): void {
-    // Per-provider allow-list overrides family blocks.
-    if (this.#policy.allowedCloudProviders.includes(providerName)) {
+    // Allow-list is an escape hatch for Cloud and Private-local only.
+    // Human mode keeps automated families blocked even when a name is listed.
+    if (
+      this.#policy.mode !== PrivacyMode.HUMAN &&
+      this.#policy.allowedCloudProviders.includes(providerName)
+    ) {
       return;
     }
 

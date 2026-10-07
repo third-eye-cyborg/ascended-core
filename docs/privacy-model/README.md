@@ -14,7 +14,7 @@ family-based, and vendor-free — decisions never depend on a vendor's name.
 | --- | --- | --- |
 | **Cloud** | `cloud` | Remote/cloud provider families are permitted. |
 | **Private-local** | `private-local` | Only on-device/local families are permitted, unless a specific provider is explicitly allow-listed. |
-| **Human-only** | `human` | No automated provider calls at all — results come from human/community sources only. |
+| **Human-only** | `human` | The enforcer blocks every automated provider family, so calls routed through it go only to human/community sources. |
 
 `defaultPolicyForMode(mode)` produces a sensible default `PrivacyPolicy` for
 each:
@@ -74,8 +74,12 @@ const policy = {
 };
 ```
 
-The allow-list is checked *first*, so an allow-listed provider is permitted even
-if its family appears in `blockedFamilies`.
+In Cloud and Private-local modes the allow-list is checked *first*, so an
+allow-listed provider is permitted even if its family appears in
+`blockedFamilies`. Human mode ignores the allow-list: every automated provider
+family stays blocked even when a provider name is listed in
+`allowedCloudProviders`, so "human-only" holds regardless of the policy's
+allow-list.
 
 ## User-safe blocked messages
 
@@ -130,3 +134,12 @@ Core defines the *shape* of these decisions; the actual consent and compliance
 policies (which are product- and jurisdiction-specific) live downstream. This
 keeps moderation/compliance internals out of Core while giving products a
 first-class place to enforce them.
+
+## Compliance and warranty
+
+Ascended Core provides interfaces and policy hooks that can help you build
+privacy features. Using Ascended Core does not by itself make an application
+compliant with any law, regulation, or standard (for example GDPR, CCPA,
+COPPA, or HIPAA). You are responsible for how your application collects, uses,
+and protects data. Ascended Core is provided "AS IS", without warranties or
+conditions of any kind, as stated in Sections 7 and 8 of the Apache License 2.0.

@@ -77,6 +77,20 @@ describe("PrivacyPolicyEnforcer", () => {
     ).not.toThrow();
   });
 
+  it("human mode ignores the allow-list so automated families stay blocked", () => {
+    const policy = defaultPolicyForMode(PrivacyMode.HUMAN);
+    policy.allowedCloudProviders = ["example-text-provider"];
+    const enforcer = new PrivacyPolicyEnforcer(policy);
+
+    expect(() =>
+      enforcer.validateProviderCall(
+        "example-text-provider",
+        ProviderFamilies.CLOUD_TEXT,
+        ctx(PrivacyMode.HUMAN),
+      ),
+    ).toThrow(PrivacyBlockedError);
+  });
+
   it("private-local allows an explicitly allow-listed provider even if family blocked", () => {
     const policy = defaultPolicyForMode(PrivacyMode.PRIVATE_LOCAL);
     policy.allowedCloudProviders = ["example-text-provider"];

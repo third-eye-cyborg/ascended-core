@@ -23,6 +23,15 @@ tagged release, `pnpm check:npm-publish-access` verifies the OIDC environment,
 the supported Node/npm versions, and that every public package manifest uses
 the canonical scope with `publishConfig.access = "public"`.
 
+CI on pull requests runs install, lint, typecheck, test, build, and a
+tarball-install pack smoke on **Node 22.12 (the development minimum) and the
+latest Node 22**. Published packages still declare `engines.node >=20`. Pack the public
+packages with `pnpm pack` (or `pnpm publish`); `npm pack` leaves `workspace:*`
+dependency specifiers that consumers cannot install.
+
+Use `pnpm test:package-smoke` after `pnpm build` to pack every public package,
+install the tarballs into a fresh project, and import them as ESM and CJS.
+
 ## Semantic versioning policy
 
 We follow [Semantic Versioning](https://semver.org): `MAJOR.MINOR.PATCH`.
@@ -45,8 +54,8 @@ While Core is `0.x`:
 
 ## Changelog
 
-Every package maintains a changelog following
-[Keep a Changelog](https://keepachangelog.com) conventions:
+The repository maintains a single root [CHANGELOG.md](../../CHANGELOG.md)
+following [Keep a Changelog](https://keepachangelog.com) conventions:
 
 - Group entries under **Added / Changed / Deprecated / Removed / Fixed /
   Security**.

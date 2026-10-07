@@ -10,10 +10,18 @@ import type { CoreErrorDetails } from "@third-eye-cyborg/core";
 /** Map an HTTP status code to a stable Core {@link ErrorCode}. */
 export function statusCodeToErrorCode(statusCode: number): ErrorCode {
   switch (statusCode) {
+    case 400:
+      return ErrorCode.VALIDATION;
     case 401:
       return ErrorCode.UNAUTHORIZED;
+    case 403:
+      return ErrorCode.FORBIDDEN;
     case 404:
       return ErrorCode.NOT_FOUND;
+    case 405:
+      return ErrorCode.UNSUPPORTED;
+    case 409:
+      return ErrorCode.CONFLICT;
     case 429:
       return ErrorCode.RATE_LIMITED;
     default:

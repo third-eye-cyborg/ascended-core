@@ -1,6 +1,6 @@
 # Third-party notices
 
-This package depends on [zod](https://github.com/colinhacks/zod), Copyright (c) Colin McDonnell.
+This package depends on [zod](https://github.com/colinhacks/zod), Copyright (c) 2025 Colin McDonnell.
 
 Zod is licensed under the MIT License:
 

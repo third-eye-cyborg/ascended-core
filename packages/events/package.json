@@ -2,7 +2,7 @@
   "name": "@third-eye-cyborg/events",
   "version": "0.1.1",
   "description": "Typed, versioned domain events with an event-bus contract, idempotency, retry/dead-letter interfaces, and a deterministic in-memory test harness.",
-  "author": "Third Eye Cyborg LLC",
+  "author": "Third Eye Cyborg, LLC",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/third-eye-cyborg/ascended-core.git",
@@ -43,10 +43,22 @@
   "files": [
     "dist",
     "LICENSE",
+    "NOTICE",
     "THIRD_PARTY_NOTICES.md"
   ],
   "publishConfig": {
     "access": "public"
   },
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "sideEffects": false,
+  "keywords": [
+    "ascended-core",
+    "third-eye-cyborg",
+    "typescript",
+    "community",
+    "event-bus"
+  ]
 }

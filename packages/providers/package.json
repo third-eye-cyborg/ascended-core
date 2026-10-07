@@ -2,7 +2,7 @@
   "name": "@third-eye-cyborg/providers",
   "version": "0.1.1",
   "description": "Provider ports (auth, storage, email, push, payments, search, rate limiting, audit) plus generic in-memory adapters for tests and examples.",
-  "author": "Third Eye Cyborg LLC",
+  "author": "Third Eye Cyborg, LLC",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/third-eye-cyborg/ascended-core.git",
@@ -41,10 +41,22 @@
   },
   "files": [
     "dist",
-    "LICENSE"
+    "LICENSE",
+    "NOTICE"
   ],
   "publishConfig": {
     "access": "public"
   },
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "sideEffects": false,
+  "keywords": [
+    "ascended-core",
+    "third-eye-cyborg",
+    "typescript",
+    "community",
+    "adapters"
+  ]
 }

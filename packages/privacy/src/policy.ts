@@ -41,7 +41,9 @@ export interface PrivacyPolicy {
 
   /**
    * Provider *names* explicitly permitted even when their family is blocked.
-   * Use sparingly; this is the per-provider escape hatch.
+   * Use sparingly; this is the per-provider escape hatch for Cloud and
+   * Private-local. Human mode ignores this list so automated families stay
+   * blocked.
    */
   allowedCloudProviders: string[];
 

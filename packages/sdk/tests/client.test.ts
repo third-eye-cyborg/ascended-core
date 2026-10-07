@@ -121,8 +121,12 @@ describe("AscendedCoreClient", () => {
 
   it("maps status codes to ApiError codes", async () => {
     const cases: Array<[number, ErrorCode]> = [
+      [400, ErrorCode.VALIDATION],
       [401, ErrorCode.UNAUTHORIZED],
+      [403, ErrorCode.FORBIDDEN],
       [404, ErrorCode.NOT_FOUND],
+      [405, ErrorCode.UNSUPPORTED],
+      [409, ErrorCode.CONFLICT],
       [429, ErrorCode.RATE_LIMITED],
       [500, ErrorCode.PROVIDER_ERROR],
     ];
