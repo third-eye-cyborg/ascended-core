@@ -15,7 +15,48 @@ concurrency:
 
 jobs:
   build:
-    name: Lint, typecheck, test & build
+    name: Lint, typecheck, test, build & pack-smoke (Node ${{ matrix.node-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: ["22.12", "22"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup pnpm
+        run: |
+          PNPM_VERSION="$(node -p "require('./package.json').packageManager.replace(/^pnpm@/, '')")"
+          npm install --global "pnpm@${PNPM_VERSION}"
+          pnpm --version
+
+      - name: Setup Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Test
+        run: pnpm test
+
+      - name: Build
+        run: pnpm build
+
+      - name: Package smoke (CJS/ESM load, tarball install, LICENSE)
+        run: node scripts/checks/package-smoke.mjs
+
+  compliance:
+    name: Audit, license, boundary & SBOM
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -51,18 +92,6 @@ jobs:
           name: ascended-core-production-sbom
           path: sbom.spdx.json
 
-      - name: Lint
-        run: pnpm lint
-
-      - name: Typecheck
-        run: pnpm typecheck
-
-      - name: Test
-        run: pnpm test
-
-      - name: Build
-        run: pnpm build
-
       - name: Boundary scan
         # BOUNDARY_SCAN_VERBOSE=1 ensures every binary-skipped file is listed
         # in CI logs, making the scanner's blind spot fully auditable without
@@ -84,6 +113,3 @@ jobs:
 
       - name: Third-party supply-chain check
         run: node scripts/checks/third-party-compliance.mjs --skip-network
-
-      - name: Package smoke (CJS/ESM load + LICENSE in tarballs)
-        run: node scripts/checks/package-smoke.mjs
