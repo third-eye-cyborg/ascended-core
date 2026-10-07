@@ -30,8 +30,8 @@
     "check:npm-publish-access": "node scripts/checks/verify-npm-publish-access.mjs"
   },
   "devDependencies": {
-    "@types/node": "^22",
-    "typescript": "~6.0.3",
+    "@types/node": "^26",
+    "typescript": "~7.0.2",
     "tsx": "^4.23.15",
     "vitest": "^5.0.3",
     "prettier": "^3.9.9",
@@ -45,7 +45,7 @@
   },
   "pnpm": {
     "overrides": {
-      "@types/node": "^22",
+      "@types/node": "^26",
       "esbuild": ">=0.28.1 <0.29.0",
       "js-yaml": ">=4.3.1 <5.0.0",
       "lodash": ">=4.18.0 <5.0.0"
