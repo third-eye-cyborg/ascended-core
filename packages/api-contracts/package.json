@@ -30,6 +30,14 @@
     "vitest": "catalog:",
     "tsup": "catalog:"
   },
+  "peerDependencies": {
+    "yaml": "^2.8.0"
+  },
+  "peerDependenciesMeta": {
+    "yaml": {
+      "optional": true
+    }
+  },
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -43,6 +51,7 @@
   "files": [
     "dist",
     "LICENSE",
+    "NOTICE",
     "THIRD_PARTY_NOTICES.md",
     "spec"
   ],

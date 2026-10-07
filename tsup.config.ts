@@ -8,5 +8,5 @@ export default defineConfig({
   sourcemap: true,
   clean: true,
   minify: false,
-  external: [/^@third-eye-cyborg\/ascended-/, "react", "react-dom", "zod"],
+  external: [/^@third-eye-cyborg\/ascended-/, "react", "react-dom", "zod", "yaml"],
 });

@@ -25,7 +25,8 @@
   },
   "files": [
     "dist",
-    "LICENSE"
+    "LICENSE",
+    "NOTICE"
   ],
   "scripts": {
     "build": "tsup",

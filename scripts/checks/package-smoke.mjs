@@ -8,6 +8,7 @@
  */
 
 import { execFileSync } from "node:child_process";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 import { listPublishableWorkspaces } from "./workspace-packages.mjs";
@@ -48,6 +49,33 @@ for (const workspace of listPublishableWorkspaces(root)) {
     }
   }
 
+  // Guard: third-party code inlined into dist must be attributed. Any
+  // node_modules/ source in a dist source map must name a package that is
+  // listed in this package's THIRD_PARTY_NOTICES.md.
+  const distDir = join(pkgDir, "dist");
+  const noticesPath = join(pkgDir, "THIRD_PARTY_NOTICES.md");
+  const notices = existsSync(noticesPath) ? readFileSync(noticesPath, "utf8") : "";
+  const bundled = new Set();
+  if (existsSync(distDir)) {
+    for (const mapFile of readdirSync(distDir).filter((f) => f.endsWith(".map"))) {
+      const map = JSON.parse(readFileSync(join(distDir, mapFile), "utf8"));
+      for (const source of map.sources ?? []) {
+        if (!source.includes("node_modules/")) continue;
+        const parts = source.split("node_modules/").pop().split("/");
+        bundled.add(parts[0].startsWith("@") ? `${parts[0]}/${parts[1]}` : parts[0]);
+      }
+    }
+  }
+  const unattributed = [...bundled].filter((name) => !notices.includes(name));
+  if (unattributed.length > 0) {
+    failures += 1;
+    console.error(
+      `FAIL ${pkg.name} dist bundles third-party code not listed in THIRD_PARTY_NOTICES.md: ${unattributed.join(", ")}`,
+    );
+  } else {
+    console.log(`ok   ${pkg.name} dist bundles no unattributed third-party code`);
+  }
+
   try {
     const out = execFileSync(
       "npm",
@@ -61,6 +89,15 @@ for (const workspace of listPublishableWorkspaces(root)) {
       console.error(`FAIL ${pkg.name} tarball is missing LICENSE`);
     } else {
       console.log(`ok   ${pkg.name} tarball includes LICENSE`);
+    }
+    if (!files.includes("NOTICE")) {
+      failures += 1;
+      console.error(`FAIL ${pkg.name} tarball is missing NOTICE`);
+    } else if (readFileSync(join(pkgDir, "NOTICE"), "utf8") !== readFileSync(join(root, "NOTICE"), "utf8")) {
+      failures += 1;
+      console.error(`FAIL ${pkg.name} NOTICE differs from the root NOTICE`);
+    } else {
+      console.log(`ok   ${pkg.name} tarball includes NOTICE`);
     }
     if (pkg.author !== "Third Eye Cyborg, LLC" || !pkg.repository?.url || !pkg.homepage || !pkg.bugs?.url) {
       failures += 1;

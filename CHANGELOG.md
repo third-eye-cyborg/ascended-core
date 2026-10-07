@@ -18,6 +18,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   repository as private.
 - Third-party notices for zod now read "Copyright (c) 2025 Colin McDonnell",
   matching zod's MIT license.
+- Public packages now include a NOTICE file.
+- `@third-eye-cyborg/api-contracts` no longer bundles the `yaml` package into
+  `dist`; `yaml` (ISC) is now an optional peer dependency used by the drift
+  check, which falls back to a regex check when `yaml` is not installed.
 
 ## [0.1.1] - 2026-08-20
 

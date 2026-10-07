@@ -139,7 +139,7 @@ function pkgJson(name, cfg, isExample) {
       exports: {
         ".": { types: "./dist/index.d.ts", import: "./dist/index.js", require: "./dist/index.cjs" },
       },
-      files: ["dist", "LICENSE", ...(cfg.external?.length ? ["THIRD_PARTY_NOTICES.md"] : [])],
+      files: ["dist", "LICENSE", "NOTICE", ...(cfg.external?.length ? ["THIRD_PARTY_NOTICES.md"] : [])],
       publishConfig: { access: "public" },
       license: "Apache-2.0",
     });

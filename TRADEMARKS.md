@@ -18,8 +18,11 @@ Please ask us first before you:
 - Suggest that Third Eye Cyborg, LLC endorses, sponsors, or certifies your
   product.
 
-If you publish a fork or modified version, give it a different name and do not
-present it as an official Ascended Core release.
+If you distribute a modified version of Ascended Core as your own product or
+package, give it a name that does not use "Ascended Core" or "Ascended Social",
+and do not present it as an official Ascended Core release. You may still say
+it is "based on Ascended Core". Forks used to develop or propose changes to
+this project, and unmodified copies, may keep the name.
 
 This policy does not restrict uses the law allows without permission, such as
 nominative fair use. Questions: contact@ascended.social <!-- boundary-ok: official trademark contact address -->
