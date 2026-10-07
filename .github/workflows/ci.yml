@@ -46,7 +46,7 @@ jobs:
         run: node scripts/checks/third-party-compliance.mjs --sbom > sbom.spdx.json
 
       - name: Upload production SBOM
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ascended-core-production-sbom
           path: sbom.spdx.json

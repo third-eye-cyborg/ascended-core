@@ -46,6 +46,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `sideEffects: false`, and `keywords`. Removed the root `codegen:api` and
   `codegen:sdk` scripts, which pointed at scripts that do not exist.
 
+### Dependencies
+
+- `zod` 3.25.76 → 4.6.5 (runtime dependency of `@third-eye-cyborg/events`,
+  `@third-eye-cyborg/api-contracts`, and `@third-eye-cyborg/sdk`). Exported
+  Zod schemas are now Zod 4 schemas; consumers that compose them with their own
+  schemas need Zod 4. Schema shapes and validation behavior are unchanged.
+  The zod license notice is unchanged (MIT, Copyright (c) 2025 Colin McDonnell).
+- Dev tooling: TypeScript 5.9.3 → 6.0.3, vitest 3.2.7 → 5.0.3, eslint 9.39.5 →
+  10.12.0, typescript-eslint 8.67.0 → 8.71.1, `@types/node` 22.20.1 → 26.6.4,
+  tsup 8.5.1, tsx 4.23.15, prettier 3.9.9, yaml 2.9.1, orval 8.40.0.
+  TypeScript 7.0.2 was not adopted: typescript-eslint supports
+  `typescript <6.1.0` and the native TS 7 package does not provide the
+  compiler API that the tsup declaration build and typescript-eslint need.
+- CI: `actions/upload-artifact` v4 → v7.
+
 ## [0.1.1] - 2026-08-20
 
 ### Fixed
