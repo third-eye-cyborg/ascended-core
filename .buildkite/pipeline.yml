@@ -9,7 +9,8 @@
 # backup uses node:22-bookworm (current latest 22), matching the Actions
 # matrix "22" entry. pnpm comes from package.json packageManager.
 # Not mirrored: pr-title.yml (needs PR metadata), release.yml (publishing
-# stays on Actions), and CodeQL (GitHub-only).
+# stays on Actions; .buildkite/release.yml is a separate, manual-only token
+# fallback without provenance), and CodeQL (GitHub-only).
 #
 # Security: no secrets are used by any step. Fork pull requests are not built.
 

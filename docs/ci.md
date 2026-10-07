@@ -28,8 +28,13 @@ Not covered by the backup pipeline:
 
 - the PR title check (`pr-title.yml`); please keep using Conventional Commit
   titles
-- releases and npm publishing (`release.yml`), which stay on Actions only
+- releases and npm publishing (`release.yml`). The backup pipeline never
+  publishes. A separate, manually started pipeline (`.buildkite/release.yml`)
+  is a temporary token-based publish fallback while Actions is locked; it
+  publishes **without npm provenance**. See
+  [release process](release-process/README.md#temporary-fallback-token-publish-from-buildkite-no-provenance).
 - CodeQL code scanning, which only runs on GitHub
 
 The backup pipeline uses no secrets, and it does not build pull requests from
-forks. Maintainers can run a fork PR's checks by hand after reviewing it.
+forks. Only the separate release pipeline can read the `NPM_TOKEN` cluster
+secret. Maintainers can run a fork PR's checks by hand after reviewing it.

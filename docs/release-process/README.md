@@ -83,6 +83,33 @@ Provenance gives consumers a verifiable supply-chain trail from published
 package back to public source — reinforcing the one-way
 public → release → private-adoption flow.
 
+### Temporary fallback: token publish from Buildkite (no provenance)
+
+> **Temporary.** While GitHub Actions is locked for this repository (an
+> account-level billing issue, not a code problem), `release.yml` cannot run.
+> In that window a maintainer may publish from the separate, manually started
+> Buildkite pipeline `ascended-core-npm-release`, defined in
+> [`.buildkite/release.yml`](../../.buildkite/release.yml). Remove it once
+> Actions runs again.
+
+- Start a build on a commit on `main` with `RELEASE_VERSION=<version>`. The
+  guard refuses to run unless that version (or the `v<version>` tag) matches
+  the root and every `packages/*` `package.json`, and the commit is on `main`.
+- The pipeline runs a frozen install, lint, typecheck, test, build, package
+  smoke, boundary scan, `check:third-party`, `audit:production`, and a publish
+  dry run, then waits at a manual block step.
+- After the block is released, the publish step reads an npm automation token
+  from the Buildkite cluster secret `NPM_TOKEN` (access limited to that
+  pipeline), points npm at a temporary npmrc that references the variable,
+  runs `pnpm --filter "./packages/*" -r publish --access public --no-git-checks`,
+  and deletes the npmrc.
+- It deliberately skips `pnpm check:npm-publish-access`, which rejects tokens
+  because the normal path uses OIDC trusted publishing.
+- **Packages published this way have no npm provenance.** The GitHub Release
+  notes for such a version say so. Push the `v<version>` tag on the published
+  commit only after the publish succeeds; the tag-triggered Actions release job
+  will then fail harmlessly (npm refuses to re-publish an existing version).
+
 ## Who may release
 
 Releases are gated by **CODEOWNERS**. Only maintainers listed as owners may:
