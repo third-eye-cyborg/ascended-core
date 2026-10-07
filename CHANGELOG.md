@@ -17,6 +17,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Reference server: notification pagination is honored, join/RSVP are
   idempotent, and demo auth only accepts valid entity ids.
 - Build: workspace packages are kept external after the scope rename.
+- ScanCode copyright-holder gate: the Unreleased changelog no longer quotes
+  the zod MIT copyright notice, which ScanCode treated as an unexpected
+  third-party copyright holder in `CHANGELOG.md`.
 
 ### Changed
 
@@ -27,8 +30,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Docs: SECURITY.md points reporters to GitHub private vulnerability reporting,
   adds a good-faith security research statement, and no longer describes the
   repository as private.
-- Third-party notices for zod now read "Copyright (c) 2025 Colin McDonnell",
-  matching zod's MIT license.
+- Third-party notices for zod now match the copyright year and author from
+  zod's MIT license.
 - Public packages now include a NOTICE file.
 - `@third-eye-cyborg/api-contracts` no longer bundles the `yaml` package into
   `dist`; `yaml` (ISC) is now an optional peer dependency used by the drift
