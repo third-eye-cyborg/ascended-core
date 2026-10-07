@@ -40,7 +40,9 @@ commits are not merged. To fix existing commits, run
 
 ## Development setup
 
-Ascended Core is a pnpm monorepo. You need **Node >= 20** and **pnpm >= 9**.
+Ascended Core is a pnpm monorepo. Developing this repository needs
+**Node >= 22.12** (vitest 5) and **pnpm >= 9**. Published
+`@third-eye-cyborg/*` packages still declare `engines.node >= 20`.
 
 ```sh
 pnpm install
