@@ -1,0 +1,52 @@
+# TEMPORARY backup CI for ascended-core.
+#
+# GitHub Actions is the primary CI (.github/workflows/). This Buildkite
+# pipeline only exists while Actions is unavailable for this repository and
+# should be removed once Actions is running again. See docs/ci.md.
+#
+# Mirrors .github/workflows/ci.yml (and codegen-drift.yml when the API
+# contracts change). Not mirrored: pr-title.yml (needs PR metadata),
+# release.yml (publishing stays on Actions), and CodeQL (GitHub-only).
+#
+# Security: no secrets are used by any step. Fork pull requests are not built.
+
+env:
+  CI: "true"
+
+x-node: &node
+  docker#v5.13.0:
+    image: "node:22-bookworm"
+    environment:
+      - "CI"
+
+steps:
+  - label: ":nodejs: Lint, typecheck, test & build"
+    key: build
+    agents:
+      queue: linux-medium
+    timeout_in_minutes: 30
+    plugins:
+      - *node
+    command: "bash .buildkite/scripts/build.sh"
+
+  - label: ":scales: License, provenance, SBOM & ScanCode"
+    key: compliance
+    agents:
+      queue: linux-medium
+    timeout_in_minutes: 45
+    artifact_paths:
+      - "sbom.spdx.json"
+      - ".reports/scancode/scancode.json"
+    plugins:
+      - *node
+    command: "bash .buildkite/scripts/compliance.sh"
+
+  - label: ":triangular_ruler: API contracts drift check"
+    key: codegen-drift
+    agents:
+      queue: linux-medium
+    timeout_in_minutes: 20
+    if_changed: "packages/api-contracts/**"
+    plugins:
+      - *node
+    command: "bash .buildkite/scripts/codegen-drift.sh"

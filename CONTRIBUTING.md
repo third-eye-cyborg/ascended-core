@@ -85,6 +85,8 @@ There is no `codegen` script in those packages.
   under `## [Unreleased]` in the same pull request.
 - Fill out the pull request template, including the boundary checklist.
 - Ensure CI is green: typecheck, lint, test, build, and the boundary scan must pass.
+  While GitHub Actions is unavailable, a temporary Buildkite pipeline runs the
+  same checks as backup CI; see [Continuous integration](./docs/ci.md).
 - Maintainer automation publishes branches and opens pull requests through the
   branded GitHub App described in
   [Maintainer publishing](./docs/maintainer-publishing.md). The App does not
