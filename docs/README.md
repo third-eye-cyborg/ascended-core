@@ -12,6 +12,10 @@ schemas, billing logic, moderation internals, admin tooling, or real user data.
 See [architecture/adoption-model.md](./architecture/adoption-model.md) for how
 the engine and a hosted product relate.
 
+This repository does not ship a production host process. Federation between
+independently hosted nodes is planned for the future and is not implemented
+in any current release.
+
 ## Documentation index
 
 ### Architecture

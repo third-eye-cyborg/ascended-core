@@ -9,12 +9,10 @@ Ascended Core ships two transport-facing packages:
 - **`@third-eye-cyborg/sdk`** — a thin, typed client derived from `api-contracts` for
   consuming the API from applications and examples.
 
-> **Status:** `@third-eye-cyborg/api-contracts` and `@third-eye-cyborg/sdk` are being brought up
-> alongside the core packages. This document describes the **planned reference
-> surface** they expose; where a formal OpenAPI/spec artifact exists in
-> `packages/api-contracts`, it is the source of truth and supersedes the summary
-> below. The `examples/openapi-client` workspace demonstrates consuming the
-> generated client.
+> **Status:** `@third-eye-cyborg/api-contracts` and `@third-eye-cyborg/sdk` are
+> hand-maintained. The OpenAPI document in `packages/api-contracts/spec` is the
+> transport source of truth; Zod schemas in that package are checked for drift
+> against it. The `examples/openapi-client` workspace consumes the SDK.
 
 ## Reference API surface (summary)
 
@@ -57,25 +55,20 @@ The SDK is a thin, typed wrapper over the API contracts. It returns the same
 neutral domain shapes and surfaces failures as `CoreError`.
 
 ```ts
-// Illustrative usage — see packages/sdk and examples/openapi-client for the
-// exact, generated client surface.
-import { createClient } from "@third-eye-cyborg/sdk";
+import { AscendedCoreClient } from "@third-eye-cyborg/sdk";
 
-const client = createClient({
+const client = new AscendedCoreClient({
   baseUrl: "https://api.example.org",
   // opaque bearer token issued by your AuthProvider adapter
-  token: "opaque-bearer-token",
+  apiKey: "opaque-bearer-token",
 });
 
-// Publish a post
-const post = await client.content.publishPost({
-  body: "Hello from Ada Example",
-  visibility: "public",
-  metadata: { element: "water" }, // product vocabulary via metadata
+const post = await client.createPost({
+  content: "Hello from Ada Example",
+  metadata: { element: "water" },
 });
 
-// Read it back
-const fetched = await client.content.getPost({ postId: post.id });
+const fetched = await client.getPost(post.id);
 ```
 
 Guidelines for SDK consumers:

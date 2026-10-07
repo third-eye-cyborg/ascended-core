@@ -1,98 +1,63 @@
 # Ascended Core
 
-<!-- Badge placeholders — wire these up once CI and npm publishing are live. -->
-[![CI](https://img.shields.io/badge/CI-pending-lightgrey.svg)](./.github/workflows/ci.yml)
-[![npm](https://img.shields.io/badge/npm-%40third--eye--cyborg%2Fascended--core-lightgrey.svg)](https://www.npmjs.com/package/@third-eye-cyborg/core)
+[![CI](https://github.com/third-eye-cyborg/ascended-core/actions/workflows/ci.yml/badge.svg)](https://github.com/third-eye-cyborg/ascended-core/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/@third-eye-cyborg/core.svg)](https://www.npmjs.com/package/@third-eye-cyborg/core)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](./LICENSE)
 [![Node](https://img.shields.io/badge/node-%3E%3D20-brightgreen.svg)](./package.json)
 
-**Ascended Core** is open-source infrastructure for privacy-conscious spiritual
-and community applications. It provides platform-neutral domain contracts,
-privacy modes, AI routing, an event backbone, vendor-neutral provider ports,
-and reference adapters — everything a community product needs to build on a
-solid, testable foundation without coupling to any specific vendor.
+**Ascended Core** is open-source TypeScript infrastructure for privacy-conscious
+community applications. It provides platform-neutral domain contracts, privacy
+modes, AI routing, an event backbone, vendor-neutral provider ports, and
+in-memory reference adapters.
 
-Ascended Core is intentionally vendor-agnostic. It never hard-codes a cloud
-identity provider, an object-storage provider, an AI provider, or product
-vocabulary. Domain-specific concepts (such as chakras, elements, or sigils in a
-downstream product) live in metadata extension points, not in Core.
+Ascended Core is vendor-agnostic. It does not hard-code a cloud identity
+provider, an object-storage provider, an AI provider, or product vocabulary.
+Domain-specific concepts live in metadata extension points, not in Core.
 
-## Features
+This repository publishes libraries. It does not ship a production host
+process. Federation between independently hosted nodes is planned for the
+future. It is not implemented in any current release, and no date is committed.
 
-- **Domain contracts** (`@third-eye-cyborg/contracts`) — platform-neutral types and
-  guards for identity, content, communities, conversations, events, and
-  moderation surfaces.
-- **Privacy modes** (`@third-eye-cyborg/privacy`) — cloud / private-local / human-only
-  modes, declarative policy enforcement, data minimization, and
-  redaction-safe telemetry.
-- **AI routing** (`@third-eye-cyborg/ai-router`) — a provider registry with capability
-  routing, privacy-aware fallbacks, and routing telemetry for text, image, 3D,
-  and recommendation workloads.
-- **Events** (`@third-eye-cyborg/events`) — typed, versioned domain events with an
-  event-bus contract, idempotency, retry/dead-letter interfaces, and an
-  in-memory test harness.
-- **Provider ports** (`@third-eye-cyborg/providers`) — vendor-neutral port interfaces
-  (auth, authorization, object storage, email, push) plus generic in-memory
-  adapters for tests and examples.
-- **Realtime, media, notifications** (`@third-eye-cyborg/realtime`, `@third-eye-cyborg/media`,
-  `@third-eye-cyborg/notifications`) — contracts and adapters for presence/rooms,
-  media pipelines, and multi-channel notification delivery.
-- **Observability** (`@third-eye-cyborg/observability`) — logging, metrics, and tracing
-  contracts designed to stay redaction-safe.
-- **Persistence** (`@third-eye-cyborg/persistence`) — repository port interfaces with
-  in-memory reference implementations.
-- **Reference API + SDK** (`@third-eye-cyborg/api-contracts`, `@third-eye-cyborg/sdk`) — schema
-  contracts for the reference HTTP API and a typed client SDK.
+## Packages
 
-## Install
-
-Ascended Core is a modular TypeScript library. Install only the public packages
-your application needs from the `@third-eye-cyborg` npm scope.
+Install only the public packages your application needs from the
+`@third-eye-cyborg` npm scope. Canonical names are `@third-eye-cyborg/core`,
+`@third-eye-cyborg/contracts`, and so on — there are no
+`@third-eye-cyborg/ascended-*` packages.
 
 ```sh
 pnpm add @third-eye-cyborg/core
 ```
 
-Add any additional packages you need, for example:
-
-```sh
-pnpm add @third-eye-cyborg/contracts @third-eye-cyborg/privacy @third-eye-cyborg/events
-```
-
-### Public npm packages
-
 | Package | Install command | Purpose |
 | --- | --- | --- |
-| `@third-eye-cyborg/ascended-core` | `pnpm add @third-eye-cyborg/ascended-core` | Shared IDs, errors, results, lifecycle, and health primitives. |
-| `@third-eye-cyborg/ascended-contracts` | `pnpm add @third-eye-cyborg/ascended-contracts` | Platform-neutral domain contracts and guards. |
-| `@third-eye-cyborg/ascended-events` | `pnpm add @third-eye-cyborg/ascended-events` | Typed domain events and event-bus contracts. |
-| `@third-eye-cyborg/ascended-privacy` | `pnpm add @third-eye-cyborg/ascended-privacy` | Privacy modes, enforcement hooks, and minimization helpers. |
-| `@third-eye-cyborg/ascended-ai-router` | `pnpm add @third-eye-cyborg/ascended-ai-router` | Provider registry and privacy-aware AI routing. |
-| `@third-eye-cyborg/ascended-providers` | `pnpm add @third-eye-cyborg/ascended-providers` | Vendor-neutral provider ports and in-memory adapters. |
-| `@third-eye-cyborg/ascended-persistence` | `pnpm add @third-eye-cyborg/ascended-persistence` | Repository and transaction contracts. |
-| `@third-eye-cyborg/ascended-realtime` | `pnpm add @third-eye-cyborg/ascended-realtime` | Presence, room, pub/sub, and call-session abstractions. |
-| `@third-eye-cyborg/ascended-media` | `pnpm add @third-eye-cyborg/ascended-media` | Media upload, lifecycle, and transformation contracts. |
-| `@third-eye-cyborg/ascended-notifications` | `pnpm add @third-eye-cyborg/ascended-notifications` | Notification preferences and delivery contracts. |
-| `@third-eye-cyborg/ascended-observability` | `pnpm add @third-eye-cyborg/ascended-observability` | Logging, tracing, metrics, and health aggregation. |
-| `@third-eye-cyborg/ascended-api-contracts` | `pnpm add @third-eye-cyborg/ascended-api-contracts` | Public OpenAPI contracts and Zod validation types. |
-| `@third-eye-cyborg/ascended-sdk` | `pnpm add @third-eye-cyborg/ascended-sdk` | Typed TypeScript client for the reference API. |
+| `@third-eye-cyborg/core` | `pnpm add @third-eye-cyborg/core` | Shared IDs, errors, results, lifecycle, and health primitives. |
+| `@third-eye-cyborg/contracts` | `pnpm add @third-eye-cyborg/contracts` | Platform-neutral domain contracts and guards. |
+| `@third-eye-cyborg/events` | `pnpm add @third-eye-cyborg/events` | Typed domain events and event-bus contracts. |
+| `@third-eye-cyborg/privacy` | `pnpm add @third-eye-cyborg/privacy` | Privacy modes, enforcement hooks, and minimization helpers. |
+| `@third-eye-cyborg/ai-router` | `pnpm add @third-eye-cyborg/ai-router` | Provider registry and privacy-aware AI routing. |
+| `@third-eye-cyborg/providers` | `pnpm add @third-eye-cyborg/providers` | Vendor-neutral provider ports and in-memory adapters. |
+| `@third-eye-cyborg/persistence` | `pnpm add @third-eye-cyborg/persistence` | Repository and transaction contracts. |
+| `@third-eye-cyborg/realtime` | `pnpm add @third-eye-cyborg/realtime` | Presence, room, pub/sub, and call-session abstractions. |
+| `@third-eye-cyborg/media` | `pnpm add @third-eye-cyborg/media` | Media upload, lifecycle, and transformation contracts. |
+| `@third-eye-cyborg/notifications` | `pnpm add @third-eye-cyborg/notifications` | Notification preferences and delivery contracts. |
+| `@third-eye-cyborg/observability` | `pnpm add @third-eye-cyborg/observability` | Logging, tracing, metrics, and health aggregation. |
+| `@third-eye-cyborg/api-contracts` | `pnpm add @third-eye-cyborg/api-contracts` | Public OpenAPI contracts and Zod validation types. |
+| `@third-eye-cyborg/sdk` | `pnpm add @third-eye-cyborg/sdk` | Typed TypeScript client for the reference API. |
 
-Use the same package names with `npm install` or `yarn add` if those are your
-project's package managers. The full package list, examples, and API guides are
-available in [`docs/`](./docs).
+Use the same package names with `npm install` or `yarn add`. Guides live in
+[`docs/`](./docs).
 
 ## Quickstart
 
 ```ts
 import { createId, ok, err, isEntityId } from "@third-eye-cyborg/core";
 
-// Opaque, prefixed, vendor-neutral entity ids.
 const accountId = createId("acct");
 const postId = createId("post");
 
 console.log(isEntityId(accountId)); // true
 
-// Result helpers keep error handling explicit and type-safe.
 function loadProfile(id: string) {
   if (!isEntityId(id)) {
     return err({ code: "invalid_id", message: `Not an entity id: ${id}` });
@@ -106,17 +71,50 @@ if (result.ok) {
 }
 ```
 
-> `ok`/`err` shapes follow the exports of `@third-eye-cyborg/core`. Read
-> `packages/core/src/index.ts` for the authoritative surface.
+`ok` / `err` follow the exports of `@third-eye-cyborg/core`. See
+`packages/core/src/index.ts` for the public surface.
 
-## Run the reference server
+## Reference server (local demo only)
 
-A runnable reference server demonstrates profiles, posts, communities, events,
-and notifications on local in-memory adapters:
+A runnable in-memory server demonstrates profiles, posts, communities, events,
+and notifications:
 
 ```sh
+pnpm install
 pnpm --filter @third-eye-cyborg/example-minimal-server smoke
 ```
+
+To leave it running:
+
+```sh
+pnpm --filter @third-eye-cyborg/example-minimal-server start
+```
+
+This example binds to `127.0.0.1`, stores state in memory, and accepts demo
+bearer tokens of the form `test-<entityId>` (for example
+`test-acct_…` from `createId("acct")`). It is not a production host and is not
+a federated node.
+
+## Self-hosting
+
+There is no production "Ascended Core Node" binary in this repository. Self-hosters
+consume the published `@third-eye-cyborg/*` packages and provide their own
+adapters (auth, storage, delivery). The in-tree reference server is a local
+demo only. Ascended Core alone is not a complete, deployable Ascended Social.
+Running it in production requires your own adapters, hosting, security, and
+operations.
+
+Federation — independently hosted nodes exchanging identity, content, or
+activity — is planned for the future. Ascended Core does not provide it today.
+
+## Compliance and warranty
+
+Ascended Core provides interfaces and policy hooks that can help you build
+privacy features. Using Ascended Core does not by itself make an application
+compliant with any law, regulation, or standard (for example GDPR, CCPA,
+COPPA, or HIPAA). You are responsible for how your application collects, uses,
+and protects data. Ascended Core is provided "AS IS", without warranties or
+conditions of any kind, as stated in Sections 7 and 8 of the Apache License 2.0.
 
 ## Repo layout
 
@@ -150,9 +148,9 @@ ascended-core/
 Ascended Core follows semantic versioning. Downstream products pin an engine
 version and opt into features gradually. See
 [docs/migration-and-adoption](./docs/migration-and-adoption) and the example
-adoption manifest [`core-adoption.example.yaml`](./core-adoption.example.yaml)
-for how a downstream product (for example, the private **Ascended Social**
-product) consumes Core versions and adopts features over time.
+adoption manifest [`core-adoption.example.yaml`](./core-adoption.example.yaml).
+
+Ascended Social is a separate, proprietary hosted product from Third Eye Cyborg, LLC that uses Ascended Core. It is not open source and is not part of this repository. "Ascended Core" and "Ascended Social" are trademarks of Third Eye Cyborg, LLC; see [TRADEMARKS.md](./TRADEMARKS.md).
 
 ## Contributing, security & license
 

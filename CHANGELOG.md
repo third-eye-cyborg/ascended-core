@@ -22,6 +22,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `@third-eye-cyborg/api-contracts` no longer bundles the `yaml` package into
   `dist`; `yaml` (ISC) is now an optional peer dependency used by the drift
   check, which falls back to a regex check when `yaml` is not installed.
+- Docs: README and API docs use the published `@third-eye-cyborg/*` package
+  names and the real `AscendedCoreClient` SDK surface, describe the reference
+  server as a local demo, state that Ascended Core alone is not a complete,
+  deployable Ascended Social, and mark federation as planned but not
+  implemented. Added a compliance and warranty note; `funding.md` now says no
+  collective exists yet.
+- Public package manifests now declare `engines.node >= 20`,
+  `sideEffects: false`, and `keywords`. Removed the root `codegen:api` and
+  `codegen:sdk` scripts, which pointed at scripts that do not exist.
 
 ## [0.1.1] - 2026-08-20
 

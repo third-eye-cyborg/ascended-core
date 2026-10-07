@@ -54,7 +54,11 @@ Useful scripts:
 - `pnpm test` — Vitest across every package.
 - `pnpm build` — tsup build for every publishable package.
 - `pnpm --filter @third-eye-cyborg/example-minimal-server smoke` — run the reference server smoke test.
+- `pnpm test:package-smoke` — after `pnpm build`, pack and install every public package.
 - `node scripts/checks/boundary-scan.mjs` — run the boundary scan locally.
+
+`@third-eye-cyborg/api-contracts` and `@third-eye-cyborg/sdk` are hand-maintained.
+There is no `codegen` script in those packages.
 
 ## Package conventions
 
@@ -107,6 +111,25 @@ maintainer review:
 If you need to demonstrate a real vendor integration, do it in your own
 downstream project — not here. Reference adapters in `examples/` illustrate the
 *shape* of an integration using generic, vendor-free code.
+
+## Adding a new external production dependency
+
+Publishable `@third-eye-cyborg/*` packages may depend on another workspace
+package without extra approval. An external (non-workspace) runtime dependency
+must be listed in [`compliance/license-policy.json`](./compliance/license-policy.json)
+before it can ship.
+
+1. Confirm the license is acceptable. The currently approved entries are listed
+   in `compliance/license-policy.json`.
+2. Add or update the entry in `compliance/license-policy.json` (`name`,
+   `allowedLicenses`, and `repository`).
+3. Add a `THIRD_PARTY_NOTICES.md` file to every public package that depends on
+   the new package, reproducing the upstream copyright and license notice.
+4. Run `node scripts/checks/third-party-compliance.mjs` and
+   `node scripts/checks/package-smoke.mjs` after `pnpm build`.
+
+DevDependencies at the workspace root do not ship in public tarballs and are
+outside this production-dependency policy.
 
 ## Reporting security issues
 

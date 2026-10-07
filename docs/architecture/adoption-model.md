@@ -79,8 +79,9 @@ public release stream:
 4. **Private adoption PR** — the downstream product opens its own PR to bump the
    adopted version and integrate.
 
-This ordering guarantees that Core never depends on private code, and that every
-capability the product relies on exists first as a public, reviewable release.
+This ordering is intended to keep Core free of private code. It describes how
+Core changes reach the product; it does not mean the hosted product, or all of
+its features, are open source.
 
 ## Why the separation matters
 
