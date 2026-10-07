@@ -10,3 +10,8 @@ node --version
 PNPM_VERSION="$(node -p "require('./package.json').packageManager.replace(/^pnpm@/, '')")"
 npm install --global "pnpm@${PNPM_VERSION}" >/dev/null
 pnpm --version
+
+# Keep the pnpm store outside the checkout. Inside the container pnpm would
+# otherwise create ./.pnpm-store, which the boundary scan and ScanCode would
+# then scan.
+export npm_config_store_dir="/tmp/pnpm-store"
