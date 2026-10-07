@@ -97,7 +97,7 @@ function pkgJson(name, cfg, isExample) {
     name: isExample ? `@third-eye-cyborg/example-${name}` : `@third-eye-cyborg/${name}`,
     version: "0.1.0",
     description: cfg.desc,
-    author: "Third Eye Cyborg LLC",
+    author: "Third Eye Cyborg, LLC",
     repository: {
       type: "git",
       url: "git+https://github.com/third-eye-cyborg/ascended-core.git",
@@ -139,7 +139,7 @@ function pkgJson(name, cfg, isExample) {
       exports: {
         ".": { types: "./dist/index.d.ts", import: "./dist/index.js", require: "./dist/index.cjs" },
       },
-      files: ["dist", "LICENSE", ...(cfg.external?.length ? ["THIRD_PARTY_NOTICES.md"] : [])],
+      files: ["dist", "LICENSE", "NOTICE", ...(cfg.external?.length ? ["THIRD_PARTY_NOTICES.md"] : [])],
       publishConfig: { access: "public" },
       license: "Apache-2.0",
     });

@@ -6,6 +6,37 @@ applications. Contributions of all kinds are welcome — bug fixes, new
 provider ports, documentation, tests, and design discussion.
 
 By participating you agree to abide by our [Code of Conduct](./CODE_OF_CONDUCT.md).
+For help and questions, see [SUPPORT.md](./SUPPORT.md). For roles, review
+requirements, and how decisions are made, see [GOVERNANCE.md](./GOVERNANCE.md).
+
+## License of contributions and sign-off (DCO)
+
+By submitting a contribution, you agree that it is licensed under the Apache
+License 2.0, the same license as this repository (Section 5 of the License),
+including the patent license in Section 3. You keep the copyright in your
+contribution; we do not ask you to assign it to us, and we do not use a
+Contributor License Agreement.
+
+Every commit must carry a sign-off under the Developer Certificate of Origin,
+version 1.1 (https://developercertificate.org/). By signing off, you make the
+certifications in the DCO: in short, that you wrote the change or otherwise
+have the right to submit it under the project's open-source license, and that
+you understand the contribution and your sign-off (including your name and
+email address) are public and kept permanently in the project's history. Add
+the sign-off with `git commit -s`, which appends:
+
+    Signed-off-by: Your Name <you@example.com>
+
+If your change includes code you did not write (for example, code copied from
+another project), identify it in the pull request and keep its original
+copyright and license notices; that code stays under its own license and must
+pass the third-party license policy.
+
+The name and email must match the commit author. Sign-off will be enforced by
+a required DCO status check on pull requests to `main`; until that check is
+enabled, maintainers verify sign-off during review. Pull requests with unsigned
+commits are not merged. To fix existing commits, run
+`git rebase --signoff main` and force-push your branch.
 
 ## Development setup
 
@@ -42,6 +73,10 @@ Useful scripts:
   commit messages and PR titles (for example `feat(privacy): add jurisdiction router`).
   PR titles are linted automatically.
 - Keep PRs focused and include a clear summary and test plan.
+- Sign off every commit (`git commit -s`); see
+  [License of contributions and sign-off (DCO)](#license-of-contributions-and-sign-off-dco).
+- If your change is user-facing, add a [CHANGELOG.md](./CHANGELOG.md) entry
+  under `## [Unreleased]` in the same pull request.
 - Fill out the pull request template, including the boundary checklist.
 - Ensure CI is green: typecheck, lint, test, build, and the boundary scan must pass.
 - Maintainer automation publishes branches and opens pull requests through the

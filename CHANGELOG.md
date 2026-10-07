@@ -5,6 +5,24 @@ All notable changes to Ascended Core are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+- Docs: contributions now require a Developer Certificate of Origin sign-off
+  (`git commit -s`); see CONTRIBUTING.md.
+- Docs: added TRADEMARKS.md and a root NOTICE file; copyright and `author`
+  metadata now use the legal name "Third Eye Cyborg, LLC".
+- Docs: SECURITY.md points reporters to GitHub private vulnerability reporting,
+  adds a good-faith security research statement, and no longer describes the
+  repository as private.
+- Third-party notices for zod now read "Copyright (c) 2025 Colin McDonnell",
+  matching zod's MIT license.
+- Public packages now include a NOTICE file.
+- `@third-eye-cyborg/api-contracts` no longer bundles the `yaml` package into
+  `dist`; `yaml` (ISC) is now an optional peer dependency used by the drift
+  check, which falls back to a regex check when `yaml` is not installed.
+
 ## [0.1.1] - 2026-08-20
 
 ### Fixed
@@ -48,5 +66,6 @@ Initial public release of the Ascended Core monorepo.
 - Reference examples: `example-minimal-server`, `openapi-client`, and
   `reference-adapters`.
 
+[Unreleased]: https://github.com/third-eye-cyborg/ascended-core/compare/v0.1.1...HEAD
 [0.1.1]: https://github.com/third-eye-cyborg/ascended-core/releases/tag/v0.1.1
 [0.1.0]: https://github.com/third-eye-cyborg/ascended-core/releases/tag/v0.1.0

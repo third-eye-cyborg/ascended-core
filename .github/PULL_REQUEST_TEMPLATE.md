@@ -23,3 +23,4 @@ style PR title (for example: feat(privacy): add jurisdiction router).
 
 - [ ] `pnpm check` passes (typecheck, lint, test, build).
 - [ ] `node scripts/checks/boundary-scan.mjs` exits 0.
+- [ ] Every commit is signed off (git commit -s, DCO 1.1).

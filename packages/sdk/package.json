@@ -2,7 +2,7 @@
   "name": "@third-eye-cyborg/sdk",
   "version": "0.1.1",
   "description": "Hand-curated TypeScript client SDK for the Ascended Core reference API.",
-  "author": "Third Eye Cyborg LLC",
+  "author": "Third Eye Cyborg, LLC",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/third-eye-cyborg/ascended-core.git",
@@ -44,6 +44,7 @@
   "files": [
     "dist",
     "LICENSE",
+    "NOTICE",
     "THIRD_PARTY_NOTICES.md"
   ],
   "publishConfig": {

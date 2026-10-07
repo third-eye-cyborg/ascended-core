@@ -6,6 +6,11 @@
       "name": "zod",
       "allowedLicenses": ["MIT"],
       "repository": "https://github.com/colinhacks/zod"
+    },
+    {
+      "name": "yaml",
+      "allowedLicenses": ["ISC"],
+      "repository": "https://github.com/eemeli/yaml"
     }
   ]
 }
