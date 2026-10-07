@@ -161,4 +161,5 @@ product) consumes Core versions and adopts features over time.
 - [Governance](./GOVERNANCE.md)
 - [Support](./SUPPORT.md)
 - [Security policy](./SECURITY.md)
-- Licensed under the [Apache License 2.0](./LICENSE) — © Third Eye Cyborg LLC.
+- [Trademarks](./TRADEMARKS.md)
+- Licensed under the [Apache License 2.0](./LICENSE). Copyright 2026 Third Eye Cyborg, LLC. See [NOTICE](./NOTICE).

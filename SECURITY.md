@@ -8,17 +8,19 @@ project and its downstream consumers safe.
 Please **do not** report security vulnerabilities through public GitHub issues,
 discussions, or pull requests.
 
-Instead, report privately using **GitHub Security Advisories**:
+Instead, report privately using **GitHub private vulnerability reporting**:
 
 1. Go to the repository's **Security** tab.
-2. Choose **Report a vulnerability** to open a private advisory.
+2. Click **Report a vulnerability**. This opens a private report that only you
+   and the maintainers can see.
 3. Include a clear description, affected package(s) and version(s), reproduction
    steps, and any suggested remediation.
 
-If you cannot use GitHub Security Advisories, contact the maintainers privately
-through GitHub so we can arrange a secure channel.
+If you cannot use GitHub private vulnerability reporting, open a public issue
+titled "Request for private security contact" with no vulnerability details,
+and a maintainer will arrange a private channel.
 
-## Response SLAs
+## Response targets
 
 We aim to meet the following response targets:
 
@@ -31,6 +33,16 @@ We aim to meet the following response targets:
 
 These are targets, not guarantees; complex issues may take longer, and we will
 keep reporters informed of progress.
+
+## Good-faith security research
+
+We will not pursue legal action against researchers who act in good faith under
+this policy: test only your own local copies or installations of Ascended Core,
+not systems or data you do not own (including the hosted Ascended Social
+service); avoid privacy violations, data destruction, and service disruption;
+and give us reasonable time to fix an issue before public disclosure. This
+statement covers only Third Eye Cyborg, LLC and this repository; it cannot
+authorize testing of anyone else's systems.
 
 ## Supported versions
 
@@ -63,11 +75,11 @@ update pull requests for maintainer review. Updates are validated through the
 same CI checks as every other pull request; alerts and updates are not
 suppressed merely to make a check pass.
 
-GitHub Code Scanning is not enabled for this private repository's current GitHub
-configuration. Until it is available, the dependency audit, Dependabot,
-least-privilege Actions permissions, boundary scan, package smoke check, and
-private vulnerability reporting process are the project's automated security
-baseline.
+This repository is public. GitHub code scanning with CodeQL analyzes the
+JavaScript/TypeScript sources and GitHub Actions workflows. Together with the
+production dependency audit, Dependabot, least-privilege Actions permissions,
+the boundary scan, the ScanCode license/copyright gate, and the package smoke
+check, it forms the project's automated security baseline.
 
 Out of scope:
 

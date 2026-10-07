@@ -2,7 +2,7 @@
   "name": "@third-eye-cyborg/api-contracts",
   "version": "0.1.1",
   "description": "Public-safe OpenAPI contract for the reference API plus generated Zod validation types and a drift check.",
-  "author": "Third Eye Cyborg LLC",
+  "author": "Third Eye Cyborg, LLC",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/third-eye-cyborg/ascended-core.git",

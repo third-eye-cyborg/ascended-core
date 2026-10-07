@@ -97,7 +97,7 @@ function pkgJson(name, cfg, isExample) {
     name: isExample ? `@third-eye-cyborg/example-${name}` : `@third-eye-cyborg/${name}`,
     version: "0.1.0",
     description: cfg.desc,
-    author: "Third Eye Cyborg LLC",
+    author: "Third Eye Cyborg, LLC",
     repository: {
       type: "git",
       url: "git+https://github.com/third-eye-cyborg/ascended-core.git",

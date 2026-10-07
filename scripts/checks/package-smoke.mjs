@@ -62,7 +62,7 @@ for (const workspace of listPublishableWorkspaces(root)) {
     } else {
       console.log(`ok   ${pkg.name} tarball includes LICENSE`);
     }
-    if (pkg.author !== "Third Eye Cyborg LLC" || !pkg.repository?.url || !pkg.homepage || !pkg.bugs?.url) {
+    if (pkg.author !== "Third Eye Cyborg, LLC" || !pkg.repository?.url || !pkg.homepage || !pkg.bugs?.url) {
       failures += 1;
       console.error(`FAIL ${pkg.name} tarball manifest is missing provenance metadata`);
     }
