@@ -5,8 +5,11 @@
 # should be removed once Actions is running again. See docs/ci.md.
 #
 # Mirrors .github/workflows/ci.yml (and codegen-drift.yml when the API
-# contracts change). Not mirrored: pr-title.yml (needs PR metadata),
-# release.yml (publishing stays on Actions), and CodeQL (GitHub-only).
+# contracts change). Dev/CI require Node >= 22.12 (vitest 5, #33); this
+# backup uses node:22-bookworm (current latest 22), matching the Actions
+# matrix "22" entry. pnpm comes from package.json packageManager.
+# Not mirrored: pr-title.yml (needs PR metadata), release.yml (publishing
+# stays on Actions), and CodeQL (GitHub-only).
 #
 # Security: no secrets are used by any step. Fork pull requests are not built.
 
@@ -20,7 +23,7 @@ x-node: &node
       - "CI"
 
 steps:
-  - label: ":nodejs: Lint, typecheck, test & build"
+  - label: ":nodejs: Lint, typecheck, test, build & pack-smoke"
     key: build
     agents:
       queue: linux-medium
@@ -29,7 +32,7 @@ steps:
       - *node
     command: "bash .buildkite/scripts/build.sh"
 
-  - label: ":scales: License, provenance, SBOM & ScanCode"
+  - label: ":scales: Audit, license, boundary, SBOM & ScanCode"
     key: compliance
     agents:
       queue: linux-medium

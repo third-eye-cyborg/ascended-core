@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Temporary backup CI: mirrors the license, provenance, SBOM and ScanCode
-# steps in .github/workflows/ci.yml.
+# Temporary backup CI: mirrors the "Audit, license, boundary & SBOM" job
+# in .github/workflows/ci.yml.
 set -euo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")/../.."
 
@@ -15,11 +15,18 @@ python3 --version
 echo "--- :pnpm: Install dependencies"
 pnpm install --frozen-lockfile
 
+echo "--- :lock: Production dependency audit"
+pnpm audit:production
+
 echo "--- :scales: Third-party license and provenance check"
 pnpm check:third-party
 
 echo "--- :page_facing_up: Generate production SPDX SBOM"
 node scripts/checks/third-party-compliance.mjs --sbom > sbom.spdx.json
+
+echo "--- :mag: Boundary scan"
+# Lists every binary-skipped file, as in the Actions workflow.
+BOUNDARY_SCAN_VERBOSE=1 node scripts/checks/boundary-scan.mjs
 
 echo "--- :hammer_and_wrench: Install ScanCode Toolkit"
 SCANCODE_PYTHON="$(command -v python3.11 || command -v python3)" bash scripts/checks/install-scancode.sh
