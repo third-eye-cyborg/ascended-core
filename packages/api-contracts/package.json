@@ -1,7 +1,7 @@
 {
   "name": "@third-eye-cyborg/api-contracts",
   "version": "0.1.1",
-  "description": "Public-safe OpenAPI contract for the reference API plus generated Zod validation types and a drift check.",
+  "description": "Public-safe OpenAPI contract for the reference API plus hand-maintained Zod validation types and a drift check.",
   "author": "Third Eye Cyborg, LLC",
   "repository": {
     "type": "git",
@@ -58,5 +58,16 @@
   "publishConfig": {
     "access": "public"
   },
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "sideEffects": false,
+  "keywords": [
+    "ascended-core",
+    "third-eye-cyborg",
+    "typescript",
+    "community",
+    "openapi"
+  ]
 }

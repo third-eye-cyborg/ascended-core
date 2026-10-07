@@ -21,7 +21,7 @@ a **port** (vendor-neutral interface) with an **in-memory adapter**, or a
 | `@third-eye-cyborg/media` | Media | Upload sessions, asset lifecycle, and transform contracts with a local object-storage adapter. |
 | `@third-eye-cyborg/notifications` | Notifications | Preferences, multi-channel (in-app/email/push) workflow contracts, and local adapters. |
 | `@third-eye-cyborg/api-contracts` | API surface | Transport-level request/response contracts and the API spec that the SDK targets. |
-| `@third-eye-cyborg/sdk` | Client SDK | A thin, typed client generated/derived from `api-contracts`. |
+| `@third-eye-cyborg/sdk` | Client SDK | A thin, hand-curated typed client that targets `api-contracts`. |
 
 Plus example workspaces under `examples/` (`minimal-server`,
 `reference-adapters`, `openapi-client`) that demonstrate composition without
@@ -68,7 +68,7 @@ vendor-specific adapters live in the downstream app or in separate adapter
 repos, never in Core. Ports are described generically ("a cloud identity
 provider", "an object-storage provider").
 
-### 2. Privacy-first routing
+### 2. Policy-checked routing
 The AI router evaluates a `PrivacyPolicy` **before** dispatching work.
 Enforcement is purely **family-based** (`cloud-text`, `local`, `human`, …) plus a
 per-provider allow-list; there is no vendor substring matching. Blocked calls

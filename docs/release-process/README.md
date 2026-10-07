@@ -45,8 +45,8 @@ While Core is `0.x`:
 
 ## Changelog
 
-Every package maintains a changelog following
-[Keep a Changelog](https://keepachangelog.com) conventions:
+The repository maintains a single root [CHANGELOG.md](../../CHANGELOG.md)
+following [Keep a Changelog](https://keepachangelog.com) conventions:
 
 - Group entries under **Added / Changed / Deprecated / Removed / Fixed /
   Security**.

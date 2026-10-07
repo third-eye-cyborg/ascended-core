@@ -1,9 +1,11 @@
 # Funding
 
 Ascended Core is open source. To sustain maintenance, documentation, infra, and
-security review transparently, the project raises and spends funds through a
-**fiscal-hosted collective** on Open Collective. A fiscal host holds funds and
-handles the legal/accounting side so maintainers can focus on the software.
+security review transparently, the project plans to raise funds through a
+fiscal-hosted collective on Open Collective. No collective exists yet. Do not
+send money for Ascended Core until a collective is announced in this
+repository. A fiscal host holds funds and handles the legal/accounting side so
+maintainers can focus on the software.
 
 > **Important boundary:** the Collective funds the **open engine only**. Any
 > downstream product subscriptions or entitlements (for the private hosted
