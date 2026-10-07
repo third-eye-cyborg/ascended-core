@@ -1,6 +1,6 @@
 {
   "name": "@third-eye-cyborg/api-contracts",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Public-safe OpenAPI contract for the reference API plus hand-maintained Zod validation types and a drift check.",
   "author": "Third Eye Cyborg, LLC",
   "repository": {

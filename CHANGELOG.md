@@ -7,9 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-The next release is **0.2.0**. Version fields stay at 0.1.1 here; a
-release-prep PR will bump them and date the section. In the `0.x` line a
-minor may carry breaking changes.
+## [0.2.0] - 2026-10-06
+
+Minor release covering everything merged since 0.1.1 (#30, #28, #26, #34,
+#33, #27, #31). In the `0.x` line a minor may carry breaking changes; this
+one does, because the exported schemas move to Zod 4 (see below).
 
 ### Changed
 
@@ -40,14 +42,21 @@ minor may carry breaking changes.
   deployable Ascended Social, and mark federation as planned but not
   implemented. Added a compliance and warranty note; `funding.md` now says no
   collective exists yet.
+- CI: the quality job runs install, lint, typecheck, test, build, and
+  pack-smoke on Node 22.12 and the latest Node 22; pack-smoke installs
+  `pnpm pack` tarballs into a fresh project and loads ESM, CJS, and types.
+  Dependabot ignores uncoordinated majors for TypeScript, ESLint, Zod,
+  Vitest, and `@types/node`.
+- CI: added a temporary Buildkite backup pipeline (`.buildkite/`, see
+  `docs/ci.md`) that mirrors the Actions checks while GitHub Actions is
+  unavailable. It uses no secrets, does not publish, and does not build fork
+  pull requests.
 - Public package manifests now declare `engines.node >= 20`,
   `sideEffects: false`, and `keywords`. Removed the root `codegen:api` and
   `codegen:sdk` scripts, which pointed at scripts that do not exist.
 
 ### Fixed
 
-- `@third-eye-cyborg/privacy`: Human mode now ignores `allowedCloudProviders`,
-  so an allow-listed provider can no longer bypass Human mode's family blocks.
 - `@third-eye-cyborg/ai-router`: provider timeouts are recorded as
   `PROVIDER_TIMEOUT`.
 - `@third-eye-cyborg/sdk`: maps additional HTTP statuses to typed errors.
@@ -57,6 +66,12 @@ minor may carry breaking changes.
 - ScanCode copyright-holder gate: the Unreleased changelog no longer quotes
   the zod MIT copyright notice, which ScanCode treated as an unexpected
   third-party copyright holder in `CHANGELOG.md`.
+
+### Security
+
+- `@third-eye-cyborg/privacy`: Human mode now ignores `allowedCloudProviders`.
+  In 0.1.0–0.1.1 an allow-listed provider could be called while Human mode
+  was active, bypassing Human mode's family blocks.
 
 ### Dependencies
 
@@ -113,6 +128,7 @@ Initial public release of the Ascended Core monorepo.
 - Reference examples: `example-minimal-server`, `openapi-client`, and
   `reference-adapters`.
 
-[Unreleased]: https://github.com/third-eye-cyborg/ascended-core/compare/v0.1.1...HEAD
+[Unreleased]: https://github.com/third-eye-cyborg/ascended-core/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/third-eye-cyborg/ascended-core/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/third-eye-cyborg/ascended-core/releases/tag/v0.1.1
 [0.1.0]: https://github.com/third-eye-cyborg/ascended-core/releases/tag/v0.1.0

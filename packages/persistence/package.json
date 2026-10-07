@@ -1,6 +1,6 @@
 {
   "name": "@third-eye-cyborg/persistence",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Repository, unit-of-work, and transaction interfaces with in-memory implementations. No production schema.",
   "author": "Third Eye Cyborg, LLC",
   "repository": {
