@@ -6,7 +6,7 @@
  *   --sbom          Generate an SPDX 2.3 JSON SBOM of all workspace packages
  *                   and their direct runtime dependencies, written to stdout.
  *   --trace <spec>  Print every dependency path from workspace packages to
- *                   <spec> (e.g. "zod@3.25.76" or just "zod").  Add --json to
+ *                   <spec> (e.g. "zod@4.6.5" or just "zod").  Add --json to
  *                   get machine-readable output.
  *   --dry-run       Run all supply-chain checks but exit 0 even on violations
  *                   (report only).
@@ -31,8 +31,8 @@
  *   node scripts/checks/third-party-compliance.mjs --sbom        # SBOM → stdout
  *   node scripts/checks/third-party-compliance.mjs --dry-run     # report, no exit-1
  *   node scripts/checks/third-party-compliance.mjs --skip-network
- *   node scripts/checks/third-party-compliance.mjs --trace zod@3.25.76
- *   node scripts/checks/third-party-compliance.mjs --trace zod@3.25.76 --json
+ *   node scripts/checks/third-party-compliance.mjs --trace zod@4.6.5
+ *   node scripts/checks/third-party-compliance.mjs --trace zod@4.6.5 --json
  *
  * Exits 0 if all checks pass, 1 on any violation (unless --dry-run).
  */
@@ -1468,9 +1468,9 @@ if (isCli) {
       console.error(
         "error: --trace requires a package specifier.\n" +
           "  Examples:\n" +
-          "    node scripts/checks/third-party-compliance.mjs --trace zod@3.25.76\n" +
+          "    node scripts/checks/third-party-compliance.mjs --trace zod@4.6.5\n" +
           "    node scripts/checks/third-party-compliance.mjs --trace zod\n" +
-          "    node scripts/checks/third-party-compliance.mjs --trace zod@3.25.76 --json",
+          "    node scripts/checks/third-party-compliance.mjs --trace zod@4.6.5 --json",
       );
       process.exit(1);
     }
