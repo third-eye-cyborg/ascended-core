@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Temporary backup CI: mirrors the "Lint, typecheck, test & build" job in
-# .github/workflows/ci.yml.
+# Temporary backup CI: mirrors the quality job in .github/workflows/ci.yml
+# (lint, typecheck, test, build, pack-smoke). Needs Node >= 22.12.
 set -euo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")/../.."
 
@@ -8,9 +8,6 @@ source .buildkite/scripts/setup-pnpm.sh
 
 echo "--- :pnpm: Install dependencies"
 pnpm install --frozen-lockfile
-
-echo "--- :lock: Production dependency audit"
-pnpm audit:production
 
 echo "--- :eslint: Lint"
 pnpm lint
@@ -24,9 +21,5 @@ pnpm test
 echo "--- :package: Build"
 pnpm build
 
-echo "--- :mag: Boundary scan"
-# Lists every binary-skipped file, as in the Actions workflow.
-BOUNDARY_SCAN_VERBOSE=1 node scripts/checks/boundary-scan.mjs
-
-echo "--- :package: Package smoke (CJS/ESM load + LICENSE in tarballs)"
+echo "--- :package: Package smoke (CJS/ESM load, tarball install, LICENSE)"
 node scripts/checks/package-smoke.mjs
