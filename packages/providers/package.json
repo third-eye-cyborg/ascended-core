@@ -1,6 +1,6 @@
 {
   "name": "@third-eye-cyborg/providers",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Provider ports (auth, storage, email, push, payments, search, rate limiting, audit) plus generic in-memory adapters for tests and examples.",
   "author": "Third Eye Cyborg, LLC",
   "repository": {
