@@ -4,11 +4,16 @@
  * such as un-shimmed import.meta in dist output) and that `npm pack` tarballs
  * include release metadata and required legal notices.
  *
+ * After the per-package checks, every tarball is installed into a fresh
+ * temporary project and imported as ESM and required as CJS, and the
+ * published `.d.ts` files are confirmed to exist.
+ *
  * Run AFTER `pnpm -r build`. Usage: node scripts/checks/package-smoke.mjs
  */
 
 import { execFileSync } from "node:child_process";
-import { existsSync, readdirSync, readFileSync } from "node:fs";
+import { existsSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 import { listPublishableWorkspaces } from "./workspace-packages.mjs";
@@ -16,6 +21,7 @@ import { listPublishableWorkspaces } from "./workspace-packages.mjs";
 const root = new URL("../../", import.meta.url).pathname;
 
 let failures = 0;
+const packedTarballs = [];
 
 for (const workspace of listPublishableWorkspaces(root)) {
   const pkgDir = workspace.path;
@@ -77,13 +83,15 @@ for (const workspace of listPublishableWorkspaces(root)) {
   }
 
   try {
-    const out = execFileSync(
-      "npm",
-      ["pack", "--dry-run", "--json"],
-      { cwd: pkgDir, stdio: ["pipe", "pipe", "pipe"] },
-    ).toString();
-    const parsed = JSON.parse(out);
-    const files = parsed[0]?.files?.map((f) => f.path) ?? [];
+    // Use pnpm pack so workspace:* dependencies are rewritten to published
+    // versions, matching `pnpm publish`. Plain `npm pack` leaves workspace:*.
+    const packed = execFileSync("pnpm", ["pack", "--json"], {
+      cwd: pkgDir,
+      stdio: ["pipe", "pipe", "pipe"],
+    }).toString();
+    const packInfo = JSON.parse(packed);
+    const info = Array.isArray(packInfo) ? packInfo[0] : packInfo;
+    const files = info?.files?.map((f) => f.path) ?? [];
     if (!files.some((f) => /(^|\/)LICENSE$/i.test(f))) {
       failures += 1;
       console.error(`FAIL ${pkg.name} tarball is missing LICENSE`);
@@ -108,9 +116,86 @@ for (const workspace of listPublishableWorkspaces(root)) {
       failures += 1;
       console.error(`FAIL ${pkg.name} tarball is missing THIRD_PARTY_NOTICES.md`);
     }
+    if (!info?.filename) {
+      failures += 1;
+      console.error(`FAIL ${pkg.name} pnpm pack did not report a filename`);
+    } else {
+      packedTarballs.push({ name: pkg.name, path: join(pkgDir, info.filename) });
+      console.log(`ok   ${pkg.name} packed ${info.filename}`);
+    }
   } catch (error) {
     failures += 1;
-    console.error(`FAIL ${pkg.name} npm pack dry-run failed: ${error.message}`);
+    console.error(`FAIL ${pkg.name} pnpm pack failed: ${error.message}`);
+  }
+}
+
+if (packedTarballs.length > 0) {
+  const consumerDir = mkdtempSync(join(tmpdir(), "ascended-core-pack-smoke-"));
+  try {
+    writeFileSync(
+      join(consumerDir, "package.json"),
+      JSON.stringify(
+        {
+          name: "ascended-core-pack-smoke-consumer",
+          private: true,
+          type: "module",
+        },
+        null,
+        2,
+      ),
+    );
+    execFileSync("npm", ["install", "--ignore-scripts", ...packedTarballs.map((entry) => entry.path)], {
+      cwd: consumerDir,
+      stdio: ["pipe", "pipe", "pipe"],
+    });
+    console.log(`ok   installed ${packedTarballs.length} tarball(s) into a fresh project`);
+
+    for (const { name } of packedTarballs) {
+      try {
+        execFileSync(
+          process.execPath,
+          ["--input-type=module", "-e", `await import(${JSON.stringify(name)})`],
+          { cwd: consumerDir, stdio: "pipe" },
+        );
+        console.log(`ok   ${name} ESM import from installed tarball`);
+      } catch (error) {
+        failures += 1;
+        console.error(`FAIL ${name} ESM import from installed tarball: ${error.message}`);
+      }
+
+      try {
+        execFileSync(
+          process.execPath,
+          [
+            "--input-type=commonjs",
+            "-e",
+            `require(${JSON.stringify(name)})`,
+          ],
+          { cwd: consumerDir, stdio: "pipe" },
+        );
+        console.log(`ok   ${name} CJS require from installed tarball`);
+      } catch (error) {
+        failures += 1;
+        console.error(`FAIL ${name} CJS require from installed tarball: ${error.message}`);
+      }
+
+      const typesPath = join(consumerDir, "node_modules", name, "dist", "index.d.ts");
+      if (!existsSync(typesPath)) {
+        failures += 1;
+        console.error(`FAIL ${name} installed tarball is missing dist/index.d.ts`);
+      } else {
+        console.log(`ok   ${name} ships type definitions`);
+      }
+    }
+  } catch (error) {
+    failures += 1;
+    const details = error.stderr ? error.stderr.toString() : error.message;
+    console.error(`FAIL tarball install into fresh project failed: ${details}`);
+  } finally {
+    rmSync(consumerDir, { recursive: true, force: true });
+    for (const { path } of packedTarballs) {
+      rmSync(path, { force: true });
+    }
   }
 }
 
@@ -118,4 +203,4 @@ if (failures > 0) {
   console.error(`\npackage smoke: ${failures} failure(s)`);
   process.exit(1);
 }
-console.log("\npackage smoke: all packages load and pack cleanly");
+console.log("\npackage smoke: all packages load, pack, and install cleanly");
