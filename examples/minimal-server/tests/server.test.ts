@@ -119,6 +119,84 @@ describe("reference minimal server", () => {
     expect(response.status).toBe(400);
   });
 
+  it("paginates /notifications/me with cursor and limit", async () => {
+    const author = tokenHeader();
+    const reactor = tokenHeader();
+    const post = await call("POST", "/posts", {
+      token: author,
+      body: { content: "Paginated notification source." },
+    });
+    const postId = (post.json as { id: string }).id;
+    for (let i = 0; i < 3; i += 1) {
+      const reaction = await call("POST", `/posts/${postId}/reactions`, {
+        token: reactor,
+        body: { kind: `celebrate-${i}` },
+      });
+      expect(reaction.status).toBe(201);
+    }
+
+    const first = await call("GET", "/notifications/me?limit=2", { token: author });
+    expect(first.status).toBe(200);
+    const firstPage = first.json as { items: unknown[]; nextCursor?: string };
+    expect(firstPage.items).toHaveLength(2);
+    expect(firstPage.nextCursor).toBeDefined();
+
+    const second = await call("GET", `/notifications/me?limit=2&cursor=${firstPage.nextCursor}`, {
+      token: author,
+    });
+    expect(second.status).toBe(200);
+    const secondPage = second.json as { items: unknown[]; nextCursor?: string };
+    expect(secondPage.items.length).toBeGreaterThanOrEqual(1);
+  });
+
+  it("treats a second community join as idempotent", async () => {
+    const member = tokenHeader();
+    const created = await call("POST", "/communities", {
+      token: member,
+      body: { name: "Example Circle" },
+    });
+    const communityId = (created.json as { id: string }).id;
+    const first = await call("POST", `/communities/${communityId}/join`, { token: member });
+    const second = await call("POST", `/communities/${communityId}/join`, { token: member });
+    expect(first.status).toBe(201);
+    expect(second.status).toBe(200);
+    expect((second.json as { communityId: string }).communityId).toBe(communityId);
+  });
+
+  it("updates an existing RSVP instead of creating a duplicate", async () => {
+    const host = tokenHeader();
+    const created = await call("POST", "/events", {
+      token: host,
+      body: { title: "Example Gathering", startsAt: "2026-10-08T18:00:00.000Z" },
+    });
+    const eventId = (created.json as { id: string }).id;
+    const first = await call("POST", `/events/${eventId}/rsvp`, {
+      token: host,
+      body: { status: "going" },
+    });
+    const second = await call("POST", `/events/${eventId}/rsvp`, {
+      token: host,
+      body: { status: "maybe" },
+    });
+    expect(first.status).toBe(201);
+    expect(second.status).toBe(200);
+    expect((second.json as { status: string }).status).toBe("maybe");
+  });
+
+  it("returns 405 UNSUPPORTED for a disallowed method", async () => {
+    const res = await call("DELETE", "/posts", { token: tokenHeader() });
+    expect(res.status).toBe(405);
+    expect((res.json as { code: string }).code).toBe("UNSUPPORTED");
+  });
+
+  it("returns 401 when the demo token suffix is not an entity id", async () => {
+    const response = await fetch(`${server.baseUrl}/profiles/me`, {
+      method: "GET",
+      headers: { authorization: "Bearer test-not-an-id" },
+    });
+    expect(response.status).toBe(401);
+  });
+
   it("publishes a domain event when a post is created", async () => {
     const captured: string[] = [];
     server.platform.bus.subscribe("content.post_published", (event) => {

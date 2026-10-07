@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- `@third-eye-cyborg/privacy`: Human mode now ignores `allowedCloudProviders`,
+  so an allow-listed provider can no longer bypass Human mode's family blocks.
+- `@third-eye-cyborg/ai-router`: provider timeouts are recorded as
+  `PROVIDER_TIMEOUT`.
+- `@third-eye-cyborg/sdk`: maps additional HTTP statuses to typed errors.
+- Reference server: notification pagination is honored, join/RSVP are
+  idempotent, and demo auth only accepts valid entity ids.
+- Build: workspace packages are kept external after the scope rename.
+
 ### Changed
 
 - Docs: contributions now require a Developer Certificate of Origin sign-off

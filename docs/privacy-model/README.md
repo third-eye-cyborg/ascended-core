@@ -74,11 +74,12 @@ const policy = {
 };
 ```
 
-The allow-list is checked *first*, in every mode, so an allow-listed provider is
-permitted even if its family appears in `blockedFamilies`. This includes Human
-mode: an allow-listed provider bypasses Human mode's family blocks. Keep
-`allowedCloudProviders` empty when Human mode is active so "human-only" stays
-true.
+In Cloud and Private-local modes the allow-list is checked *first*, so an
+allow-listed provider is permitted even if its family appears in
+`blockedFamilies`. Human mode ignores the allow-list: every automated provider
+family stays blocked even when a provider name is listed in
+`allowedCloudProviders`, so "human-only" holds regardless of the policy's
+allow-list.
 
 ## User-safe blocked messages
 
