@@ -1,0 +1,70 @@
+# TEMPORARY npm release fallback for ascended-core.
+#
+# GitHub Actions (.github/workflows/release.yml) is the real release path: it
+# publishes with npm trusted publishing and provenance. While Actions is
+# locked for this repository, this Buildkite pipeline can publish a release
+# with an npm automation token instead. Packages published this way have NO
+# npm provenance. Remove this file, .buildkite/scripts/release-*.sh and
+# .buildkite/scripts/publish.sh once Actions runs again. See
+# docs/release-process/README.md.
+#
+# It runs only on a separate, manually started Buildkite pipeline
+# (ascended-core-npm-release): no push, pull request or fork builds. Start a
+# build on a main commit with RELEASE_VERSION=<version> (or on a v<version>
+# tag). The npm token lives in the Buildkite cluster secret NPM_TOKEN, whose
+# access policy only allows this pipeline; only the publish step reads it,
+# after a person (or an agent acting on the maintainer's approval) unblocks
+# the confirmation step.
+
+env:
+  CI: "true"
+
+x-node: &node
+  docker#v5.13.0:
+    image: "node:22-bookworm"
+    environment:
+      - "CI"
+      - "RELEASE_VERSION"
+      - "BUILDKITE_TAG"
+      - "BUILDKITE_COMMIT"
+      - "BUILDKITE_BRANCH"
+
+steps:
+  - label: ":white_check_mark: Release guard and checks"
+    key: checks
+    agents:
+      queue: linux-medium
+    timeout_in_minutes: 40
+    plugins:
+      - *node
+    command: "bash .buildkite/scripts/release-checks.sh"
+
+  - block: ":rocket: Publish to npm (no provenance)?"
+    key: confirm
+    depends_on: checks
+    prompt: >-
+      All checks passed. Publishing uploads every packages/* package at the
+      root package.json version to npm with a token and without provenance.
+      npm versions cannot be reused, so this cannot be undone.
+
+  - label: ":npm: Publish to npm (token, no provenance)"
+    key: publish
+    depends_on: confirm
+    agents:
+      queue: linux-medium
+    timeout_in_minutes: 30
+    concurrency: 1
+    concurrency_group: "ascended-core/npm-release"
+    plugins:
+      - docker#v5.13.0:
+          image: "node:22-bookworm"
+          # Mounts the host buildkite-agent binary (and its job token) so the
+          # script can run `buildkite-agent secret get NPM_TOKEN`.
+          mount-buildkite-agent: true
+          environment:
+            - "CI"
+            - "RELEASE_VERSION"
+            - "BUILDKITE_TAG"
+            - "BUILDKITE_COMMIT"
+            - "BUILDKITE_BRANCH"
+    command: "bash .buildkite/scripts/publish.sh"
