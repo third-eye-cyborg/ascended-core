@@ -8,5 +8,7 @@ export default defineConfig({
   sourcemap: true,
   clean: true,
   minify: false,
-  external: [/^@third-eye-cyborg\/ascended-/, "react", "react-dom", "zod", "yaml"],
+  // Keep workspace packages and runtime deps as imports; the previous
+  // `@third-eye-cyborg/ascended-*` regex matched nothing after the rename.
+  external: [/^@third-eye-cyborg\//, "react", "react-dom", "zod", "yaml"],
 });

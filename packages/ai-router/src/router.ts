@@ -158,7 +158,7 @@ async function attemptCandidates<T>(
         success: false,
         reason:
           error === TIMEOUT_MARKER
-            ? RouteReason.PROVIDER_UNAVAILABLE
+            ? RouteReason.PROVIDER_TIMEOUT
             : RouteReason.PROVIDER_ERROR,
       });
     }

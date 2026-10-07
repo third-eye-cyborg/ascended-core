@@ -10,9 +10,13 @@ import { describe, it, expect } from "vitest";
 
 import {
   LocalEchoTextProvider,
+  LocalPlaceholderImageProvider,
+  LocalStub3DProvider,
   HumanOnlyRecommendationProvider,
   RouteExhaustedError,
   RouteReason,
+  route3DTextToModel,
+  routeImageGeneration,
   routeRecommendation,
   routeTextCompletion,
   StaticRecommendationProvider,
@@ -118,7 +122,7 @@ describe("routeTextCompletion", () => {
     expect(blocked?.reason).toBe(RouteReason.PRIVACY_BLOCKED);
   });
 
-  it("produces a provider_unavailable-ish reason on timeout", async () => {
+  it("records provider_timeout when a provider exceeds timeoutMs", async () => {
     const enforcer = new PrivacyPolicyEnforcer(
       defaultPolicyForMode(PrivacyMode.CLOUD),
     );
@@ -134,7 +138,7 @@ describe("routeTextCompletion", () => {
     const timed = result.attempts.find(
       (a) => a.provider === "example-text-provider",
     );
-    expect(timed?.reason).toBe(RouteReason.PROVIDER_UNAVAILABLE);
+    expect(timed?.reason).toBe(RouteReason.PROVIDER_TIMEOUT);
   });
 
   it("throws RouteExhaustedError when all providers fail", async () => {
@@ -149,6 +153,38 @@ describe("routeTextCompletion", () => {
         ctx(PrivacyMode.CLOUD),
       ),
     ).rejects.toBeInstanceOf(RouteExhaustedError);
+  });
+});
+
+describe("routeImageGeneration", () => {
+  it("returns a synthetic image from the local placeholder provider", async () => {
+    const enforcer = new PrivacyPolicyEnforcer(
+      defaultPolicyForMode(PrivacyMode.CLOUD),
+    );
+    const result = await routeImageGeneration(
+      [new LocalPlaceholderImageProvider()],
+      enforcer,
+      { prompt: "a circle" },
+      ctx(PrivacyMode.CLOUD),
+    );
+    expect(result.selectedProvider).toBe("local-placeholder-image");
+    expect(result.response.data.images.length).toBe(1);
+  });
+});
+
+describe("route3DTextToModel", () => {
+  it("returns stub model data from the local 3D provider", async () => {
+    const enforcer = new PrivacyPolicyEnforcer(
+      defaultPolicyForMode(PrivacyMode.CLOUD),
+    );
+    const result = await route3DTextToModel(
+      [new LocalStub3DProvider()],
+      enforcer,
+      { prompt: "a cube" },
+      ctx(PrivacyMode.CLOUD),
+    );
+    expect(result.selectedProvider).toBe("local-stub-3d");
+    expect(result.response.data.modelData).toBe("stub-glb");
   });
 });
 
