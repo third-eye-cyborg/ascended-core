@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Temporary backup CI helper: install the pnpm version pinned in package.json
-# (packageManager), matching the GitHub Actions "Setup pnpm" step.
-set -euo pipefail
+# Temporary backup CI helper (sourced by the other scripts): install the pnpm
+# version pinned in package.json (packageManager), matching the GitHub Actions
+# "Setup pnpm" step.
 
 echo "--- :nodejs: Toolchain"
 # The checkout is bind-mounted into the container and owned by another uid.
