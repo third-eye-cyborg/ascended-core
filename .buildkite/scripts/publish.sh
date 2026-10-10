@@ -50,6 +50,12 @@ export npm_config_userconfig="${NPMRC}"
 
 echo "npm user: $(npm whoami)"
 
+# Never wait for an interactive browser (web) 2FA login: with legacy auth
+# type and no TTY, npm fails fast with EOTP if the token cannot bypass 2FA
+# instead of polling /-/v1/done until it times out.
+export CI=true
+export npm_config_auth_type=legacy
+
 echo "--- :npm: Publish ${RELEASE_VERSION} (no provenance)"
 pnpm --filter "./packages/*" -r publish --access public --no-git-checks
 
