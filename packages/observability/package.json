@@ -1,6 +1,6 @@
 {
   "name": "@third-eye-cyborg/observability",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Structured logging, tracing spans, metrics, health aggregation, and request-id context with in-memory collectors.",
   "author": "Third Eye Cyborg, LLC",
   "repository": {

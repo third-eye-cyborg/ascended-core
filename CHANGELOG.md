@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-10-17
+
+Patch release covering dependency and CI bumps merged since 0.2.0 (#43, #42).
+No package source changes.
+
+### Changed
+
+- Raised the `zod` dependency floor to `^4.6.7` in `@third-eye-cyborg/events`,
+  `@third-eye-cyborg/api-contracts`, and `@third-eye-cyborg/sdk` (#43).
+
+### Dependencies
+
+- Dev tooling: vitest 5.0.3 → 5.0.4, prettier 3.9.9 → 3.9.10,
+  typescript-eslint 8.71.1 → 8.71.2, orval 8.40.0 → 8.42.0 (#43).
+- CI: GitHub Actions bumps for `actions/setup-node` (7.0.0 → 7.1.0) and
+  `actions/upload-artifact` (7.0.1 → 7.0.2) (#42).
+
 ## [0.2.0] - 2026-10-06
 
 Minor release covering everything merged since 0.1.1 (#30, #28, #26, #34,
@@ -132,7 +149,8 @@ Initial public release of the Ascended Core monorepo.
 - Reference examples: `example-minimal-server`, `openapi-client`, and
   `reference-adapters`.
 
-[Unreleased]: https://github.com/third-eye-cyborg/ascended-core/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/third-eye-cyborg/ascended-core/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/third-eye-cyborg/ascended-core/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/third-eye-cyborg/ascended-core/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/third-eye-cyborg/ascended-core/releases/tag/v0.1.1
 [0.1.0]: https://github.com/third-eye-cyborg/ascended-core/releases/tag/v0.1.0
