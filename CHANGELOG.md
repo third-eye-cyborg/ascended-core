@@ -7,11 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.2] - 2026-10-22
+
+Patch release for the `@third-eye-cyborg/sdk` ReDoS fix (#45). All 13 public
+packages are bumped to keep versions aligned; only the SDK's source changed.
+
 ### Security
 
 - `@third-eye-cyborg/sdk`: normalize `baseUrl` by stripping trailing slashes
   in linear time instead of `/\/+$/`. Closes CodeQL `js/polynomial-redos`
-  (alert #1) on caller-supplied input. Request URL behavior is unchanged.
+  (alert #1) on caller-supplied input. Request URL behavior is unchanged
+  (#45).
+
+### Dependencies
+
+- Dev tooling: root pnpm override pins `vite` to `>=7.3.7` to clear
+  dev-only advisories (#46). Published package contents are unaffected.
 
 ## [0.2.1] - 2026-10-17
 
@@ -155,7 +166,8 @@ Initial public release of the Ascended Core monorepo.
 - Reference examples: `example-minimal-server`, `openapi-client`, and
   `reference-adapters`.
 
-[Unreleased]: https://github.com/third-eye-cyborg/ascended-core/compare/v0.2.1...HEAD
+[Unreleased]: https://github.com/third-eye-cyborg/ascended-core/compare/v0.2.2...HEAD
+[0.2.2]: https://github.com/third-eye-cyborg/ascended-core/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/third-eye-cyborg/ascended-core/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/third-eye-cyborg/ascended-core/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/third-eye-cyborg/ascended-core/releases/tag/v0.1.1
