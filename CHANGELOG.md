@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Security
+
+- `@third-eye-cyborg/sdk`: normalize `baseUrl` by stripping trailing slashes
+  in linear time instead of `/\/+$/`. Closes CodeQL `js/polynomial-redos`
+  (alert #1) on caller-supplied input. Request URL behavior is unchanged.
+
 ## [0.2.1] - 2026-10-17
 
 Patch release covering dependency and CI bumps merged since 0.2.0 (#43, #42).

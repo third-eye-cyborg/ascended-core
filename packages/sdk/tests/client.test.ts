@@ -1,7 +1,7 @@
 import { ErrorCode } from "@third-eye-cyborg/core";
 import { describe, expect, it, vi } from "vitest";
 
-import { AscendedCoreClient } from "../src/client.js";
+import { AscendedCoreClient, stripTrailingSlashes } from "../src/client.js";
 import { ApiError } from "../src/errors.js";
 import type { FetchImpl } from "../src/client.js";
 
@@ -22,6 +22,32 @@ const adaProfile = {
   avatarUrl: "https://example.org/avatars/ada.png",
 };
 
+describe("stripTrailingSlashes", () => {
+  it("removes a single trailing slash", () => {
+    expect(stripTrailingSlashes(`${BASE_URL}/`)).toBe(BASE_URL);
+  });
+
+  it("removes many trailing slashes", () => {
+    expect(stripTrailingSlashes(`${BASE_URL}////`)).toBe(BASE_URL);
+  });
+
+  it("leaves a value without trailing slashes unchanged", () => {
+    expect(stripTrailingSlashes(BASE_URL)).toBe(BASE_URL);
+  });
+
+  it("strips an all-slash value and completes quickly on a long slash run", () => {
+    expect(stripTrailingSlashes("///")).toBe("");
+
+    const longRun = `${BASE_URL}${"/".repeat(50_000)}`;
+    const started = performance.now();
+    const normalized = stripTrailingSlashes(longRun);
+    const elapsedMs = performance.now() - started;
+
+    expect(normalized).toBe(BASE_URL);
+    expect(elapsedMs).toBeLessThan(50);
+  });
+});
+
 describe("AscendedCoreClient", () => {
   it("constructs the URL and sends the bearer auth header", async () => {
     const fetchImpl = vi.fn<FetchImpl>().mockResolvedValue(
@@ -41,6 +67,19 @@ describe("AscendedCoreClient", () => {
     expect(url).toBe(`${BASE_URL}/profiles/me`);
     const headers = init?.headers as Record<string, string>;
     expect(headers.authorization).toBe("Bearer token_ada");
+  });
+
+  it("strips many trailing slashes from baseUrl before requesting", async () => {
+    const fetchImpl = vi.fn<FetchImpl>().mockResolvedValue(
+      jsonResponse({ status: "ok", version: "0.1.0" }),
+    );
+    const client = new AscendedCoreClient({
+      baseUrl: `${BASE_URL}////`,
+      fetchImpl,
+    });
+
+    await client.getHealthz();
+    expect(fetchImpl.mock.calls[0]![0]).toBe(`${BASE_URL}/healthz`);
   });
 
   it("encodes path params and query string for list operations", async () => {

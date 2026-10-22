@@ -77,6 +77,18 @@ interface RequestOptions {
   body?: unknown;
 }
 
+/**
+ * Strip every trailing `/` from a caller-supplied URL in linear time.
+ * Equivalent to `value.replace(/\/+$/, "")` without a regular expression.
+ */
+export function stripTrailingSlashes(value: string): string {
+  let end = value.length;
+  while (end > 0 && value[end - 1] === "/") {
+    end -= 1;
+  }
+  return end === value.length ? value : value.slice(0, end);
+}
+
 export class AscendedCoreClient {
   private readonly baseUrl: string;
   private readonly apiKey: string | undefined;
@@ -84,7 +96,7 @@ export class AscendedCoreClient {
   private readonly validateResponses: boolean;
 
   constructor(options: AscendedCoreClientOptions) {
-    this.baseUrl = options.baseUrl.replace(/\/+$/, "");
+    this.baseUrl = stripTrailingSlashes(options.baseUrl);
     this.apiKey = options.apiKey;
     this.validateResponses = options.validateResponses ?? true;
 
