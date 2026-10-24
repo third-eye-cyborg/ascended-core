@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Temporary backup CI: mirrors the quality job in .github/workflows/ci.yml
-# (lint, typecheck, test, build, pack-smoke). Needs Node >= 22.12.
+# (lint, typecheck, test, build, pack-smoke). Needs Node >= 22.18.
 set -euo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")/../.."
 
