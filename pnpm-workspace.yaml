@@ -9,4 +9,4 @@ catalog:
   vitest: ^5.0.4
   tsx: ^4.23.15
   zod: ^4.6.7
-  tsup: ^8.5.1
+  tsup: ^9.0.0
