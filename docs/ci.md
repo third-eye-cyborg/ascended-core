@@ -17,7 +17,7 @@ truth for CI, releases, and publishing.
 changes, [`codegen-drift.yml`](../.github/workflows/codegen-drift.yml):
 
 - install with `pnpm install --frozen-lockfile` on Node 22 (`node:22-bookworm`,
-  which must be >= 22.12 for vitest 5) and the pnpm version pinned in
+  which must be >= 22.18 for vitest 5) and the pnpm version pinned in
   `package.json`
 - lint, typecheck, test, build, and package smoke (CJS/ESM load plus
   tarball-install of every public `pnpm pack` artifact)

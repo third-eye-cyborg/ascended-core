@@ -5,7 +5,7 @@
 # should be removed once Actions is running again. See docs/ci.md.
 #
 # Mirrors .github/workflows/ci.yml (and codegen-drift.yml when the API
-# contracts change). Dev/CI require Node >= 22.12 (vitest 5, #33); this
+# contracts change). Dev/CI require Node >= 22.18 (vitest 5, #33); this
 # backup uses node:22-bookworm (current latest 22), matching the Actions
 # matrix "22" entry. pnpm comes from package.json packageManager.
 # Not mirrored: pr-title.yml (needs PR metadata), release.yml (publishing

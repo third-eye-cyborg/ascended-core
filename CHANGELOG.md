@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Dev and CI docs, the GitHub Actions matrix/pack-smoke job, codegen-drift, and
+  Buildkite comments now state the Node >= 22.18 minimum (tsup 9, #50) instead
+  of 22.12. Published packages still declare `engines.node >= 20`; no release
+  is needed.
+
+### Security
+- Reviewed Dependabot alerts for GHSA-587h-7wmj-h5pm and two related
+  `launch-editor` advisories against `vite` (dev-only, transitive). The lockfile
+  already resolves `vite@7.3.7` (patched) via the existing `>=7.3.7 <8.0.0`
+  override (#46), and `launch-editor` is not installed, so no dependency change
+  was required.
+
 ## [0.2.2] - 2026-10-22
 
 Patch release for the `@third-eye-cyborg/sdk` ReDoS fix (#45). All 13 public

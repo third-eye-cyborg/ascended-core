@@ -24,7 +24,7 @@ the supported Node/npm versions, and that every public package manifest uses
 the canonical scope with `publishConfig.access = "public"`.
 
 CI on pull requests runs install, lint, typecheck, test, build, and a
-tarball-install pack smoke on **Node 22.12 (the development minimum) and the
+tarball-install pack smoke on **Node 22.18 (the development minimum) and the
 latest Node 22**. Published packages still declare `engines.node >=20`. Pack the public
 packages with `pnpm pack` (or `pnpm publish`); `npm pack` leaves `workspace:*`
 dependency specifiers that consumers cannot install.
