@@ -19,6 +19,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   already resolves `vite@7.3.7` (patched) via the existing `>=7.3.7 <8.0.0`
   override (#46), and `launch-editor` is not installed, so no dependency change
   was required.
+- Dev-only: bump `orval` 8.44.0 → 8.45.0 so `@scalar/json-magic` resolves
+  `undici@7.30.1`, clearing Dependabot alert #53 / GHSA-xjj6-f33q-929c
+  (DoS via unhandled error on excessive content-encodings). `undici` is not a
+  runtime dependency of any published package; no release is needed.
 
 ## [0.2.2] - 2026-10-22
 
