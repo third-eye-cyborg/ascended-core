@@ -14,6 +14,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   is needed.
 
 ### Security
+- Dev-only: pnpm override `minimatch@10` to `>=11.0.1 <12.0.0` so the
+  ESLint / typescript-eslint / optional TypeDoc tree resolves
+  `minimatch@11.0.4` instead of `10.2.6`, clearing Dependabot alert #54 /
+  GHSA-g3hv-75wg-m249 (DoS via globparts amplification). No 10.x backport
+  exists; the override is scoped to the 10.x line so older majors (3/5/9)
+  are not forced. `minimatch` is not a runtime dependency of any published
+  package; no release is needed.
 - Reviewed Dependabot alerts for GHSA-587h-7wmj-h5pm and two related
   `launch-editor` advisories against `vite` (dev-only, transitive). The lockfile
   already resolves `vite@7.3.7` (patched) via the existing `>=7.3.7 <8.0.0`
